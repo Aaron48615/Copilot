@@ -1,12 +1,12 @@
 ---
 id: lidi-202609-work-order-q02
 title: SLA 超时应该在前端计算还是后端计算？
-aliases: []
+aliases: [难点, 项目难点, 智服工单难点, 智服工单项目难点, 难点智服工单]
 category: current-interview
 difficulty: 项目追问
 priority: high
 projects: [智服工单]
-keywords: [Vue2, Vuex, 工单, 状态机, SLA, 权限, ECharts]
+keywords: [项目难点, Vue2, Vuex, 工单, 状态机, SLA, 权限, ECharts]
 ---
 
 # SLA 超时应该在前端计算还是后端计算？

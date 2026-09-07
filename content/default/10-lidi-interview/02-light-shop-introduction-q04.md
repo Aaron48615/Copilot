@@ -1,12 +1,12 @@
 ---
 id: lidi-202609-light-shop-ai-overview
 title: 轻购AI具体是什么功能？
-aliases: [轻购AI, AI选购, 智能导购, 自然语言购物]
+aliases: [轻购AI, AI选购, 智能导购, 自然语言购物, 亮点, 项目亮点, 轻购亮点, 轻购项目亮点, 亮点轻购]
 category: current-interview
 difficulty: 必问
 priority: high
 projects: [轻购]
-keywords: [轻购AI, AI导购, 自然语言, 推荐商品, guide]
+keywords: [项目亮点, 轻购AI, AI导购, 自然语言, 推荐商品, guide]
 ---
 
 # 轻购AI具体是什么功能？

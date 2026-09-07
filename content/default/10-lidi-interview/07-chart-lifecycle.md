@@ -1,12 +1,12 @@
 ---
 id: lidi-202609-chart-lifecycle
 title: ECharts 和 ResizeObserver 在你的项目中是怎么配合的？
-aliases: [ECharts 生命周期, 图表自适应, ResizeObserver, 图表销毁]
+aliases: [ECharts 生命周期, 图表自适应, ResizeObserver, 图表销毁, 亮点, 项目亮点, 城市视图亮点, 城市视图项目亮点, 亮点城市视图, 难点, 项目难点, 城市视图难点, 城市视图项目难点, 难点城市视图]
 category: current-interview
 difficulty: 高频
 priority: high
 projects: [城市视图, 智服工单]
-keywords: [ECharts, ResizeObserver, resize, dispose, React, Vue]
+keywords: [项目亮点, 项目难点, ECharts, ResizeObserver, resize, dispose, React, Vue]
 ---
 
 # ECharts 和 ResizeObserver 在你的项目中是怎么配合的？

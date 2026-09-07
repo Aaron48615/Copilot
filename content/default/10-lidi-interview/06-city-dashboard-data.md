@@ -1,12 +1,12 @@
 ---
 id: lidi-202609-city-dashboard-data
 title: 城市视图的仪表盘数据是怎么获取和展示的？
-aliases: [城市视图仪表盘, Promise.all 数据, 多接口并行, CSV 导出]
+aliases: [城市视图仪表盘, Promise.all 数据, 多接口并行, CSV 导出, 亮点, 项目亮点, 城市视图亮点, 城市视图项目亮点, 亮点城市视图]
 category: current-interview
 difficulty: 高频
 priority: high
 projects: [城市视图]
-keywords: [React, Redux Toolkit, ECharts, Promise.all, 仪表盘, CSV]
+keywords: [项目亮点, React, Redux Toolkit, ECharts, Promise.all, 仪表盘, CSV]
 ---
 
 # 城市视图的仪表盘数据是怎么获取和展示的？

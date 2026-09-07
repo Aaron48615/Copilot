@@ -1,12 +1,12 @@
 ---
 id: lidi-202609-product-sku-selection
 title: 轻购商品详情里的 SKU 选择是怎么实现的？
-aliases: [SKU选择, 商品规格, ActionPanel, sku properties]
+aliases: [SKU选择, 商品规格, ActionPanel, sku properties, 亮点, 项目亮点, 轻购亮点, 轻购项目亮点, 亮点轻购, 难点, 项目难点, 轻购难点, 轻购项目难点, 难点轻购]
 category: current-interview
 difficulty: 高频
 priority: high
 projects: [轻购]
-keywords: [SKU, ActionPanel, propertyMap, selectedProps, skuId]
+keywords: [项目亮点, 项目难点, SKU, ActionPanel, propertyMap, selectedProps, skuId]
 ---
 
 # 轻购商品详情里的 SKU 选择是怎么实现的？

@@ -1,12 +1,12 @@
 ---
 id: lidi-202609-light-shop-ai-explain
 title: 为什么轻购AI要展示 matched、unmatched 和 relaxedConstraints？
-aliases: [AI可解释性, 推荐理由, 匹配条件, 放宽条件]
+aliases: [AI可解释性, 推荐理由, 匹配条件, 放宽条件, 亮点, 项目亮点, 轻购亮点, 轻购项目亮点, 亮点轻购, 难点, 项目难点, 轻购难点, 轻购项目难点, 难点轻购]
 category: current-interview
 difficulty: 必问
 priority: high
 projects: [轻购]
-keywords: [matched, unmatched, relaxedConstraints, evidence, 可解释性]
+keywords: [项目亮点, 项目难点, matched, unmatched, relaxedConstraints, evidence, 可解释性]
 ---
 
 # 为什么轻购AI要展示 matched、unmatched 和 relaxedConstraints？

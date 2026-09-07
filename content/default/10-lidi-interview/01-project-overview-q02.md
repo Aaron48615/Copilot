@@ -6,7 +6,7 @@ category: current-interview
 difficulty: 必问
 priority: high
 projects: [轻购, 城市视图, 智服工单]
-keywords: [项目介绍, Vue3, React, Vue2, 技术栈, 项目难点]
+keywords: [项目介绍, Vue3, React, Vue2, 技术栈]
 ---
 
 # 你在项目中是独立完成，还是只负责其中一小部分？
