@@ -48,7 +48,9 @@ export function WorkbenchDialog({ title, className = '', close, children }: {
   </dialog>
 }
 
-export function Workbench({ question, questions, activeKey, setActiveKey, categories, categoryLabel, search, userMenu, results, favorite, toggleFavorite, exit }: {
+export function Workbench({ question, questions, activeKey, setActiveKey, categories, categoryLabel, search, userMenu, results, favorite, toggleFavorite, exit, answerOverride, answerQuestion }: {
+  answerQuestion?: string
+  answerOverride?: ReactNode
   question?: InterviewQuestion; questions: InterviewQuestion[]
   activeKey: string; setActiveKey: (key: string) => void
   categories: ReactNode; categoryLabel: string; search: ReactNode; userMenu: ReactNode; results: ReactNode
@@ -58,10 +60,10 @@ export function Workbench({ question, questions, activeKey, setActiveKey, catego
   const evidenceRef = useRef<HTMLDivElement>(null)
   const answerRef = useRef<HTMLDivElement>(null)
   const content = question ? getAnswerContent(question) : null
-  const followups = question ? resolveFollowups(question, questions) : []
+  const followups = question && !answerOverride ? resolveFollowups(question, questions) : []
   const active = followups.find((item) => item.key === activeKey)
   const evidence = active ? active.evidence : content?.evidence
-  const pending = getPendingFollowups(content?.prompts, followups)
+  const pending = answerOverride ? [] : getPendingFollowups(content?.prompts, followups)
   useEffect(() => {
     answerRef.current?.scrollTo({ top: 0 })
     evidenceRef.current?.scrollTo({ top: 0 })
@@ -72,16 +74,16 @@ export function Workbench({ question, questions, activeKey, setActiveKey, catego
       <section className="wb-card wb-question">
         <button className="wb-exit" onClick={exit}>← 返回普通布局</button>
         <div className="wb-scroll" tabIndex={0} aria-label="当前主问题">
-          <span className="wb-label">当前主问题 · {question?.categoryLabel || '待选择'}</span>
-          <h1>{question?.title || '选择一道题开始复习'}</h1>
+          <span className="wb-label">{answerOverride ? '当前语音问题 · AI 临时回答' : `当前主问题 · ${question?.categoryLabel || '待选择'}`}</span>
+          <h1>{answerOverride ? answerQuestion : question?.title || '选择一道题开始复习'}</h1>
         </div>
-        {question && <button className="wb-favorite" aria-pressed={favorite} onClick={() => toggleFavorite(question.id)}>{favorite ? '★ 已收藏' : '☆ 收藏题目'}</button>}
+        {question && !answerOverride && <button className="wb-favorite" aria-pressed={favorite} onClick={() => toggleFavorite(question.id)}>{favorite ? '★ 已收藏' : '☆ 收藏题目'}</button>}
       </section>
-      <section className={`wb-card wb-answer ${active ? 'is-followup' : ''}`} aria-label={active ? '追问回答' : '核心回答'}>
+      <section className={`wb-card wb-answer ${active ? 'is-followup' : ''}`} aria-label={answerOverride ? 'AI 临时回答' : active ? '追问回答' : '核心回答'}>
         <div ref={answerRef} className="wb-scroll wb-answer-body" tabIndex={0}>
-          {renderText(active?.answer || content?.core || '暂无核心回答，请选择其他题目。')}
+          {answerOverride || renderText(active?.answer || content?.core || '暂无核心回答，请选择其他题目。')}
         </div>
-        {active && <footer className="wb-answer-footer">
+        {active && !answerOverride && <footer className="wb-answer-footer">
           <h2 tabIndex={0}>{active.title}</h2>
           <button onClick={() => setActiveKey('')}>返回核心回答</button>
         </footer>}
@@ -89,7 +91,7 @@ export function Workbench({ question, questions, activeKey, setActiveKey, catego
       <section className="wb-card wb-evidence" aria-label="代码依据">
         <span className="wb-label">代码依据</span>
         <div ref={evidenceRef} className="wb-scroll wb-evidence-text" tabIndex={0}>
-          {evidence ? renderEvidence(evidence) : <p className="wb-empty">暂无代码依据</p>}
+          {!answerOverride && evidence ? renderEvidence(evidence) : <p className="wb-empty">暂无代码依据</p>}
         </div>
       </section>
     </div>
@@ -107,7 +109,7 @@ export function Workbench({ question, questions, activeKey, setActiveKey, catego
           <p className="wb-label">已整理追问</p>
           {followups.length ? followups.map((item, index) => <button key={item.key} aria-pressed={activeKey === item.key} onClick={() => setActiveKey(item.key)}>
             <span className="wb-number">{String(index + 1).padStart(2, '0')}</span><span>{item.title}</span>
-          </button>) : <p className="wb-empty">本题暂无已整理追问</p>}
+          </button>) : <p className="wb-empty">{answerOverride ? '返回题库答案后可查看已整理追问。' : '本题暂无已整理追问'}</p>}
           {!!pending.length && <><p className="wb-label wb-pending-label">待整理</p>{pending.map((title) => <div className="wb-pending" key={title}><p>{title}</p><small>暂无已整理答案</small></div>)}</>}
         </div>
       </aside>

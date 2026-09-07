@@ -1,7 +1,7 @@
 import { useDeferredValue, useEffect, useMemo, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
 import { repositoryUsers } from './content'
-import { getSidebarCategory, getSidebarCategoryLabel, getSidebarSections, matchesSidebarCategory, searchQuestions } from './question-bank'
+import { getSidebarCategory, getSidebarCategoryLabel, getSidebarSections, matchesSidebarCategory, prepareQuestionSearch, searchQuestions } from './question-bank'
 import type { RepositoryUser } from './question-bank'
 import { LEGACY_STORAGE_KEY, loadProfiles, PROFILE_STORAGE_KEY } from './profiles'
 import type { ProfileStore } from './profiles'
@@ -10,6 +10,9 @@ import type { InterviewQuestion } from './types'
 import { filterFollowups, getAnswerContent } from './answers'
 import { renderText } from './TextContent'
 import { Workbench, WorkbenchDialog, useLandscapeViewport } from './Workbench'
+import { useVoiceSearch } from './useVoiceSearch'
+import { cleanSpeech, reliableVoiceMatch, searchVoice, voiceCandidates } from './voice-search'
+import { readAnswer } from './answer-stream'
 
 function highlightText(text: string, query: string): ReactNode {
   const ranges = getTextMatchRanges(text, query)
@@ -129,32 +132,66 @@ function UserWorkspace({ user, favorites, switchUser, updateFavorites, workbench
 
   const [activeAnswer, setActiveAnswer] = useState({ questionId: '', key: '' })
   const [query, setQuery] = useState('')
+  const [voiceQuery, setVoiceQuery] = useState(false)
+  const [agentQuestion, setAgentQuestion] = useState('')
+  const voiceIndex = useMemo(() => voiceCandidates(questions), [questions])
+  useEffect(() => {
+    const warmup = window.setTimeout(() => prepareQuestionSearch(voiceIndex.map((item) => item.question)), 50)
+    return () => window.clearTimeout(warmup)
+  }, [voiceIndex])
   const deferredQuery = useDeferredValue(query)
   const [category, setCategory] = useState(defaultCategory)
   const [selectedId, setSelectedId] = useState(questions[0]?.id ?? '')
+  const voiceContextId = useRef(selectedId)
   const [agentState, setAgentState] = useState<'idle' | 'loading' | 'done' | 'error'>('idle')
   const [agentAnswer, setAgentAnswer] = useState('')
   const searchRef = useRef<HTMLInputElement>(null)
 
   const scopedQuestions = useMemo(
-    () => questions.filter((question) => matchesSidebarCategory(question, category)),
-    [questions, category],
+    () => voiceQuery ? questions : questions.filter((question) => matchesSidebarCategory(question, category)),
+    [questions, category, voiceQuery],
   )
-  const results = useMemo(() => searchQuestions(scopedQuestions, deferredQuery), [scopedQuestions, deferredQuery])
+  const results = useMemo(() => {
+    if (!voiceQuery) return searchQuestions(scopedQuestions, deferredQuery)
+    const seen = new Set<string>()
+    return searchVoice(voiceIndex, deferredQuery).filter(({ question }) => {
+      if (seen.has(question.id)) return false
+      seen.add(question.id); return true
+    })
+  }, [scopedQuestions, deferredQuery, voiceQuery, voiceIndex])
   const searchPending = query !== deferredQuery
   const selected = results.find(({ question }) => question.id === selectedId)?.question || results[0]?.question
-  useEffect(() => {
-    setActiveAnswer({ questionId: selected?.id || '', key: '' })
-    agentRequest.current?.abort()
-    setAgentState('idle')
-  }, [selected?.id])
-  const hasReliableMatch = !deferredQuery.trim() || (results[0]?.score ?? 0) >= 38
+  const hasReliableMatch = !deferredQuery.trim() || (voiceQuery
+    ? !!reliableVoiceMatch(searchVoice(voiceIndex, deferredQuery), deferredQuery, selectedId)
+    : (results[0]?.score ?? 0) >= 38)
+
+  const voice = useVoiceSearch({
+    onSpeechStart: () => { voiceContextId.current = selectedId; agentRequest.current?.abort(); setAgentState('idle') },
+    onText: (text, final) => {
+      setVoiceQuery(true); setQuery(text)
+      if (!final || cleanSpeech(text).length < 2) return
+      const matches = searchVoice(voiceIndex, text)
+      const match = reliableVoiceMatch(matches, text, voiceContextId.current)
+      if (match) {
+        agentRequest.current?.abort(); setAgentState('idle')
+        setSelectedId(match.question.id)
+        setActiveAnswer({ questionId: match.question.id, key: match.followupIndex === undefined ? '' : `embedded:${match.followupIndex}` })
+      } else {
+        void askAgent(text, voiceContextId.current)
+      }
+    },
+  })
+
+  function editQuery(text: string) {
+    voice.stop(); agentRequest.current?.abort(); setAgentState('idle')
+    setVoiceQuery(false); setQuery(text)
+  }
 
   useEffect(() => {
-    if (results.length && !results.some(({ question }) => question.id === selectedId)) {
+    if (!searchPending && results.length && !results.some(({ question }) => question.id === selectedId)) {
       setSelectedId(results[0].question.id)
     }
-  }, [results, selectedId])
+  }, [results, selectedId, searchPending])
 
   useEffect(() => {
     const handleShortcut = (event: KeyboardEvent) => {
@@ -172,32 +209,41 @@ function UserWorkspace({ user, favorites, switchUser, updateFavorites, workbench
     updateFavorites(next)
   }
 
-  async function askAgent() {
-    if (!query.trim()) return
+  async function askAgent(questionText = query, contextQuestionId = selectedId) {
+    if (!questionText.trim()) return
     agentRequest.current?.abort()
     const controller = new AbortController()
     agentRequest.current = controller
-    setAgentState('loading')
-    setAgentAnswer('')
+    setAgentState('loading'); setAgentAnswer(''); setAgentQuestion(questionText)
     try {
       const endpoint = import.meta.env.VITE_AGENT_ENDPOINT || '/api/answer'
       const response = await fetch(endpoint, {
         signal: controller.signal,
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ question: query, userId: user.id, userName: user.name }),
+        body: JSON.stringify({ question: questionText, userId: user.id, userName: user.name, contextQuestionId }),
       })
-      if (!response.ok) throw new Error('Agent 服务暂未连接')
-      const data = await response.json() as { answer?: string }
-      if (controller.signal.aborted) return
-      setAgentAnswer(data.answer || 'Agent 没有返回有效回答。')
-      setAgentState('done')
+      await readAnswer(response, (text) => {
+        if (!controller.signal.aborted && agentRequest.current === controller) setAgentAnswer(text)
+      })
+      if (!controller.signal.aborted && agentRequest.current === controller) setAgentState('done')
     } catch (error) {
-      if (controller.signal.aborted) return
+      if (controller.signal.aborted || agentRequest.current !== controller) return
       setAgentAnswer(error instanceof Error ? error.message : 'Agent 请求失败')
       setAgentState('error')
     }
   }
+
+  const aiAnswer = agentState === 'idle' ? undefined : <div className={`agent-result agent-primary ${agentState}`} aria-busy={agentState === 'loading'}>
+    <span>AI 临时回答 · {agentState === 'loading' ? '正在生成' : agentState === 'error' ? '请求失败' : '已完成'}</span>
+    <h2>{agentQuestion}</h2>
+    <div className="agent-text">{agentAnswer ? renderText(agentAnswer) : <p role="status">题库没有可靠答案，正在生成回答…</p>}</div>
+    <div className="agent-actions">
+      {agentState === 'loading' && <button onClick={() => { agentRequest.current?.abort(); setAgentState(agentAnswer ? 'done' : 'idle') }}>停止生成</button>}
+      {agentState === 'error' && <button onClick={() => void askAgent(agentQuestion)}>重试回答</button>}
+      <button onClick={() => { agentRequest.current?.abort(); setAgentState('idle') }}>返回题库答案</button>
+    </div>
+  </div>
 
   const categoryNavigation = (<>
     <nav className="category-nav" aria-label="题目分类">
@@ -205,7 +251,7 @@ function UserWorkspace({ user, favorites, switchUser, updateFavorites, workbench
         <section className={`nav-section nav-section-${section.id}`} key={section.id}>
           <p className="nav-section-title">{section.label}</p>
           {section.categories.map((item) => (
-            <button className={category === item.id ? 'active' : ''} key={item.id} onClick={() => setCategory(item.id)}>
+            <button className={category === item.id ? 'active' : ''} key={item.id} onClick={() => { voice.stop(); agentRequest.current?.abort(); setAgentState('idle'); setVoiceQuery(false); setCategory(item.id) }}>
               <span>{item.label}</span><em>{item.count}</em>
             </button>
           ))}
@@ -233,21 +279,31 @@ function UserWorkspace({ user, favorites, switchUser, updateFavorites, workbench
       </div>}
     </div>
   </>)
-  const searchBox = (<>
+  const searchBox = (<div className="search-tools">
     <div className={`search-wrap ${searchPending ? 'is-searching' : ''}`} aria-busy={searchPending}>
       <span className="search-icon">⌕</span>
       <input
         ref={searchRef}
         value={query}
-        onChange={(event) => { agentRequest.current?.abort(); setQuery(event.target.value); setAgentState('idle') }}
+        onChange={(event) => editQuery(event.target.value)}
         aria-label="搜索题库"
         placeholder="搜索知识点、项目难点或面试官的问法，中文或拼音都可以…"
         autoFocus
       />
-      {query && <button aria-label="清空搜索" className="clear-search" onClick={() => { agentRequest.current?.abort(); setQuery(''); setAgentState('idle') }}>×</button>}
+      {query && <button aria-label="清空搜索" className="clear-search" onClick={() => editQuery('')}>×</button>}
       <kbd>⌘ K</kbd>
     </div>
-  </>)
+    <div className="voice-toolbar">
+      <button className={`voice-toggle ${voice.status !== 'idle' ? 'is-listening' : ''}`} aria-pressed={voice.status !== 'idle'} onClick={() => voice.status === 'idle' ? void voice.start() : voice.stop()}>
+        <span aria-hidden="true">{voice.status === 'idle' ? '◉' : '■'}</span> {voice.status === 'idle' ? '开始聆听' : voice.status === 'starting' ? '取消开启' : '暂停聆听'}
+      </button>
+      <span className="voice-status" role="status">{voice.status === 'starting' ? '正在连接麦克风…' : voice.status === 'transcribing' ? '正在识别，仍在收音…' : voice.status === 'listening' ? '正在聆听 · 停顿后自动查找' : '麦克风收音 · 未命中自动问 AI'}</span>
+      {(voice.status === 'listening' || voice.status === 'transcribing') && <button className="voice-submit" onClick={voice.submit}>立即查找</button>}
+      {voice.latency !== null && <small className="voice-latency">转写 {(voice.latency / 1000).toFixed(1)} 秒</small>}
+    </div>
+    {voiceQuery && query && <p className="voice-transcript">识别：{query}<span>搜索当前用户全部题库{cleanSpeech(query) !== query ? ` · ${cleanSpeech(query)}` : ''}</span></p>}
+    {voice.error && <p className="voice-error" role="alert">{voice.error}</p>}
+  </div>)
   const questionResults = (<>
     <div className="result-heading">
       <span>{deferredQuery ? `找到 ${results.length} 个相关回答` : `${user.name} 的题库 · ${results.length} 道题`}</span>
@@ -265,7 +321,7 @@ function UserWorkspace({ user, favorites, switchUser, updateFavorites, workbench
         <button
           key={`${user.id}:${question.id}`}
           className={`question-row ${selected?.id === question.id ? 'selected' : ''}`}
-          onClick={() => { agentRequest.current?.abort(); setSelectedId(question.id); setAgentState('idle') }}
+          onClick={() => { voice.stop(); agentRequest.current?.abort(); setSelectedId(question.id); setActiveAnswer({ questionId: question.id, key: '' }); setAgentState('idle') }}
         >
           <span className="question-copy">
             <strong>{highlightText(question.title, deferredQuery)}</strong>
@@ -283,21 +339,16 @@ function UserWorkspace({ user, favorites, switchUser, updateFavorites, workbench
         <div className="fallback-card">
           <div className="agent-orb">✦</div>
           <div><strong>题库里暂时没有可靠答案</strong><p>向已配置的 Agent 请求一次性回答，个性化内容取决于服务端配置。</p></div>
-          <button onClick={askAgent} disabled={agentState === 'loading'}>{agentState === 'loading' ? '正在分析…' : '询问 Agent'}</button>
+          <button onClick={() => void askAgent()} disabled={agentState === 'loading'}>{agentState === 'loading' ? '正在分析…' : '询问 Agent'}</button>
         </div>
       )}
 
-      {agentState !== 'idle' && agentState !== 'loading' && (
-        <div className={`agent-result ${agentState}`}>
-          <span>AGENT 临时回答</span>
-          <p>{agentAnswer}</p>
-        </div>
-      )}
+
     </div>
   </>)
-  if (workbench) return <Workbench question={selected} questions={questions}
+  if (workbench) return <Workbench answerQuestion={agentQuestion} answerOverride={aiAnswer} question={selected} questions={questions}
     activeKey={activeAnswer.questionId === selected?.id ? activeAnswer.key : ''}
-    setActiveKey={(key) => setActiveAnswer({ questionId: selected?.id || '', key })}
+    setActiveKey={(key) => { voice.stop(); agentRequest.current?.abort(); setAgentState('idle'); setActiveAnswer({ questionId: selected?.id || '', key }) }}
     categories={categoryNavigation} categoryLabel={getSidebarCategoryLabel(category)}
     search={searchBox} userMenu={userSwitcher} results={questionResults}
     favorite={!!selected && favorites.includes(selected.id)} toggleFavorite={toggleFavorite} exit={exitWorkbench} />
@@ -334,15 +385,16 @@ function UserWorkspace({ user, favorites, switchUser, updateFavorites, workbench
       </main>
 
       <aside className="answer-panel">
-        {selected ? <AnswerPanel key={`${user.id}:${selected.id}`} question={selected} query={deferredQuery} favorite={favorites.includes(selected.id)} toggleFavorite={toggleFavorite} /> : (
+        {aiAnswer || (selected ? <AnswerPanel initialFollowupIndex={activeAnswer.questionId === selected.id && activeAnswer.key.startsWith('embedded:') ? Number(activeAnswer.key.slice(9)) : undefined} key={`${user.id}:${selected.id}`} question={selected} query={deferredQuery} favorite={favorites.includes(selected.id)} toggleFavorite={toggleFavorite} /> : (
           <div className="empty-answer"><span>⌕</span><p>选择一道题查看口语回答</p></div>
-        )}
+        ))}
       </aside>
     </div>
   )
 }
 
-function AnswerPanel({ question, query, favorite, toggleFavorite }: {
+function AnswerPanel({ question, query, favorite, toggleFavorite, initialFollowupIndex }: {
+  initialFollowupIndex?: number
   question: InterviewQuestion
   query: string
   favorite: boolean
@@ -353,6 +405,12 @@ function AnswerPanel({ question, query, favorite, toggleFavorite }: {
   const [filter, setFilter] = useState('')
   const [activeTitle, setActiveTitle] = useState(content.followups[0]?.title || '')
   const scrollRef = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    const followup = initialFollowupIndex === undefined ? undefined : content.followups[initialFollowupIndex]
+    setMode(followup ? 'followups' : 'core')
+    if (followup) { setFilter(''); setActiveTitle(followup.title) }
+    scrollRef.current?.scrollTo({ top: 0 })
+  }, [initialFollowupIndex, question.id])
   const matches = filterFollowups(content.followups, filter)
   const active = matches.find((item) => item.title === activeTitle) || matches[0]
   const hasExtras = content.followups.length > 0 || content.points || content.prompts || content.evidence

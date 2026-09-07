@@ -65,13 +65,14 @@ function isPinyinQuery(value: string) {
   return Boolean(query) && /^[a-z]+$/u.test(query)
 }
 
-export function pinyinMatchIndices(text: string, query: string) {
+export function pinyinMatchIndices(text: string, query: string, allMatches = false) {
   if (!isPinyinQuery(query) || !hasChinese(text)) return null
 
   const expected = normalize(query)
   const tokens = prepare(text).pinyinTokens
   if (!tokens) return null
 
+  const matches: number[] = []
   for (let start = 0; start < tokens.length; start += 1) {
     if (tokens[start].skippable || !tokens[start].value) continue
     let remaining = expected
@@ -81,11 +82,15 @@ export function pinyinMatchIndices(text: string, query: string) {
       if (token.skippable) continue
       if (!token.value || !remaining.startsWith(token.value) && !token.value.startsWith(remaining)) break
       indices.push(token.sourceIndex)
-      if (token.value.startsWith(remaining)) return indices
+      if (token.value.startsWith(remaining)) {
+        if (!allMatches) return indices
+        matches.push(...indices)
+        break
+      }
       remaining = remaining.slice(token.value.length)
     }
   }
-  return null
+  return matches.length ? matches : null
 }
 
 function codeUnitStarts(characters: string[]) {
@@ -140,7 +145,7 @@ function normalizedRanges(text: string, query: string): TextRange[] {
 }
 
 function pinyinRanges(text: string, query: string): TextRange[] {
-  const indices = pinyinMatchIndices(text, query)
+  const indices = pinyinMatchIndices(text, query, true)
   if (!indices?.length) return []
 
   const characters = Array.from(text)
