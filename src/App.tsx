@@ -1,5 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { categories, questions, searchQuestions } from './content'
+import { repositoryUsers } from './content'
+import { getCategories, searchQuestions } from './question-bank'
+import type { RepositoryUser } from './question-bank'
+import { LEGACY_STORAGE_KEY, loadProfiles, PROFILE_STORAGE_KEY } from './profiles'
+import type { ProfileStore } from './profiles'
 import type { InterviewQuestion } from './types'
 import { filterFollowups, getAnswerContent } from './answers'
 
@@ -17,19 +21,85 @@ function renderText(text = '') {
 }
 
 function App() {
+  const [store, setStore] = useState(() => {
+    try { return loadProfiles(localStorage, repositoryUsers.map((user) => user.id)) }
+    catch { return { activeUserId: repositoryUsers[0].id, favorites: {} } as ProfileStore }
+  })
+  const [legacyBackup] = useState(() => {
+    try { return localStorage.getItem(LEGACY_STORAGE_KEY) || '' }
+    catch { return '' }
+  })
+  const [error, setError] = useState('')
+  const user = repositoryUsers.find((item) => item.id === store.activeUserId) || repositoryUsers[0]
+  function save(next: ProfileStore) {
+    setStore(next)
+    try {
+      localStorage.setItem(PROFILE_STORAGE_KEY, JSON.stringify(next))
+      setError('')
+    } catch {
+      setError('本次选择或收藏仅在当前页面有效：浏览器存储不可用。已发布题库仍可正常浏览。')
+    }
+  }
+  function exportLegacy() {
+    const url = URL.createObjectURL(new Blob([legacyBackup], { type: 'application/json' }))
+    const link = document.createElement('a')
+    link.href = url
+    link.download = 'interview-local-backup.json'
+    link.click()
+    setTimeout(() => URL.revokeObjectURL(url), 1000)
+  }
+  return <>
+    {error && <div className="storage-error" role="alert">{error}</div>}
+    {legacyBackup && <div className="legacy-notice">
+      <span>检测到旧版本地数据，尚未自动加入仓库。请导出备份后按 README 迁移题目；原数据仍保留在此浏览器。</span>
+      <button onClick={exportLegacy}>导出旧数据</button>
+    </div>}
+    <UserWorkspace key={user.id} user={user} favorites={Array.isArray(store.favorites[user.id]) ? store.favorites[user.id] : []}
+      switchUser={(id) => save({ ...store, activeUserId: id })}
+      updateFavorites={(favorites) => save({ ...store, favorites: { ...store.favorites, [user.id]: favorites } })}
+    />
+  </>
+}
+
+function UserWorkspace({ user, favorites, switchUser, updateFavorites }: {
+  user: RepositoryUser
+  favorites: string[]
+  switchUser: (id: string) => void
+  updateFavorites: (favorites: string[]) => void
+}) {
+  const questions = user.questions
+  const categories = useMemo(() => getCategories(questions), [questions])
+  const [menuOpen, setMenuOpen] = useState(false)
+  const menuRef = useRef<HTMLDivElement>(null)
+  const avatarRef = useRef<HTMLButtonElement>(null)
+  const agentRequest = useRef<AbortController | null>(null)
+  useEffect(() => () => agentRequest.current?.abort(), [])
+  useEffect(() => {
+    if (!menuOpen) return
+    menuRef.current?.querySelector<HTMLButtonElement>('.user-option')?.focus()
+    const closeOutside = (event: PointerEvent) => {
+      if (!menuRef.current?.contains(event.target as Node)) setMenuOpen(false)
+    }
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') { setMenuOpen(false); avatarRef.current?.focus() }
+    }
+    document.addEventListener('pointerdown', closeOutside)
+    document.addEventListener('keydown', closeOnEscape)
+    return () => {
+      document.removeEventListener('pointerdown', closeOutside)
+      document.removeEventListener('keydown', closeOnEscape)
+    }
+  }, [menuOpen])
+
   const [query, setQuery] = useState('')
   const [category, setCategory] = useState('all')
   const [selectedId, setSelectedId] = useState(questions[0]?.id ?? '')
-  const [favorites, setFavorites] = useState<string[]>(() => {
-    try { return JSON.parse(localStorage.getItem('interview-favorites') || '[]') }
-    catch { return [] }
-  })
   const [agentState, setAgentState] = useState<'idle' | 'loading' | 'done' | 'error'>('idle')
   const [agentAnswer, setAgentAnswer] = useState('')
   const searchRef = useRef<HTMLInputElement>(null)
 
-  const results = useMemo(() => searchQuestions(query, category), [query, category])
-  const selected = questions.find((question) => question.id === selectedId) || results[0]?.question
+  const results = useMemo(() => searchQuestions(questions, query, category), [questions, query, category])
+  const selected = results.find(({ question }) => question.id === selectedId)?.question || results[0]?.question
   const hasReliableMatch = !query.trim() || (results[0]?.score ?? 0) >= 38
 
   useEffect(() => {
@@ -51,26 +121,31 @@ function App() {
 
   function toggleFavorite(id: string) {
     const next = favorites.includes(id) ? favorites.filter((item) => item !== id) : [...favorites, id]
-    setFavorites(next)
-    localStorage.setItem('interview-favorites', JSON.stringify(next))
+    updateFavorites(next)
   }
 
   async function askAgent() {
     if (!query.trim()) return
+    agentRequest.current?.abort()
+    const controller = new AbortController()
+    agentRequest.current = controller
     setAgentState('loading')
     setAgentAnswer('')
     try {
       const endpoint = import.meta.env.VITE_AGENT_ENDPOINT || '/api/answer'
       const response = await fetch(endpoint, {
+        signal: controller.signal,
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ question: query }),
+        body: JSON.stringify({ question: query, userId: user.id, userName: user.name }),
       })
       if (!response.ok) throw new Error('Agent 服务暂未连接')
       const data = await response.json() as { answer?: string }
+      if (controller.signal.aborted) return
       setAgentAnswer(data.answer || 'Agent 没有返回有效回答。')
       setAgentState('done')
     } catch (error) {
+      if (controller.signal.aborted) return
       setAgentAnswer(error instanceof Error ? error.message : 'Agent 请求失败')
       setAgentState('error')
     }
@@ -98,7 +173,7 @@ function App() {
 
         <div className="sidebar-note">
           <span className="status-dot" />
-          <div><strong>{questions.length} 道已整理</strong><small>答案均以口语表达为主</small></div>
+          <div><strong>{questions.length} 道已整理</strong><small>{user.name} 的独立题库</small></div>
         </div>
       </aside>
 
@@ -108,7 +183,23 @@ function App() {
             <span className="eyebrow">FRONTEND INTERVIEW</span>
             <h1>你现在想复习什么？</h1>
           </div>
-          <button className="avatar" title="个人题库">牛</button>
+          <div className="user-switcher" ref={menuRef}>
+            <button ref={avatarRef} className="avatar" title={`当前用户：${user.name}，点击切换用户`}
+              aria-label={`切换用户，当前：${user.name}`} aria-expanded={menuOpen} aria-controls="user-menu"
+              onClick={() => setMenuOpen(!menuOpen)}>{Array.from(user.name)[0]}</button>
+            {menuOpen && <div className="user-menu" id="user-menu" aria-label="用户切换">
+              <p className="user-menu-title">切换用户<span>题库随网站发布 · 收藏仅限本机</span></p>
+              <div className="user-options">
+                {repositoryUsers.map((item) => <button className={`user-option ${item.id === user.id ? 'active' : ''}`} key={item.id}
+                  aria-pressed={item.id === user.id} onClick={() => { switchUser(item.id); setMenuOpen(false) }}>
+                  <span className="user-initial">{Array.from(item.name)[0]}</span>
+                  <span className="user-detail"><strong>{item.name}</strong><small>{item.questions.length} 道题</small></span>
+                  {item.id === user.id && <span className="user-check">✓</span>}
+                </button>)}
+              </div>
+              <p className="repository-note">用户和题库由仓库统一维护，发布后在各浏览器中可见。</p>
+            </div>}
+          </div>
         </header>
 
         <div className="search-wrap">
@@ -116,25 +207,32 @@ function App() {
           <input
             ref={searchRef}
             value={query}
-            onChange={(event) => { setQuery(event.target.value); setAgentState('idle') }}
+            onChange={(event) => { agentRequest.current?.abort(); setQuery(event.target.value); setAgentState('idle') }}
             placeholder="搜索知识点、项目难点或面试官的问法…"
             autoFocus
           />
-          {query && <button className="clear-search" onClick={() => setQuery('')}>×</button>}
+          {query && <button className="clear-search" onClick={() => { agentRequest.current?.abort(); setQuery(''); setAgentState('idle') }}>×</button>}
           <kbd>⌘ K</kbd>
         </div>
 
+        <p className="bank-origin">已发布题库 · 各浏览器均可访问</p>
         <div className="result-heading">
-          <span>{query ? `找到 ${results.length} 个相关回答` : '优先复习'}</span>
+          <span>{query ? `找到 ${results.length} 个相关回答` : `${user.name} 的题库 · 优先复习`}</span>
           {query && <small>按匹配程度排序</small>}
         </div>
 
         <div className="question-list">
+          {!questions.length && <div className="empty-bank">
+            <span className="empty-bank-mark">题</span>
+            <h2>{user.name} 的题库，等你填满</h2>
+            <p>这位用户还没有发布题目。<br />维护者添加题目并更新网站后，即可在这里复习。</p>
+          </div>}
+          {!!questions.length && !query && !results.length && <p className="import-message">当前分类暂无题目。</p>}
           {results.map(({ question, score }) => (
             <button
               key={question.id}
               className={`question-row ${selected?.id === question.id ? 'selected' : ''}`}
-              onClick={() => { setSelectedId(question.id); setAgentState('idle') }}
+              onClick={() => { agentRequest.current?.abort(); setSelectedId(question.id); setAgentState('idle') }}
             >
               <span className="question-priority">{question.priority === 'high' ? '重点' : question.difficulty}</span>
               <span className="question-copy"><strong>{question.title}</strong><small>{question.categoryLabel} · {question.keywords.slice(0, 3).join(' · ')}</small></span>
@@ -146,7 +244,7 @@ function App() {
           {query && !hasReliableMatch && (
             <div className="fallback-card">
               <div className="agent-orb">✦</div>
-              <div><strong>题库里暂时没有可靠答案</strong><p>让 Agent 只读分析简历和三个项目，生成一次性的定制回答。</p></div>
+              <div><strong>题库里暂时没有可靠答案</strong><p>向已配置的 Agent 请求一次性回答，个性化内容取决于服务端配置。</p></div>
               <button onClick={askAgent} disabled={agentState === 'loading'}>{agentState === 'loading' ? '正在分析…' : '询问 Agent'}</button>
             </div>
           )}

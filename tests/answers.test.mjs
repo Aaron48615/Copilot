@@ -30,11 +30,14 @@ test('追问筛选支持标题、正文、大小写、多关键词与清空', ()
   assert.deepEqual(filterFollowups(items, ''), items)
 })
 
-const root = resolve('content')
-const filesUnder = (dir) => readdirSync(dir, { withFileTypes: true }).flatMap((entry) => entry.isDirectory() ? filesUnder(resolve(dir, entry.name)) : [resolve(dir, entry.name)])
+const root = resolve('content/default')
+const filesUnder = (dir) => readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
+  if (entry.isDirectory()) return filesUnder(resolve(dir, entry.name))
+  return entry.name.endsWith('.md') ? [resolve(dir, entry.name)] : []
+})
 const related = ['00-profile/self-introduction.md', '00-profile/project-ownership.md', '00-profile/open-source-blog.md', '06-ai-agent/ai-workflow.md', '06-ai-agent/ai-code-ownership.md'].map((name) => resolve(root, name))
 
-test('全部项目题及关联题都有独立核心和已作答追问，标题不重复', () => {
+test('默认用户的项目题及关联题都有独立核心和已作答追问，标题不重复', () => {
   const files = [...filesUnder(resolve(root, '05-projects')), ...related]
   for (const file of files) {
     const raw = readFileSync(file, 'utf8')

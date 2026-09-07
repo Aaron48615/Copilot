@@ -1,0 +1,12 @@
+[
+  {
+    "id": "default", "name": "牛",
+    "projects": ["轻购", "城市视图", "智服工单"],
+    "identityMarkers": ["牛颢然", "elinew.tech", "/Users/eli/"]
+  },
+  {
+    "id": "aaron", "name": "Aaron",
+    "projects": ["拾光集移动商城系统", "映刻影视", "云枢智慧城市数据平台"],
+    "identityMarkers": ["拾光集", "云枢", "/Users/aaron/"]
+  }
+]
