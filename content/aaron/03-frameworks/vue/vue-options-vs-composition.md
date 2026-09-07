@@ -5,7 +5,7 @@ aliases: [选项式api, 组合式api, composition api, 逻辑复用, mixin]
 category: vue
 difficulty: 高频
 priority: high
-projects: [智服工单, 轻购]
+projects: []
 keywords: [Options API, Composition API, mixin, composable, setup]
 ---
 
@@ -13,16 +13,10 @@ keywords: [Options API, Composition API, mixin, composable, setup]
 
 ## 核心回答
 
-Options API 按选项分类：data 归 data、methods 归 methods，同一个功能的代码被拆散在各个选项里。组件小的时候挺清晰，组件一大，改一个功能要上蹿下跳找代码。逻辑复用靠 mixin，但 mixin 有两个老毛病：命名冲突，还有数据来源看不出来，读代码根本不知道这个属性是哪个 mixin 塞进来的。
+Options API 按 data、methods、computed 这些选项组织代码，小组件比较直观。Composition API 则可以把同一个功能的状态、计算和处理函数放在一起，复杂页面里更容易沿着一个功能读下来。
 
-Composition API 按功能组织：一个功能的状态、计算、方法写在一起。要复用就封装成 composable 函数，谁调用谁拥有，没有命名冲突，来源一目了然。而且全程没有 this，都是普通变量和函数，TypeScript 的类型推断也顺。所以 Vue3 把它当主力，同时保留了 Options API，小组件用着其实也不差。
+比如搜索涉及关键词、请求和加载状态，可以把这些逻辑整理成一个 composable，多个组件复用。不需要为了使用新写法，把所有简单组件都重新拆一遍。
 
-## 展开回答
+## 追问：Composition API 和 mixin 相比有什么好处？
 
-我两个都在项目里用过：智服工单是 Vue2 的 Options API，轻购是 Vue3 的 script setup。真实感受是表单、列表这种简单页面差别不大；带筛选、联动、好几个弹窗的复杂页面，组合式明显好维护，还能把搜索逻辑抽成 useSearch 这种 composable 给别的页面用。
-
-## 面试官可能追问
-
-- mixin 的问题，composable 是怎么解决的？
-- Options API 有没有优势？什么场景用它反而合适？
-- composable 和 React Hooks 有什么异同？
+composable 的参数和返回值比较明确，读调用处就知道依赖什么、拿到了什么。mixin 会把内容合进组件，来源和同名冲突不容易看出来。composable 仍然需要合理拆分，过度拆分也会增加阅读成本。

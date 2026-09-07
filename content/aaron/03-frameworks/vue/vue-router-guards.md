@@ -5,7 +5,7 @@ aliases: [路由守卫, beforeEach, 登录拦截, 权限路由]
 category: vue
 difficulty: 高频
 priority: high
-projects: [智服工单]
+projects: []
 keywords: [beforeEach, afterEach, beforeEnter, beforeRouteEnter, token]
 ---
 

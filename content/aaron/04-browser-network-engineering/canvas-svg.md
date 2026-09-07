@@ -5,7 +5,7 @@ aliases: [canvas区别, svg区别, canvas svg选型, 渲染方案]
 category: engineering
 difficulty: 高频
 priority: normal
-projects: [城市视图]
+projects: []
 keywords: [canvas, svg, 矢量图, 命中检测]
 ---
 
@@ -21,7 +21,7 @@ canvas 是位图：拿 JS 在画布上一像素一像素画，画完浏览器就
 
 ## 展开回答
 
-我项目里 ECharts 默认就是 canvas 渲染器，看板这种数据量用它稳，事件命中 ECharts 内部都封装好了；其实它也支持切 svg 渲染器，图表很轻量或者要导出矢量图的时候有意义。
+ECharts 支持 Canvas 和 SVG 渲染器。选用哪一个要结合数据量、交互和导出需求，最好用实际图表测一下。
 
 ## 面试官可能追问
 

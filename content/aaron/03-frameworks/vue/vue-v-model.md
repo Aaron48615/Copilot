@@ -5,7 +5,7 @@ aliases: [v-model, 双向绑定语法糖, modelValue, update modelValue]
 category: vue
 difficulty: 高频
 priority: high
-projects: [轻购]
+projects: []
 keywords: [v-model, input 事件, modelValue, 语法糖]
 ---
 

@@ -5,7 +5,7 @@ aliases: [生命周期钩子, mounted, beforeUnmount, 父子生命周期顺序]
 category: vue
 difficulty: 高频
 priority: high
-projects: [智服工单, 轻购]
+projects: []
 keywords: [created, mounted, beforeUnmount, setup, activated]
 ---
 

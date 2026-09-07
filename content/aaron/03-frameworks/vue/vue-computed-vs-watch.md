@@ -5,7 +5,7 @@ aliases: [计算属性, computed缓存, watch deep, immediate]
 category: vue
 difficulty: 高频
 priority: high
-projects: [智服工单, 轻购]
+projects: []
 keywords: [computed, watch, 缓存, deep, immediate]
 ---
 

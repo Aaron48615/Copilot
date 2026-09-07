@@ -7,12 +7,37 @@ export interface RepositoryUser {
   questions: InterviewQuestion[]
 }
 
-export function buildRepositoryBanks(users: { id: string; name: string }[], documents: { name: string; raw: string }[]): RepositoryUser[] {
+export interface RepositoryUserDefinition {
+  id: string
+  name: string
+  projects?: string[]
+  identityMarkers?: string[]
+}
+
+// Ownership is explicit: copying a document must not copy another user's experience.
+export function validateOwnership(user: RepositoryUserDefinition, users: RepositoryUserDefinition[], document: { name: string; raw: string }) {
+  const question = parseMarkdown(document.name, document.raw)
+  const projects = user.projects
+  if (projects && question.projects.some((project) => !projects.includes(project))) {
+    throw new Error(`${document.name}：项目不属于用户「${user.name}」`)
+  }
+  for (const other of users.filter((item) => item.id !== user.id)) {
+    for (const marker of [...(other.projects || []), ...(other.identityMarkers || [])]) {
+      if (document.raw.toLocaleLowerCase().includes(marker.toLocaleLowerCase())) {
+        throw new Error(`${document.name}：混入用户「${other.name}」的内容「${marker}」`)
+      }
+    }
+  }
+}
+
+export function buildRepositoryBanks(users: RepositoryUserDefinition[], documents: { name: string; raw: string }[]): RepositoryUser[] {
   if (!Array.isArray(users) || !users.length || users.some((user) => !user ||
     typeof user.id !== 'string' || !/^[a-z0-9][a-z0-9_-]*$/.test(user.id) ||
-    typeof user.name !== 'string' || !user.name.trim()) ||
+    typeof user.name !== 'string' || !user.name.trim() ||
+    [user.projects, user.identityMarkers].some((list) => list !== undefined &&
+      (!Array.isArray(list) || list.some((item) => typeof item !== 'string' || !item.trim())))) ||
     new Set(users.map((user) => user.id)).size !== users.length) {
-    throw new Error('content/users.json 需要唯一的用户 ID 和非空名称；ID 仅支持小写字母、数字、连字符和下划线')
+    throw new Error('content/users.json 需要唯一的用户 ID 和非空名称；ID 仅支持小写字母、数字、连字符和下划线；归属规则必须是非空字符串组成的数组')
   }
   const grouped = new Map(users.map((user) => [user.id, [] as typeof documents]))
   for (const document of documents) {
@@ -21,6 +46,7 @@ export function buildRepositoryBanks(users: { id: string; name: string }[], docu
     if (!bank || parts.length < 2 || parts.some((part) => !part || part === '.' || part === '..')) {
       throw new Error(`${document.name}：题目必须放在 content/<已配置的用户 ID>/ 目录中`)
     }
+    validateOwnership(users.find((user) => user.id === parts[0])!, users, document)
     bank.push(document)
   }
   return users.map((user) => ({ ...user, questions: buildQuestionBank([], grouped.get(user.id)!) }))

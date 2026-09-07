@@ -2,7 +2,7 @@ import { createHash } from 'node:crypto'
 import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs'
 import { resolve, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { buildQuestionBank, buildRepositoryBanks } from '../src/question-bank.ts'
+import { buildQuestionBank, buildRepositoryBanks, validateOwnership } from '../src/question-bank.ts'
 
 export function importLocalBank(contentDir, backup, sourceId, targetId) {
   const users = JSON.parse(readFileSync(join(contentDir, 'users.json'), 'utf8'))
@@ -15,6 +15,7 @@ export function importLocalBank(contentDir, backup, sourceId, targetId) {
     !doc || typeof doc.name !== 'string' || typeof doc.raw !== 'string')) throw new Error('备份中找不到有效的源用户题库')
   buildQuestionBank([], source.documents)
   buildQuestionBank(target.questions, source.documents)
+  for (const document of source.documents) validateOwnership(users.find((user) => user.id === targetId), users, document)
   const directory = join(contentDir, targetId, 'imported')
   const files = source.documents.map((doc) => ({
     path: join(directory, `${createHash('sha256').update(importedId(doc)).digest('hex')}.md`),

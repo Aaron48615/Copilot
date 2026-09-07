@@ -5,7 +5,7 @@ aliases: [ref, 自定义指令, 操作dom, directive]
 category: vue
 difficulty: 基础
 priority: normal
-projects: [智服工单, 轻购]
+projects: []
 keywords: [ref, nextTick, 自定义指令, directive]
 ---
 

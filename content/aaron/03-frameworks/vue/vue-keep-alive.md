@@ -5,7 +5,7 @@ aliases: [keep-alive, 组件缓存, activated, include]
 category: vue
 difficulty: 高频
 priority: high
-projects: [智服工单]
+projects: []
 keywords: [keep-alive, include, exclude, activated, LRU]
 ---
 

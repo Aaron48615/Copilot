@@ -13,16 +13,10 @@ keywords: [选择器, 圆角, 动画, flex]
 
 ## 核心回答
 
-我按平时真在用的来说：选择器更强了，:nth-child、:not() 这些结构伪类能少写很多类名；视觉上多了圆角、阴影、渐变；transform 能做位移、旋转、缩放；transition 和 @keyframes 让状态过渡和复杂动画都能纯 CSS 实现；布局上是 flex 和 grid；还有媒体查询，响应式就靠它。
+常见的有圆角、阴影、渐变、transform、transition 和 animation。比如卡片悬浮时轻轻上移，可以用 transform 配合 transition；需要循环播放的加载动画，可以用 @keyframes。
 
-面试官问这个其实是想听你用过什么，所以我不背清单，挑两三个结合场景说，比如表单校验错误提示的抖动就是 keyframes 做的，卡片悬浮上浮是 transition 加 transform。
+布局方面，Flex 适合一行或一列的排列，Grid 适合同时安排多行多列。媒体查询可以根据屏幕尺寸调整布局。现在 CSS 分模块发展，讨论具体能力比只说“CSS3”更清楚。
 
-## 展开回答
+## 追问：CSS 变量和 Sass 变量有什么不同？
 
-再补几个现代 CSS 的东西能加分：自定义属性就是 CSS 变量，配 var() 用；calc() 可以混合单位做计算；filter 能做高斯模糊这类滤镜；object-fit 控制图片在容器里的裁切方式。
-
-## 面试官可能追问
-
-- CSS 变量和 SCSS 变量的区别？
-- grid 和 flex 分别什么场景用？
-- 媒体查询写过吗，按什么定断点？
+CSS 自定义属性留在浏览器里，可以参与继承，也能用 JavaScript 动态修改，适合主题切换。Sass 变量通常在构建时就被替换成具体值，主要用来组织样式源码。

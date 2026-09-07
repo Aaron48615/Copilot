@@ -5,7 +5,7 @@ aliases: [api key怎么加密, 前端保护密钥, token存哪里, httponly cook
 category: engineering
 difficulty: 高频
 priority: high
-projects: [轻购]
+projects: []
 keywords: [XSS, HttpOnly, Cookie, 服务端代理, 环境变量]
 ---
 
@@ -34,7 +34,3 @@ keywords: [XSS, HttpOnly, Cookie, 服务端代理, 环境变量]
 - Vite 中 VITE_ 前缀环境变量安全吗？
 - HttpOnly Cookie 为什么能降低 XSS 窃取 Token 的风险？
 - 服务端代理如何避免被别人无限调用？
-
-## 代码证据
-
-- /Users/eli/Dev/mobile-shop/src/ai/providers/openai.ts：请求自己的 /ai/chat 接口

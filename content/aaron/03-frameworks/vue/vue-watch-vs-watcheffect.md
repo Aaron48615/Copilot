@@ -5,7 +5,7 @@ aliases: [watchEffect, 副作用函数, 监听器区别]
 category: vue
 difficulty: 高频
 priority: high
-projects: [轻购]
+projects: []
 keywords: [watch, watchEffect, 立即执行, 依赖收集]
 ---
 

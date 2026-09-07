@@ -5,7 +5,7 @@ aliases: [组件通信, props emit, provide inject, 兄弟组件通信]
 category: vue
 difficulty: 高频
 priority: high
-projects: [智服工单, 轻购]
+projects: []
 keywords: [props, emit, provide/inject, mitt, 状态管理, attrs]
 ---
 
@@ -19,7 +19,7 @@ keywords: [props, emit, provide/inject, mitt, 状态管理, attrs]
 
 ## 展开回答
 
-事件总线提一下：Vue2 常拿空实例当 EventBus，Vue3 把 $on、$off 移除了，要用得引 mitt 这种库。但我实际项目里更倾向能状态提升就提升到共同父组件，事件总线撒多了数据流向会很难追。
+事件总线提一下：Vue2 常拿空实例当 EventBus，Vue3 把 $on、$off 移除了，要用得引 mitt 这种库。但我会优先考虑把状态提升到共同父组件，事件总线撒多了数据流向会很难追。
 
 还有 ref 拿到子组件实例直接调方法，偶尔救急可以，别当常规手段，父子耦合太重。Vue3 组合式里子组件默认封闭，要暴露得 defineExpose。
 

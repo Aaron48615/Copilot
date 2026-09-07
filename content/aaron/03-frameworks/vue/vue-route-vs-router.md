@@ -5,7 +5,7 @@ aliases: [route router区别, useRoute useRouter, query params]
 category: vue
 difficulty: 基础
 priority: normal
-projects: [智服工单]
+projects: []
 keywords: [$route, $router, useRoute, useRouter, query, params]
 ---
 

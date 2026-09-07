@@ -5,7 +5,7 @@ aliases: [vue2新增属性不响应, Vue.set, 对象新增属性响应式]
 category: vue
 difficulty: 基础
 priority: high
-projects: [智服工单]
+projects: []
 keywords: [Object.defineProperty, Vue.set, this.$set]
 ---
 

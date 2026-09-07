@@ -5,7 +5,7 @@ aliases: [fetch区别, axios封装, fetch优缺点, 请求库选型]
 category: engineering
 difficulty: 高频
 priority: high
-projects: [智服工单]
+projects: []
 keywords: [fetch, axios, XHR, 拦截器]
 ---
 
@@ -17,7 +17,7 @@ fetch 是浏览器原生的请求 API，更底层，返回 Promise；axios 是�
 
 fetch 有几个著名的坑要能说出来：只有网络层面失败才 reject，404、500 照样走 then，得自己判断 res.ok；默认不带 cookie，跨域请求要显式配 credentials；没有内置超时，取消请求要用 AbortController 配 setTimeout 自己实现。axios 这些全是现成的，超时一个配置项，取消也支持传 AbortController 的 signal。
 
-项目里我一直用的是封装过的 axios：请求拦截器统一带 token，响应拦截器统一处理错误码和过期跳转，业务代码不用每个请求都操心这些。
+业务里可以封装一个 Axios 实例：请求拦截器统一带 token，响应拦截器统一处理错误码和过期跳转，业务代码不用每个请求都操心这些。
 
 ## 展开回答
 

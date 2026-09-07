@@ -13,16 +13,10 @@ keywords: [flex, flex-grow, flex-shrink, flex-basis]
 
 ## 核心回答
 
-flex 是三个属性的缩写：flex-grow、flex-shrink、flex-basis，flex:1 完整展开就是 1 1 0%。flex-grow 管的是有剩余空间时按几份放大，默认 0，就是不放；flex-shrink 管空间不够时按比例缩，默认 1；flex-basis 是分配剩余空间之前项目的主轴基准尺寸，默认 auto，也就是看 width，没 width 就看内容。
+flex 是 flex-grow、flex-shrink 和 flex-basis 的缩写。浏览器通常把 flex: 1 展开成 1 1 0%，意思是允许放大、允许缩小，分配空间时以 0% 为基础。
 
-有个能加分的点：flex:1 和 flex:auto 不一样。flex:1 的 basis 是 0%，等于把项目自身尺寸清零，空间全按 grow 比例分，所以能真正等分；flex:auto 的 basis 是 auto，项目先按内容占一块，再分剩下的，内容长短不一时就分不均。
+flex: auto 对应 1 1 auto，会先考虑项目原本的尺寸，再分配剩余空间。所以几项内容长短不同，用 flex: auto 不一定等宽。
 
-## 展开回答
+## 追问：flex: 1 为什么有时也没能等宽？
 
-常用的几个缩写：flex: none 是 0 0 auto，不放大不缩小，保持原始尺寸；flex: initial 是 0 1 auto，就是默认值。实战里还有个常见坑：flex 子项里的内容太长时，项目默认不会被压到内容最小宽度以下，会硬把容器撑开，给子项加 min-width: 0 才能正常收缩，做文本溢出省略时经常要用。
-
-## 面试官可能追问
-
-- flex:1 和 flex:auto 有什么区别？
-- flex-shrink 设成 0 会怎样？
-- flex-basis 和 width 同时设了听谁的？
+还要看最小尺寸、padding、border 和容器尺寸。Flex 子项默认可能不愿意缩到内容最小宽度以下，长文本就会把布局撑开。横向布局常用 min-width: 0 配合文本省略。0% 在主轴尺寸不确定时也不一定和 0 表现相同。

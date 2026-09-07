@@ -5,7 +5,7 @@ aliases: [vuex, state mutation action, 状态管理流程]
 category: vue
 difficulty: 高频
 priority: high
-projects: [智服工单]
+projects: []
 keywords: [state, getter, mutation, action, commit, dispatch]
 ---
 
@@ -13,18 +13,10 @@ keywords: [state, getter, mutation, action, commit, dispatch]
 
 ## 核心回答
 
-五个概念：state 存全局共享数据，是响应式的；getter 基于 state 做派生计算，能复用、有缓存；mutation 是唯一能直接改 state 的地方，必须同步；action 里做异步操作，完事 commit 一个 mutation 去改 state；module 用来把大 store 拆成模块。
+Vuex 用集中式 store 保存共享状态。state 放数据，getter 计算派生值，mutation 同步修改状态，action 处理请求等异步逻辑，再提交 mutation。
 
-流程说白了是一条链：组件 dispatch 一个 action，action 里发请求，拿到结果 commit 一个 mutation，mutation 里改 state，state 一变依赖它的组件自动更新。数据永远单向流动，谁改的、什么时候改的都查得到。
+组件可以通过 mapState、mapGetters、mapActions 等辅助函数访问 store。数据流集中以后，能更容易追踪是谁改了状态，但也不需要把所有页面临时状态都搬进去。
 
-mutation 必须同步是因为 devtools 的调试机制：每过一条 mutation 记一次快照，里面混了异步，时间线就对不上了，回溯调试也就废了。
+## 追问：action 和 mutation 为什么分开？
 
-## 展开回答
-
-智服工单这个 Vue2 项目里我用 Vuex 管登录态、用户信息、字典数据。组件里用 mapState、mapGetters、mapActions 这些辅助函数，省掉一堆 this.$store 样板代码。也不是所有改动都要绕 action，纯同步的简单赋值直接 commit mutation 就行，需要异步或者多处复用的逻辑才包成 action。
-
-## 面试官可能追问
-
-- mutation 为什么必须是同步的？
-- action 和 mutation 怎么分工？
-- Vuex 里的数据刷新页面就丢了，怎么持久化？
+mutation 保持同步，可以让一次状态变化对应一个明确的记录。异步任务什么时候完成不确定，放在 action 里处理，成功或失败后再提交相应 mutation，状态变化会更容易追踪。

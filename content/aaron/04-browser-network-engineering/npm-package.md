@@ -13,16 +13,10 @@ keywords: [npm, peerDependencies, externals, tree-shaking]
 
 ## 核心回答
 
-我还没正式发过包，这些是我研究过的注意点。核心原则是"别把依赖打进包里"：dependencies 应该让使用者自己装，构建时要么不打包依赖，要么用 externals 排除掉；组件库这种强依赖宿主框架的，用 peerDependencies 声明"你项目里得先有 React"，不然用户装完出现两份 React 直接报错。
+先明确包给谁用，再决定输出格式和入口。只支持 ESM，还是同时兼容 CommonJS，要跟目标环境一致。package.json 里的 exports、类型声明和实际发布文件也要对应。
 
-输出格式要两头兼顾：CommonJS 和 ESM 各出一份，package.json 里用 main、module、exports 字段分别指过去，老的 require 和新的 import 都能用。想让人家 tree-shaking 你的包，ESM 产物不能丢，再把 sideEffects 标成 false，明确告诉打包器这包没副作用，没用到的导出放心摇掉。
+React 这类需要和宿主共享的依赖，通常通过 peerDependencies 声明，并在构建时排除。普通依赖是否打进去，要看包的设计，不是所有依赖都必须采用同一种处理方式。
 
-## 展开回答
+## 追问：sideEffects 可以直接写 false 吗？
 
-体积上还有个细节：Babel 转译会往每个文件注入辅助函数，等于重复灌水，用 transform-runtime 把这些辅助函数抽成公共引入就能瘦下来。UI 组件包的样式文件也要一起发出去，让用户按需引。
-
-## 面试官可能追问
-
-- dependencies 和 peerDependencies 有什么区别？
-- exports 字段是干嘛的？
-- 怎么让包支持 tree-shaking？
+只有确实没有导入副作用时才适合。比如样式文件或注册逻辑需要执行，就要保留对应文件的副作用声明，否则打包工具可能把它们删掉。发布前可以用 npm pack 检查包里实际包含什么，再在小项目中安装验证。

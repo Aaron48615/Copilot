@@ -5,7 +5,7 @@ aliases: [ref reactive, .value, 响应式数据, toRefs]
 category: vue
 difficulty: 高频
 priority: high
-projects: [轻购]
+projects: []
 keywords: [ref, reactive, value, 解构, toRefs]
 ---
 

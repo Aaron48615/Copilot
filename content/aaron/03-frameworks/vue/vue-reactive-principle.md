@@ -5,7 +5,7 @@ aliases: [响应式原理, 数据劫持, 依赖收集, 数据驱动视图]
 category: vue
 difficulty: 必问
 priority: high
-projects: [智服工单, 轻购]
+projects: []
 keywords: [defineProperty, Proxy, 依赖收集, watcher, track, trigger]
 ---
 

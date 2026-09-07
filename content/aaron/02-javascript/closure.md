@@ -5,7 +5,7 @@ aliases: [闭包是什么, closure, 闭包使用场景, 项目里用过闭包吗
 category: javascript
 difficulty: 基础
 priority: high
-projects: [轻购]
+projects: []
 keywords: [作用域, 防抖, 私有状态, 定时器]
 ---
 
@@ -27,7 +27,7 @@ keywords: [作用域, 防抖, 私有状态, 定时器]
 
 从执行上下文角度看，函数创建时会记录外部词法环境。外层函数返回之后，只要内部函数仍然可达，对应环境中的变量就不能被垃圾回收。闭包保存的是变量本身，而不是创建时值的静态副本，所以多个闭包也可能共享并修改同一个变量。
 
-轻购搜索页面的输入防抖同样依赖持续保存的 suggestionTimer。组件卸载时会清除定时器并取消旧请求，避免离开页面后仍然更新状态。
+比如搜索框用闭包保存定时器，组件卸载时要清掉定时器，并处理未完成的请求，避免离开页面后仍然更新状态。
 
 ## 回答要点
 
@@ -40,7 +40,3 @@ keywords: [作用域, 防抖, 私有状态, 定时器]
 - 闭包为什么可能增加内存占用？
 - 防抖函数怎么实现？
 - 循环中使用 var 创建回调为什么会得到相同结果？
-
-## 代码证据
-
-- /Users/eli/Dev/mobile-shop/src/views/SearchView.vue：suggestionTimer、handleSuggestionInput、onBeforeUnmount
