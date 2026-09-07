@@ -1,13 +1,30 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
+import type { ReactNode } from 'react'
 import { repositoryUsers } from './content'
 import { getCategories, searchQuestions } from './question-bank'
 import type { RepositoryUser } from './question-bank'
 import { LEGACY_STORAGE_KEY, loadProfiles, PROFILE_STORAGE_KEY } from './profiles'
 import type { ProfileStore } from './profiles'
+import { getTextMatchRanges } from './search-text'
 import type { InterviewQuestion } from './types'
 import { filterFollowups, getAnswerContent } from './answers'
 import { renderText } from './TextContent'
 import { Workbench, WorkbenchDialog, useLandscapeViewport } from './Workbench'
+
+function highlightText(text: string, query: string): ReactNode {
+  const ranges = getTextMatchRanges(text, query)
+  if (!ranges.length) return text
+
+  const parts: ReactNode[] = []
+  let cursor = 0
+  ranges.forEach(([start, end], index) => {
+    if (cursor < start) parts.push(text.slice(cursor, start))
+    parts.push(<mark className="search-highlight" key={`${start}-${end}-${index}`}>{text.slice(start, end)}</mark>)
+    cursor = end
+  })
+  if (cursor < text.length) parts.push(text.slice(cursor))
+  return parts
+}
 
 const LEGACY_NOTICE_DISMISSED_KEY = 'interview-legacy-notice-dismissed'
 
@@ -50,6 +67,10 @@ function App() {
     link.click()
     setTimeout(() => URL.revokeObjectURL(url), 1000)
   }
+  function switchUser(id: string) {
+    if (!repositoryUsers.some((item) => item.id === id)) return
+    save({ ...store, activeUserId: id })
+  }
   return <div className={workbench ? "application application-workbench" : "application"}>
     {error && <div className="storage-error" role="alert">{error}</div>}
     {legacyBackup && !legacyNoticeDismissed && <div className="legacy-notice">
@@ -60,7 +81,7 @@ function App() {
       </div>
     </div>}
     <UserWorkspace exportLegacy={legacyBackup ? exportLegacy : undefined} key={user.id} workbench={workbench && landscapeReady} requestWorkbench={() => setWorkbench(true)} exitWorkbench={() => setWorkbench(false)} user={user} favorites={Array.isArray(store.favorites[user.id]) ? store.favorites[user.id] : []}
-      switchUser={(id) => save({ ...store, activeUserId: id })}
+      switchUser={switchUser}
       updateFavorites={(favorites) => save({ ...store, favorites: { ...store.favorites, [user.id]: favorites } })}
     />
     {workbench && !landscapeReady && <WorkbenchDialog title="旋转设备，继续复习" className="wb-rotation" close={() => setWorkbench(false)}>
@@ -211,7 +232,7 @@ function UserWorkspace({ user, favorites, switchUser, updateFavorites, workbench
         value={query}
         onChange={(event) => { agentRequest.current?.abort(); setQuery(event.target.value); setAgentState('idle') }}
         aria-label="搜索题库"
-        placeholder="搜索知识点、项目难点或面试官的问法…"
+        placeholder="搜索知识点、项目难点或面试官的问法，中文或拼音都可以…"
         autoFocus
       />
       {query && <button aria-label="清空搜索" className="clear-search" onClick={() => { agentRequest.current?.abort(); setQuery(''); setAgentState('idle') }}>×</button>}
@@ -233,11 +254,17 @@ function UserWorkspace({ user, favorites, switchUser, updateFavorites, workbench
       {!!questions.length && !query && !results.length && <p className="import-message">当前分类暂无题目。</p>}
       {results.map(({ question, score }) => (
         <button
-          key={question.id}
+          key={`${user.id}:${question.id}`}
           className={`question-row ${selected?.id === question.id ? 'selected' : ''}`}
           onClick={() => { agentRequest.current?.abort(); setSelectedId(question.id); setAgentState('idle') }}
         >
-          <span className="question-copy"><strong>{question.title}</strong><small>{question.categoryLabel} · {question.keywords.slice(0, 3).join(' · ')}</small></span>
+          <span className="question-copy">
+            <strong>{highlightText(question.title, query)}</strong>
+            <small>
+              {highlightText(question.categoryLabel, query)}
+              {[...new Set([...question.projects, ...question.keywords])].slice(0, 3).map((item) => <span key={item}> · {highlightText(item, query)}</span>)}
+            </small>
+          </span>
           {query && <span className="match-score">{Math.min(99, Math.round(score))}%</span>}
           <span className="row-arrow">›</span>
         </button>
@@ -298,7 +325,7 @@ function UserWorkspace({ user, favorites, switchUser, updateFavorites, workbench
       </main>
 
       <aside className="answer-panel">
-        {selected ? <AnswerPanel key={selected.id} question={selected} favorite={favorites.includes(selected.id)} toggleFavorite={toggleFavorite} /> : (
+        {selected ? <AnswerPanel key={`${user.id}:${selected.id}`} question={selected} query={query} favorite={favorites.includes(selected.id)} toggleFavorite={toggleFavorite} /> : (
           <div className="empty-answer"><span>⌕</span><p>选择一道题查看口语回答</p></div>
         )}
       </aside>
@@ -306,8 +333,9 @@ function UserWorkspace({ user, favorites, switchUser, updateFavorites, workbench
   )
 }
 
-function AnswerPanel({ question, favorite, toggleFavorite }: {
+function AnswerPanel({ question, query, favorite, toggleFavorite }: {
   question: InterviewQuestion
+  query: string
   favorite: boolean
   toggleFavorite: (id: string) => void
 }) {
@@ -338,7 +366,7 @@ function AnswerPanel({ question, favorite, toggleFavorite }: {
         <div className="answer-meta"><span>{question.categoryLabel}</span><span>{question.difficulty}</span></div>
         <button aria-label={favorite ? '取消收藏' : '收藏题目'} className={favorite ? 'favorite active' : 'favorite'} onClick={() => toggleFavorite(question.id)}>{favorite ? '★' : '☆'}</button>
       </div>
-      <h2>{question.title}</h2>
+      <h2>{highlightText(question.title, query)}</h2>
       {hasExtras && (
         <div className="answer-modes" role="group" aria-label="回答模式">
           <button aria-pressed={mode === 'core'} onClick={() => changeMode('core')}>核心回答</button>

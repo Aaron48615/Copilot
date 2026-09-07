@@ -4,6 +4,7 @@ import { mkdtempSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'n
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { buildQuestionBank, buildRepositoryBanks, getCategories, searchQuestions } from '../src/question-bank.ts'
+import { getTextMatchRanges } from '../src/search-text.ts'
 import { loadProfiles, PROFILE_STORAGE_KEY, LEGACY_STORAGE_KEY } from '../src/profiles.ts'
 import { importLocalBank } from '../scripts/import-local-bank.mjs'
 
@@ -55,6 +56,21 @@ test('repository user search matches an answered follow-up heading', () => {
   assert.equal(results[0].question.id, 'request-failure')
 })
 
+test('快查支持完整拼音并高亮对应中文字符', () => {
+  const titleMatch = document('pinyin-title', '轻购的请求层')
+  titleMatch.name = 'default/pinyin-title.md'
+  const projectMatch = document('pinyin-project', '请求失败处理')
+  projectMatch.name = 'default/pinyin-project.md'
+  projectMatch.raw = projectMatch.raw.replace('category: react', 'category: react\nprojects: [轻购]')
+  const questions = buildQuestionBank([], [titleMatch, projectMatch])
+
+  const results = searchQuestions(questions, 'qinggou')
+  assert.equal(results[0].question.id, 'pinyin-title')
+  assert.ok(results.some(({ question }) => question.id === 'pinyin-project'))
+  assert.deepEqual(getTextMatchRanges('轻购的请求层', 'qinggou'), [[0, 2]])
+  assert.deepEqual(getTextMatchRanges('请求层', '请求 层'), [[0, 3]])
+})
+
 test('快查列表展示全部结果，不按优先级截断或重排', () => {
   const documents = Array.from({ length: 25 }, (_, index) => {
     const item = document(`flat-${index}`, 'React 快查题', 'react')
@@ -99,6 +115,9 @@ test('current user and separate favorites survive reload; unavailable storage do
   }
   assert.equal(loadProfiles({ getItem() { throw new Error('blocked') } }, ids).activeUserId, 'default')
   assert.equal(loadProfiles(storage({ [PROFILE_STORAGE_KEY]: '{"activeUserId":"removed","favorites":{}}' }), ids).activeUserId, 'default')
+  assert.deepEqual(loadProfiles(storage({ [PROFILE_STORAGE_KEY]: JSON.stringify({ activeUserId: 'aaron', favorites: { default: ['same'], aaron: ['same'], stranger: ['secret'] } }) }), ids), {
+    activeUserId: 'aaron', favorites: { default: ['same'], aaron: ['same'] },
+  })
 })
 
 test('invalid Markdown is rejected and Windows line endings are supported', () => {
