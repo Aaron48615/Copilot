@@ -50,7 +50,7 @@ test('rapid edits debounce, pause cancels, and Enter submits manually', async ({
   await expect.poll(() => requests.length).toBe(2)
 })
 
-test('local exact match needs no network and searches outside the current category', async ({ page }) => {
+test('local exact match needs no network and resolves inside the current category', async ({ page }) => {
   let requests = 0
   await page.route('**/api/resolve', async (route) => { requests++; await route.abort() })
   await page.getByRole('textbox', { name: '搜索题库' }).fill('！！！')

@@ -134,7 +134,6 @@ function UserWorkspace({ user, favorites, switchUser, updateFavorites, workbench
   const [activeAnswer, setActiveAnswer] = useState({ questionId: '', key: '' })
   const [query, setQuery] = useState('')
   const [agentQuestion, setAgentQuestion] = useState('')
-  const searchIndex = useMemo(() => answerCandidates(questions), [questions])
   const deferredQuery = useDeferredValue(query)
   const [category, setCategory] = useState(defaultCategory)
   const [selectedId, setSelectedId] = useState(questions[0]?.id ?? '')
@@ -144,14 +143,18 @@ function UserWorkspace({ user, favorites, switchUser, updateFavorites, workbench
   const [agentAnswer, setAgentAnswer] = useState('')
   const searchRef = useRef<HTMLInputElement>(null)
 
+  // 同标题题目在「这次面试」导入批次与旧题库并存，搜索只看当前选中的分类，避免跨库重复命中。
+  const scopedQuestions = useMemo(() => questions.filter((question) => matchesSidebarCategory(question, category)), [questions, category])
+  const searchIndex = useMemo(() => answerCandidates(scopedQuestions), [scopedQuestions])
+
   const results = useMemo(() => {
-    if (!deferredQuery.trim()) return searchQuestions(questions.filter((question) => matchesSidebarCategory(question, category)), '')
+    if (!deferredQuery.trim()) return searchQuestions(scopedQuestions, '')
     const seen = new Set<string>()
     return searchCandidates(searchIndex, deferredQuery).filter(({ question }) => {
       if (seen.has(question.id)) return false
       seen.add(question.id); return true
     })
-  }, [questions, category, deferredQuery, searchIndex])
+  }, [scopedQuestions, deferredQuery, searchIndex])
   const searchPending = query !== deferredQuery
   const selected = questions.find((question) => question.id === selectedId)
   const hasReliableMatch = !deferredQuery.trim() || !!reliableAnswerMatch(searchCandidates(searchIndex, deferredQuery), deferredQuery, confirmedId.current)
@@ -291,7 +294,7 @@ function UserWorkspace({ user, favorites, switchUser, updateFavorites, workbench
     <div className="search-toolbar">
       <button aria-pressed={smart.automatic} onClick={smart.toggle}>{smart.automatic ? '暂停自动查找' : '开启自动查找'}</button>
       <button onClick={() => smart.submit()}>立即查找</button>
-      <span>豆包输入或粘贴 · 停顿后查全部题库 · 无匹配自动生成</span>
+      <span>豆包输入或粘贴 · 停顿后查当前分类 · 无匹配自动生成</span>
     </div>
   </div>)
   const questionResults = (<>
