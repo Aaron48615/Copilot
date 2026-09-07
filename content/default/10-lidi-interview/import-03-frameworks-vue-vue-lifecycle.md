@@ -13,11 +13,28 @@ keywords: [created, mounted, beforeUnmount, setup, activated]
 
 ## 核心回答
 
-按一条线记：创建、挂载、更新、销毁。Vue2 里是 beforeCreate/created、beforeMount/mounted、beforeUpdate/updated、beforeDestroy/destroyed。Vue3 把销毁那对改了名，beforeUnmount 和 unmounted，其他一样。用组合式 API 的话，就写成 onMounted、onBeforeUnmount 这些函数放在 setup 里；beforeCreate 和 created 没有对应钩子，setup 本身就比它们还早执行。
+1. Vue 生命周期可以按创建、挂载、更新和卸载理解。选项式中，created 时响应式状态和方法已经准备，但 DOM 还没挂载；mounted 时可以访问已挂载的自身节点，适合需要真实容器的初始化。单纯获取数据不必为了读取状态等到节点出现。
 
-实际干活高频的就几个：created 时数据能用了但 DOM 还没有，适合发请求、初始化数据；mounted 时 DOM 已经挂上，适合操作 DOM、初始化 ECharts 这种需要容器的库；beforeUnmount 里清定时器、解绑全局事件，不然容易内存泄漏。
+2. 更新前后分别有 beforeUpdate 和 updated，组合式对应 onBeforeUpdate、onUpdated。它们与组件视图更新有关，不适合无条件修改导致自身更新的状态，否则容易反复执行；只关心一个字段变化时，watch 通常比在每次 updated 中检查所有数据更明确。
 
-keep-alive 缓存的组件不销毁，激活和离开走的是 activated 和 deactivated，它的销毁钩子不会执行，清理逻辑要放对地方。
+3. Vue 3 卸载前后使用 beforeUnmount、unmounted，组合式有相应 on 开头的钩子；Vue 2 常见 beforeDestroy、destroyed。监听、定时器和第三方实例需要按责任释放，框架停止组件自己的响应式执行，不代表外部资源会自动停止。
 
-父子组件的顺序也有讲究：挂载时先父 created，再子 created、子 mounted，最后父 mounted，所以请求写在父组件的话，子组件 mounted 时大概率 props 已经有数据了。销毁反过来，先子后父。
+4. setup 在组合式逻辑中承担建立状态与注册生命周期的位置，不需要把 beforeCreate、created 机械翻译成两个 Hook。生命周期注册通常应在 setup 中同步完成，服务端不执行 mounted 这类客户端钩子，也不能在服务端直接使用窗口或 DOM。
 
+5. KeepAlive 还涉及激活和停用，切走不一定卸载；异步组件与 Suspense 也使“父级 mounted 等于所有后代都完成”不成立。我会按实际所需条件选择钩子，例如初始化图表看容器是否可用，返回缓存页看激活后尺寸，而不是只凭钩子名字猜所有外部工作都已结束。
+
+## 追问：created 和 mounted 都能请求数据，怎么选？
+
+1. 如果请求只依赖 props 或已有状态，不需要读取 DOM，就可以在合适的创建或 setup 流程启动，不必等待挂载。更早开始有时能减少等待，但具体 SSR 数据获取要使用框架支持的方式，不能直接把客户端请求逻辑照搬到服务端。
+
+2. 如果参数依赖真实容器尺寸，例如根据展示区域决定某些可视数据，才需要挂载后测量，或在尺寸可用时再请求。这里等待原因是节点条件，而不是笼统认为 mounted 比 created 更适合所有异步操作。
+
+3. 我会同时考虑依赖后续是否改变，详情编号切换时只在 mounted 请求一次可能不够。把请求与相关字段监听对应，并处理失败、取消和旧结果，才能让生命周期选择覆盖完整交互，而不只是初次打开成功。
+
+## 追问：父组件 mounted 后，为什么某个子组件还没准备好？
+
+1. 父级挂载能说明它自己的挂载条件已经满足，但异步组件代码、异步 setup 或子组件内部请求可能还在等待。不能把钩子当成所有后代和外部任务的全局完成信号，尤其包含懒加载和 Suspense 的页面。
+
+2. 如果父级需要调用子组件能力，可以由子级通过明确的就绪事件或公开接口表达可用状态。需要等待的是该能力真正完成初始化，而不是固定再等一轮 nextTick；后者不会自动完成代码下载或编辑器异步启动。
+
+3. 测试应让子组件初始化故意变慢，并在期间关闭或切换页面，确认父级不会操作空引用或过期实例。这样接口表达的是实际准备条件，未来替换子组件内部实现时也不必让父级猜测需要等待多久。
