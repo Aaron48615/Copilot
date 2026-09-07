@@ -7,6 +7,7 @@ difficulty: 基础
 priority: normal
 projects: [云枢智慧城市数据平台]
 keywords: [项目概览, 登录鉴权, 首页数据, 验证方法, RBAC, 自动化测试]
+followupIds: [yunshu-smart-city-followup-012-rbac-menu-access, yunshu-smart-city-followup-020-chart-config-echarts, yunshu-smart-city-followup-024-csv-export]
 ---
 
 # 普通业务流程

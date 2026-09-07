@@ -7,6 +7,7 @@ difficulty: 深入
 priority: normal
 projects: [云枢智慧城市数据平台]
 keywords: [AI Key, localStorage, 列表 Key, 登录鉴权, sessionStorage, AES]
+followupIds: [yunshu-smart-city-followup-001-ai-key-localstorage-sessionstorage, yunshu-smart-city-followup-002-ai-key-aes, yunshu-smart-city-followup-006-ai-key-password-https]
 ---
 
 # AI 的 Key 为什么存在 localStorage，为什么不放别处？

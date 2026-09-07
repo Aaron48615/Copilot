@@ -7,6 +7,7 @@ difficulty: 深入
 priority: high
 projects: [拾光集移动商城系统]
 keywords: [登录鉴权, 页面导航, localStorage, Token, AES, HTTPS]
+followupIds: [shiguangji-shop-followup-006-route-auth-token-logout, shiguangji-shop-followup-007-password, shiguangji-shop-followup-002-ai-key-localstorage-cookie]
 ---
 
 # 注册登录和路由鉴权

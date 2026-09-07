@@ -7,6 +7,7 @@ difficulty: 进阶
 priority: normal
 projects: [拾光集移动商城系统]
 keywords: [商品详情, SKU, 影视详情, 服务端计价, XSS, 加载状态]
+followupIds: [shiguangji-shop-followup-019-sku, shiguangji-shop-followup-008-product-detail-xss]
 ---
 
 # 商品详情和 SKU

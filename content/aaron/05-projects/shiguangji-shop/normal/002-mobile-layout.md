@@ -7,6 +7,7 @@ difficulty: 基础
 priority: normal
 projects: [拾光集移动商城系统]
 keywords: [移动端适配, 页面导航, PostCSS]
+followupIds: [shiguangji-shop-followup-020-responsive-units]
 ---
 
 # 移动端适配

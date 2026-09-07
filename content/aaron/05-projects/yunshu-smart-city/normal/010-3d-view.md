@@ -7,6 +7,7 @@ difficulty: 深入
 priority: normal
 projects: [云枢智慧城市数据平台]
 keywords: [Three.js, 组件设计, 性能优化, React, 高德地图]
+followupIds: [yunshu-smart-city-followup-022-map-useref-usestate, yunshu-smart-city-followup-023-lazy-loading]
 ---
 
 # 3D 城市人口视图

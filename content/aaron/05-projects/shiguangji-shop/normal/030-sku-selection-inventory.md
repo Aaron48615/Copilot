@@ -7,6 +7,7 @@ difficulty: 进阶
 priority: normal
 projects: [拾光集移动商城系统]
 keywords: [SKU, 验证方法, 服务端计价]
+followupIds: [shiguangji-shop-followup-019-sku]
 ---
 
 # SKU 选择还没有完整处理无效组合和库存

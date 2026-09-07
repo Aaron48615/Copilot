@@ -7,6 +7,7 @@ difficulty: 深入
 priority: high
 projects: [云枢智慧城市数据平台]
 keywords: [Token, 请求乱序, 首页数据, Redux, 自动化测试]
+followupIds: [yunshu-smart-city-followup-007-settimeout-setinterval, yunshu-smart-city-followup-008-token, yunshu-smart-city-followup-009-401-retry, yunshu-smart-city-followup-010-refresh-retry-axios, yunshu-smart-city-followup-011-ai-key-logout]
 ---
 
 # 亮点 1：Token 刷新的并发收敛和迟到响应保护

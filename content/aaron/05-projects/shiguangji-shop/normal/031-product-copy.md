@@ -7,6 +7,7 @@ difficulty: 基础
 priority: normal
 projects: [拾光集移动商城系统]
 keywords: [订单流程, 请求封装, 验证方法]
+followupIds: [shiguangji-shop-followup-011-ai-fallback, shiguangji-shop-followup-024-typescript-validation]
 ---
 
 # AI 文案和订单结果还需要更严格的业务校验

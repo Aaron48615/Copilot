@@ -7,6 +7,7 @@ difficulty: 深入
 priority: high
 projects: [映刻影视]
 keywords: [AI Key, Token, AES, 登录鉴权, 密码哈希, HTTPS]
+followupIds: [yingke-movies-followup-038-ai-key, yingke-movies-followup-037-appid, yingke-movies-followup-040-xss]
 ---
 
 # Token、密码和第三方密钥应该怎么处理？为什么不用 AES？

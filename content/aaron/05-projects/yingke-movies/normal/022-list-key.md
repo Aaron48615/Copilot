@@ -7,6 +7,7 @@ difficulty: 进阶
 priority: normal
 projects: [映刻影视]
 keywords: [列表 Key, 分页, uni-app]
+followupIds: [yingke-movies-followup-019-list-key]
 ---
 
 # 为什么列表的 `key` 不应该使用 index？

@@ -7,6 +7,7 @@ difficulty: 基础
 priority: normal
 projects: [云枢智慧城市数据平台]
 keywords: [验证方法, CSV 导出, 高德地图, Three.js, 错误分层]
+followupIds: [yunshu-smart-city-followup-024-csv-export, yunshu-smart-city-followup-025-typescript-validation, yunshu-smart-city-followup-017-homepage-promise-allsettled-promise-all]
 ---
 
 # 接口业务结果、文件导出和异常状态

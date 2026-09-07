@@ -7,6 +7,7 @@ difficulty: 基础
 priority: normal
 projects: [拾光集移动商城系统]
 keywords: [购物车, 订单流程, sessionStorage, 请求乱序, 服务端计价, Vant Weapp]
+followupIds: [shiguangji-shop-followup-016-cart-computed-watch, shiguangji-shop-followup-017-stale-response-pricing, shiguangji-shop-followup-018-before-change]
 ---
 
 # 购物车

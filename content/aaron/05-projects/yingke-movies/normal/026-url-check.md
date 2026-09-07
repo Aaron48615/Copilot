@@ -7,6 +7,7 @@ difficulty: 基础
 priority: normal
 projects: [映刻影视]
 keywords: [域名校验, 地址管理, HTTPS]
+followupIds: [yingke-movies-followup-036-url-check]
 ---
 
 # `urlCheck: false` 是否意味着上线后能请求任意域名？

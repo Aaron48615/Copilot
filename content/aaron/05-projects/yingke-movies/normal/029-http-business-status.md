@@ -7,6 +7,7 @@ difficulty: 深入
 priority: normal
 projects: [映刻影视]
 keywords: [uni.request, 请求适配器, 错误分层]
+followupIds: [yingke-movies-followup-005-http-business-status, yingke-movies-followup-042-request-layer]
 ---
 
 # 请求成功与业务成功没有分层判断

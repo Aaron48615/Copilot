@@ -7,6 +7,7 @@ difficulty: 深入
 priority: high
 projects: [映刻影视]
 keywords: [Promise.allSettled, Promise.all, uni-app]
+followupIds: [yingke-movies-followup-009-promise-allsettled-promise-all, yingke-movies-followup-010-partial-failure]
 ---
 
 # 为什么使用 `Promise.allSettled`，不用 `Promise.all`？

@@ -7,6 +7,7 @@ difficulty: 深入
 priority: high
 projects: [拾光集移动商城系统]
 keywords: [购物车, 服务端计价, 订单流程, 请求乱序, 加载状态]
+followupIds: [shiguangji-shop-followup-017-stale-response-pricing, shiguangji-shop-followup-018-before-change]
 ---
 
 # 购物车计价失败后，结算按钮状态不够完整

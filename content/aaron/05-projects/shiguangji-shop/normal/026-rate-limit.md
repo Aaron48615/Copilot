@@ -7,6 +7,7 @@ difficulty: 进阶
 priority: normal
 projects: [拾光集移动商城系统]
 keywords: [限流, 登录鉴权, Vue 3]
+followupIds: [shiguangji-shop-followup-010-debounce-rate-limit, shiguangji-shop-followup-009-ai-key]
 ---
 
 # AI 限流还不是全站配额

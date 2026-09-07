@@ -7,6 +7,7 @@ difficulty: 深入
 priority: high
 projects: [映刻影视]
 keywords: [Axios, 请求适配器, uni-app]
+followupIds: [yingke-movies-followup-002-axios-adapter-axios, yingke-movies-followup-003-axios-adapter, yingke-movies-followup-007-axios-adapter-axios-promisify-adaptor]
 ---
 
 # 已经安装了 `axios-miniprogram`，为什么还自己写 adapter？

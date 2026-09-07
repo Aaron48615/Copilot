@@ -7,6 +7,7 @@ difficulty: 深入
 priority: normal
 projects: [映刻影视]
 keywords: [组件设计, Promise.allSettled, Promise.all, 自动化测试]
+followupIds: [yingke-movies-followup-011-settled-result, yingke-movies-followup-020-props]
 ---
 
 # 为什么组件要读取 `main.value`？这样设计好吗？

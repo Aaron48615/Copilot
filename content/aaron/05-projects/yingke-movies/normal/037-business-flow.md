@@ -7,6 +7,7 @@ difficulty: 基础
 priority: normal
 projects: [映刻影视]
 keywords: [项目概览, 首页数据, 文本展开, 验证方法, 自动化测试]
+followupIds: [yingke-movies-followup-025-delayed-navigation, yingke-movies-followup-027-route-params, yingke-movies-followup-030-want-to-watch]
 ---
 
 # 普通业务流程

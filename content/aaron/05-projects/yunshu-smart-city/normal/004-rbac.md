@@ -7,6 +7,7 @@ difficulty: 深入
 priority: high
 projects: [云枢智慧城市数据平台]
 keywords: [RBAC, 登录鉴权, 首页数据, 地址管理, 页面导航, 高德地图]
+followupIds: [yunshu-smart-city-followup-012-rbac-menu-access]
 ---
 
 # 基于角色的页面权限控制

@@ -7,6 +7,7 @@ difficulty: 基础
 priority: normal
 projects: [云枢智慧城市数据平台]
 keywords: [首页数据, 组件设计, Token, 请求取消, 高德地图, Three.js]
+followupIds: [yunshu-smart-city-followup-015-request-cancellation-ai-streaming, yunshu-smart-city-followup-018-websocket-polling, yunshu-smart-city-followup-009-401-retry]
 ---
 
 # 部分异步请求缺少取消和最新请求保护

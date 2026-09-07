@@ -7,6 +7,7 @@ difficulty: 深入
 priority: high
 projects: [映刻影视]
 keywords: [分页, 影视详情, 验证方法, onShow, 加载状态, 自动化测试]
+followupIds: [yingke-movies-followup-013-onshow-onload, yingke-movies-followup-014-pagination, yingke-movies-followup-017-start-total, yingke-movies-followup-018-movie-detail-scroll-restoration, yingke-movies-followup-043-pagination]
 ---
 
 # 分页状态会受到页面重入和连续触底影响

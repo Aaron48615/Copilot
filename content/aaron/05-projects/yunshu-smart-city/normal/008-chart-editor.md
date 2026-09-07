@@ -7,6 +7,7 @@ difficulty: 进阶
 priority: normal
 projects: [云枢智慧城市数据平台]
 keywords: [数据可视化, ECharts, React]
+followupIds: [yunshu-smart-city-followup-019-data-aggregation-top-categories, yunshu-smart-city-followup-020-chart-config-echarts, yunshu-smart-city-followup-022-map-useref-usestate]
 ---
 
 # 图表创建和编辑

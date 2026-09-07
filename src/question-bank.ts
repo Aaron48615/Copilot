@@ -1,5 +1,5 @@
 import type { InterviewQuestion, SearchResult } from './types'
-import { parseAnswerSections } from './answers.ts'
+import { getAnswerContent, parseAnswerSections } from './answers.ts'
 
 export interface RepositoryUser {
   id: string
@@ -59,6 +59,20 @@ export function buildQuestionBank(base: InterviewQuestion[], documents: { name: 
     if (bank.has(question.id)) throw new Error(`${document.name}：题目 ID「${question.id}」已存在`)
     bank.set(question.id, question)
   }
+  for (const question of bank.values()) {
+    const seen = new Set<string>()
+    for (const id of question.followupIds) {
+      const target = bank.get(id)
+      let reason = ''
+      if (id === question.id) reason = '不得引用自身'
+      else if (seen.has(id)) reason = '重复关联'
+      else if (!target) reason = '目标不存在于同一用户题库'
+      else if (!target.title.startsWith('追问：')) reason = '目标必须是追问题'
+      else if (!getAnswerContent(target).core.trim()) reason = '目标缺少核心回答'
+      if (reason) throw new Error(`${question.sourcePath}（${question.id}）：followupIds「${id}」${reason}`)
+      seen.add(id)
+    }
+  }
   return [...bank.values()]
 }
 
@@ -117,6 +131,7 @@ export function parseMarkdown(sourcePath: string, raw: string): InterviewQuestio
     id: meta.id,
     title: meta.title,
     aliases: parseList(meta.aliases),
+    followupIds: parseList(meta.followupIds),
     category,
     categoryLabel: categoryLabels[category] || category,
     difficulty: meta.difficulty || '基础',

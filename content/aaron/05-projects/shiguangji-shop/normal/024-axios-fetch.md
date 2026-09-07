@@ -7,6 +7,7 @@ difficulty: 进阶
 priority: normal
 projects: [拾光集移动商城系统]
 keywords: [Axios, Fetch, 地址管理, Token, 请求取消]
+followupIds: [shiguangji-shop-followup-014-axios-fetch]
 ---
 
 # 为什么商城请求用 Axios，AI 请求用 fetch？

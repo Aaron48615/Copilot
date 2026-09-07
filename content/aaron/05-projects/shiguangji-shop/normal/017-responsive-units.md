@@ -7,6 +7,7 @@ difficulty: 基础
 priority: high
 projects: [拾光集移动商城系统]
 keywords: [移动端适配, 组件设计, 验证方法, PostCSS, Vant Weapp]
+followupIds: [shiguangji-shop-followup-020-responsive-units]
 ---
 
 # 难点二：桌面上保持手机宽度时，不能让 rem 被换算两次

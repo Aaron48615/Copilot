@@ -7,6 +7,7 @@ difficulty: 基础
 priority: normal
 projects: [拾光集移动商城系统]
 keywords: [sessionStorage, 订单流程, 页面导航]
+followupIds: [shiguangji-shop-followup-023-order-confirmation-localstorage-sessionstorage]
 ---
 
 # 为什么结算参数使用 sessionStorage，不用 Pinia？

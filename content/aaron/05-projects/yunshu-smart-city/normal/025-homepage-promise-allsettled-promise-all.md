@@ -7,6 +7,7 @@ difficulty: 进阶
 priority: high
 projects: [云枢智慧城市数据平台]
 keywords: [首页数据, Promise.allSettled, Promise.all, 高德地图]
+followupIds: [yunshu-smart-city-followup-017-homepage-promise-allsettled-promise-all, yunshu-smart-city-followup-021-map-city-limit]
 ---
 
 # 为什么地图用 Promise.allSettled，首页却用 Promise.all？

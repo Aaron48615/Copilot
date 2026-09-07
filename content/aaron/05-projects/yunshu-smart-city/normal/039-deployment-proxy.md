@@ -7,6 +7,7 @@ difficulty: 深入
 priority: normal
 projects: [云枢智慧城市数据平台]
 keywords: [验证方法, 同源代理, HTTPS, 限流, 列表 Key, 高德地图]
+followupIds: [yunshu-smart-city-followup-006-ai-key-password-https, yunshu-smart-city-followup-023-lazy-loading, yunshu-smart-city-followup-026-testing-build]
 ---
 
 # 部署代理和第三方资源仍需要环境级验证

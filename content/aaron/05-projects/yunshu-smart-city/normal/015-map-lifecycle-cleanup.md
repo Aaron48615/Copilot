@@ -7,6 +7,7 @@ difficulty: 深入
 priority: high
 projects: [云枢智慧城市数据平台]
 keywords: [高德地图, Promise.allSettled, Promise.all, React]
+followupIds: [yunshu-smart-city-followup-021-map-city-limit, yunshu-smart-city-followup-022-map-useref-usestate, yunshu-smart-city-followup-017-homepage-promise-allsettled-promise-all]
 ---
 
 # 亮点 3：地图数据部分失败和命令式资源生命周期管理

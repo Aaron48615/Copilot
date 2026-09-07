@@ -7,6 +7,7 @@ difficulty: 深入
 priority: normal
 projects: [映刻影视]
 keywords: [首页数据, 组件设计, Promise.allSettled, Promise.all, onLoad]
+followupIds: [yingke-movies-followup-009-promise-allsettled-promise-all, yingke-movies-followup-012-homepage-api-function-design, yingke-movies-followup-010-partial-failure, yingke-movies-followup-011-settled-result, yingke-movies-followup-044-homepage]
 ---
 
 # 首页分类聚合

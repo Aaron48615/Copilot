@@ -7,6 +7,7 @@ difficulty: 基础
 priority: normal
 projects: [拾光集移动商城系统]
 keywords: [登录鉴权, 请求封装, 验证方法, localStorage, HttpOnly Cookie, Token]
+followupIds: [shiguangji-shop-followup-007-password, shiguangji-shop-followup-006-route-auth-token-logout]
 ---
 
 # 登录校验规则和登录态处理还需要统一

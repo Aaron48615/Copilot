@@ -7,6 +7,7 @@ difficulty: 进阶
 priority: normal
 projects: [映刻影视]
 keywords: [文本展开, 验证方法, AI Key, 限流, 列表 Key]
+followupIds: [yingke-movies-followup-038-ai-key]
 ---
 
 # AI 降级

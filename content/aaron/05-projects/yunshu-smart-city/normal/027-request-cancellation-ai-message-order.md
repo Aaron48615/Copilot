@@ -7,6 +7,7 @@ difficulty: 基础
 priority: normal
 projects: [云枢智慧城市数据平台]
 keywords: [请求取消, React, 智慧城市]
+followupIds: [yunshu-smart-city-followup-015-request-cancellation-ai-streaming]
 ---
 
 # 快速连续发送 AI 问题会不会乱序？

@@ -7,6 +7,7 @@ difficulty: 基础
 priority: normal
 projects: [映刻影视]
 keywords: [文本展开, 影视详情, 组件设计, Props]
+followupIds: [yingke-movies-followup-022-description-toggle, yingke-movies-followup-026-description-toggle, yingke-movies-followup-023-description-toggle, yingke-movies-followup-024-description-toggle-event-propagation]
 ---
 
 # 简介展开和收起

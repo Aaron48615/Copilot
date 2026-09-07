@@ -7,6 +7,7 @@ difficulty: 深入
 priority: normal
 projects: [拾光集移动商城系统]
 keywords: [同源代理, 地址管理, HttpOnly Cookie, Token, HTTPS, XSS]
+followupIds: [shiguangji-shop-followup-022-deployment-proxy-image-proxy]
 ---
 
 # 部署代理和旧图片处理

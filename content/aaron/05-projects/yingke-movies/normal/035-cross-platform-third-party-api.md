@@ -7,6 +7,7 @@ difficulty: 深入
 priority: normal
 projects: [映刻影视]
 keywords: [验证方法, 跨端兼容, 第三方 API, 移动端适配, 同源代理, 限流]
+followupIds: [yingke-movies-followup-031-cross-platform, yingke-movies-followup-036-url-check, yingke-movies-followup-039-third-party-api]
 ---
 
 # 跨端能力没有实际验证，第三方接口也缺少稳定性保障

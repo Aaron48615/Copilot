@@ -7,6 +7,7 @@ difficulty: 深入
 priority: high
 projects: [云枢智慧城市数据平台]
 keywords: [React, 高德地图, 组件设计, useRef]
+followupIds: [yunshu-smart-city-followup-022-map-useref-usestate, yunshu-smart-city-followup-021-map-city-limit]
 ---
 
 # 难点 2：把高德地图的命令式对象放进 React 生命周期

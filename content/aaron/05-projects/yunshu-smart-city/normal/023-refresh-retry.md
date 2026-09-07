@@ -7,6 +7,7 @@ difficulty: 基础
 priority: normal
 projects: [云枢智慧城市数据平台]
 keywords: [Token, React, 智慧城市]
+followupIds: [yunshu-smart-city-followup-010-refresh-retry-axios, yunshu-smart-city-followup-009-401-retry]
 ---
 
 # 为什么刷新请求只允许重试一次？

@@ -7,6 +7,7 @@ difficulty: 进阶
 priority: normal
 projects: [映刻影视]
 keywords: [组件设计, Vant Weapp, 首页数据, 页面导航, 服务端计价, 骨架屏]
+followupIds: [yingke-movies-followup-032-vant-weapp, yingke-movies-followup-033-vant-weapp]
 ---
 
 # Vant Weapp 组件接入

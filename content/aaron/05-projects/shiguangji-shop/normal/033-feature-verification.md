@@ -7,6 +7,7 @@ difficulty: 深入
 priority: normal
 projects: [拾光集移动商城系统]
 keywords: [验证方法, 移动端适配, 首页数据, 地址管理, 商品搜索, 同源代理]
+followupIds: [shiguangji-shop-followup-024-typescript-validation, shiguangji-shop-followup-013-debounce-request-cancellation, shiguangji-shop-followup-017-stale-response-pricing]
 ---
 
 # 怎么验证这些功能

@@ -7,6 +7,7 @@ difficulty: 进阶
 priority: high
 projects: [拾光集移动商城系统]
 keywords: [AI Key, localStorage, 列表 Key, 登录鉴权, 地址管理, 限流]
+followupIds: [shiguangji-shop-followup-001-ai-key-localstorage-sessionstorage, shiguangji-shop-followup-009-ai-key]
 ---
 
 # 为什么 AI Key 原来放 localStorage，后来又放到服务端？

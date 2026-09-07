@@ -7,6 +7,7 @@ difficulty: 基础
 priority: normal
 projects: [映刻影视]
 keywords: [onShow, onLoad, uni-app]
+followupIds: [yingke-movies-followup-013-onshow-onload, yingke-movies-followup-018-movie-detail-scroll-restoration]
 ---
 
 # 为什么不用 `onLoad` 请求列表，而是在 `onShow` 请求？

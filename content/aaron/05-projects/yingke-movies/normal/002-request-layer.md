@@ -7,6 +7,7 @@ difficulty: 深入
 priority: normal
 projects: [映刻影视]
 keywords: [请求封装, 首页数据, 影视详情, 地址管理, Token, Axios]
+followupIds: [yingke-movies-followup-001-axios-uni-request, yingke-movies-followup-002-axios-adapter-axios, yingke-movies-followup-003-axios-adapter, yingke-movies-followup-004-interceptors, yingke-movies-followup-005-http-business-status, yingke-movies-followup-006-request-config, yingke-movies-followup-007-axios-adapter-axios-promisify-adaptor, yingke-movies-followup-008-page-unload, yingke-movies-followup-042-request-layer]
 ---
 
 # 请求层封装

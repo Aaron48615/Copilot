@@ -7,6 +7,7 @@ difficulty: 深入
 priority: high
 projects: [云枢智慧城市数据平台]
 keywords: [SSE, 流式解析, 验证方法]
+followupIds: [yunshu-smart-city-followup-013-sse-websocket-eventsource, yunshu-smart-city-followup-014-sse-stream-decoding, yunshu-smart-city-followup-015-request-cancellation-ai-streaming]
 ---
 
 # 难点 1：SSE 数据块不等于一条完整消息

@@ -7,6 +7,7 @@ difficulty: 基础
 priority: normal
 projects: [云枢智慧城市数据平台]
 keywords: [登录鉴权, 验证方法, 列表 Key, 自动化测试]
+followupIds: [yunshu-smart-city-followup-013-sse-websocket-eventsource, yunshu-smart-city-followup-014-sse-stream-decoding, yunshu-smart-city-followup-015-request-cancellation-ai-streaming, yunshu-smart-city-followup-016-ai-data-access-ai-streaming]
 ---
 
 # AI 流式回答和降级

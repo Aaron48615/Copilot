@@ -7,6 +7,7 @@ difficulty: 深入
 priority: high
 projects: [拾光集移动商城系统]
 keywords: [登录鉴权, localStorage, Token, HttpOnly Cookie, Axios, XSS]
+followupIds: [shiguangji-shop-followup-002-ai-key-localstorage-cookie, shiguangji-shop-followup-006-route-auth-token-logout]
 ---
 
 # 为什么登录 Token 还放在 localStorage？

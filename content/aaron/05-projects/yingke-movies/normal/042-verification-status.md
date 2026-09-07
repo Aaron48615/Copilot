@@ -7,6 +7,7 @@ difficulty: 基础
 priority: normal
 projects: [映刻影视]
 keywords: [验证方法, 自动化测试, uni-app]
+followupIds: [yingke-movies-followup-041-testing, yingke-movies-followup-042-request-layer, yingke-movies-followup-043-pagination, yingke-movies-followup-044-homepage, yingke-movies-followup-045-logging]
 ---
 
 # 本次核对结论

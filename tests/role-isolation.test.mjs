@@ -15,11 +15,16 @@ const documents = readdirSync(root, { recursive: true }).filter((name) => name.e
 const banks = buildRepositoryBanks(users, documents)
 const doc = (name, body, projects = '[]') => ({ name, raw: `---\nid: probe\ntitle: 隔离测试\nprojects: ${projects}\n---\n\n## 核心回答\n\n${body}\n` })
 
-test('protected original profile, project knowledge and Aaron projects remain byte-identical', () => {
+test('protected content remains byte-identical except explicit Aaron followupIds metadata', () => {
   // Baseline: original main content and PR 9321de0 Aaron projects. Do not refresh to accept unintended edits.
   const protectedFiles = JSON.parse(readFileSync(new URL('./fixtures/protected-content.json', import.meta.url), 'utf8'))
   for (const [name, hash] of Object.entries(protectedFiles)) {
-    assert.equal(createHash('sha256').update(readFileSync(new URL(name, root))).digest('hex'), hash, name)
+    let raw = readFileSync(new URL(name, root), 'utf8')
+    if (/^aaron\/05-projects\/[^/]+\/normal\//.test(name)) {
+      // This migration may add one association field; all previous bytes stay protected.
+      raw = raw.replace(/^(---\n[\s\S]*?)^followupIds: \[[^\n]*\]\n(?=---\n)/m, '$1')
+    }
+    assert.equal(createHash('sha256').update(raw).digest('hex'), hash, name)
   }
 })
 
