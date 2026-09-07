@@ -1,10 +1,15 @@
-export async function readAnswer(response: Response, onText: (text: string) => void) {
+export interface CodeSource { id: string; project: string; path: string; start: number; end: number; text: string; revision: string }
+export interface ProjectStatus { id: string; name: string; files: number; skipped?: number; error?: string }
+export interface LibraryMatch { questionId: string; followupIndex?: number }
+export interface AnswerMetadata { sources: CodeSource[]; projects: ProjectStatus[] }
+export async function readAnswer(response: Response, onText: (text: string) => void, onMetadata?: (data: AnswerMetadata) => void, onMatch?: (match: LibraryMatch) => void) {
   if (!response.ok) {
     const data = await response.json().catch(() => ({}))
     throw new Error(data.error?.message || data.error || `回答服务请求失败（${response.status}）`)
   }
   if (!response.headers.get('content-type')?.includes('text/event-stream')) {
     const data = await response.json()
+    if (data.kind === 'library' && onMatch) { onMatch(data.match); return }
     if (!data.answer?.trim()) throw new Error('回答服务没有返回有效内容。')
     onText(data.answer)
     return
@@ -19,6 +24,7 @@ export async function readAnswer(response: Response, onText: (text: string) => v
     if (data === '[DONE]') { finished = true; return }
     const chunk = JSON.parse(data)
     if (chunk.error) throw new Error(chunk.error.message || '回答生成中断，请重试。')
+    if (Array.isArray(chunk.sources)) onMetadata?.({ sources: chunk.sources, projects: chunk.projects || [] })
     const text = chunk.choices?.[0]?.delta?.content
     if (typeof text === 'string') { answer += text; onText(answer) }
   }

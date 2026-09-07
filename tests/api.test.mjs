@@ -3,7 +3,6 @@ import assert from 'node:assert/strict'
 import { once } from 'node:events'
 import { createApiServer } from '../server/api.mjs'
 import { buildRepositoryBanks } from '../src/question-bank.ts'
-import { encodeWav } from '../src/voice-audio.ts'
 import { readAnswer } from '../src/answer-stream.ts'
 
 const banks = buildRepositoryBanks([{ id: 'one', name: '甲' }, { id: 'two', name: '乙' }], [
@@ -17,22 +16,6 @@ async function serve(t, options = {}) {
   return `http://127.0.0.1:${server.address().port}`
 }
 const post = (url, data) => fetch(`${url}/api/answer`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
-
-test('transcription forwards actual WAV as base64 with the requested ASR model, keeping key server-side', async (t) => {
-  const wav = encodeWav([new Float32Array(16000).fill(0.1)], 16000)
-  const url = await serve(t, { fetchImpl: async (url, options) => {
-    assert.equal(url, 'https://openrouter.ai/api/v1/audio/transcriptions')
-    assert.equal(options.headers.Authorization, 'Bearer test-key')
-    const input = JSON.parse(options.body)
-    assert.equal(input.model, 'qwen/qwen3-asr-flash-2026-02-10')
-    assert.equal(input.input_audio.format, 'wav')
-    assert.deepEqual(Buffer.from(input.input_audio.data, 'base64'), Buffer.from(wav))
-    return Response.json({ text: '什么是闭包？', usage: { cost: 1 } })
-  } })
-  const response = await fetch(`${url}/api/transcribe`, { method: 'POST', headers: { 'Content-Type': 'audio/wav' }, body: wav })
-  assert.deepEqual(await response.json(), { text: '什么是闭包？' })
-  assert.deepEqual(await (await fetch(`${url}/api/health`)).json(), { configured: true })
-})
 
 test('fallback streams content and only uses the selected user’s server-owned references', async (t) => {
   const url = await serve(t, { fetchImpl: async (_url, options) => {
@@ -63,7 +46,7 @@ test('missing key, unknown users, invalid input, cross-origin and upstream error
   const denied = await fetch(`${url}/api/transcribe`, { method: 'POST', headers: { Origin: 'https://other.example', 'Content-Type': 'audio/wav' }, body: 'bad' })
   assert.equal(denied.status, 403)
   const badWav = await fetch(`${url}/api/transcribe`, { method: 'POST', headers: { 'Content-Type': 'audio/wav' }, body: 'bad' })
-  assert.equal(badWav.status, 400)
+  assert.equal(badWav.status, 404)
   const failed = await post(url, { question: '问题', userId: 'one' })
   assert.equal(failed.status, 401)
   const text = await failed.text()
@@ -84,4 +67,58 @@ test('disconnecting a browser aborts the upstream generation request', async (t)
   const aborted = once(signal, 'abort')
   controller.abort(); await aborted; await response
   assert.equal(signal.aborted, true)
+})
+
+test('resolve returns an exact library answer without a provider key', async (t) => {
+  const url = await serve(t, { apiKey: '', fetchImpl: () => { throw new Error('must not call provider') } })
+  const response = await fetch(`${url}/api/resolve`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ userId: 'one', question: '缓存策略' }) })
+  assert.equal(response.status, 200)
+  assert.equal((await response.json()).match.questionId, 'a')
+})
+
+test('semantic selection validates IDs and returns stored content', async (t) => {
+  const url = await serve(t, { fetchImpl: async (_url, options) => {
+    const payload = JSON.parse(options.body)
+    assert.equal(payload.stream, false)
+    const input = JSON.parse(payload.messages[1].content)
+    assert.ok(!options.body.includes('乙的独立方案'))
+    return Response.json({ choices: [{ message: { content: JSON.stringify({ matchCandidateId: input.candidates[0].candidateId, isFollowup: false, projectIds: [], searchQueries: [] }) } }] })
+  } })
+  const response = await fetch(`${url}/api/resolve`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ userId: 'one', question: '请求结果要怎么缓存起来', contextQuestionId: 'b' }) })
+  const data = await response.json()
+  assert.equal(data.kind, 'library')
+  assert.equal(data.match.answer, '甲的缓存方案')
+})
+
+test('semantic miss uses rewritten source queries, emits evidence and discards unrelated old context', async (t) => {
+  let calls = 0
+  const source = { id: 'S1', project: '项目甲', projectId: 'p', path: 'src/cart.ts', start: 1, end: 2, revision: 'r', text: 'const quantity = 1' }
+  const url = await serve(t, {
+    projectIndex: { refresh: async () => {}, status: (user) => user === 'one' ? [{ id: 'p', name: '项目甲', files: 1 }] : [], search: (user, queries, ids) => {
+      assert.equal(user, 'one'); assert.ok(queries.includes('cart quantity')); assert.deepEqual(ids, ['p']); return [source]
+    } },
+    fetchImpl: async (_url, options) => {
+      calls++
+      const payload = JSON.parse(options.body)
+      if (!payload.stream) return Response.json({ choices: [{ message: { content: JSON.stringify({ matchCandidateId: null, isFollowup: false, projectIds: ['p', 'forged'], searchQueries: ['cart quantity'] }) } }] })
+      const input = JSON.parse(payload.messages[1].content)
+      assert.equal(input.currentQuestion, undefined)
+      assert.deepEqual(input.sources, [source])
+      return new Response('data: {"choices":[{"delta":{"content":"源码回答 [S1]"}}]}\n\ndata: [DONE]\n\n', { headers: { 'Content-Type': 'text/event-stream' } })
+    },
+  })
+  const response = await fetch(`${url}/api/resolve`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ userId: 'one', question: '购物车加号乱序怎么处理', contextQuestionId: 'a' }) })
+  let metadata, answer
+  await readAnswer(response, (value) => { answer = value }, (value) => { metadata = value })
+  assert.equal(answer, '源码回答 [S1]'); assert.deepEqual(metadata.sources, [source]); assert.equal(calls, 2)
+  assert.deepEqual(await (await fetch(`${url}/api/projects?userId=two`)).json(), { projects: [] })
+})
+
+test('unknown semantic candidate and malformed semantic JSON fail without generating', async (t) => {
+  for (const content of ['broken JSON', JSON.stringify({ matchCandidateId: 'foreign', isFollowup: false, projectIds: [], searchQueries: [] })]) {
+    let calls = 0
+    const url = await serve(t, { fetchImpl: async () => { calls++; return Response.json({ choices: [{ message: { content } }] }) } })
+    const response = await fetch(`${url}/api/resolve`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ userId: 'one', question: '一个全新问题' }) })
+    assert.equal(response.status, 502); assert.equal(calls, 1)
+  }
 })

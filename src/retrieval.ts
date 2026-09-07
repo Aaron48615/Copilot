@@ -23,10 +23,13 @@ const segmenter = new Intl.Segmenter('zh-CN', { granularity: 'word' })
 export function terms(text: string, expand = false): string[] {
   const normalized = text.replace(/([a-z])([A-Z])/g, '$1 $2').toLowerCase()
   const result = new Set<string>()
+  for (const word of text.match(/[a-zA-Z][a-zA-Z0-9_]{1,}/g) || []) {
+    if (!stop.has(word.toLowerCase())) result.add(word.toLowerCase())
+  }
   for (const { segment, isWordLike } of segmenter.segment(normalized)) {
     if (isWordLike && segment.length >= 2 && !stop.has(segment)) result.add(segment)
   }
-  // Bigrams preserve matching when ASR/IME phrasing crosses dictionary boundaries.
+  // Bigrams preserve matching when natural-language phrasing crosses dictionary boundaries.
   for (const run of normalized.match(/[\u3400-\u9fff]+/gu) || []) {
     for (let i = 0; i < run.length - 1; i++) {
       const pair = run.slice(i, i + 2)

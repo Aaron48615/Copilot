@@ -48,8 +48,9 @@ export function WorkbenchDialog({ title, className = '', close, children }: {
   </dialog>
 }
 
-export function Workbench({ question, questions, activeKey, setActiveKey, categories, categoryLabel, search, userMenu, results, favorite, toggleFavorite, exit, answerOverride, answerQuestion }: {
+export function Workbench({ question, questions, activeKey, setActiveKey, categories, categoryLabel, search, userMenu, results, favorite, toggleFavorite, exit, answerOverride, answerQuestion, evidenceOverride }: {
   answerQuestion?: string
+  evidenceOverride?: ReactNode
   answerOverride?: ReactNode
   question?: InterviewQuestion; questions: InterviewQuestion[]
   activeKey: string; setActiveKey: (key: string) => void
@@ -74,7 +75,7 @@ export function Workbench({ question, questions, activeKey, setActiveKey, catego
       <section className="wb-card wb-question">
         <button className="wb-exit" onClick={exit}>← 返回普通布局</button>
         <div className="wb-scroll" tabIndex={0} aria-label="当前主问题">
-          <span className="wb-label">{answerOverride ? '当前语音问题 · AI 临时回答' : `当前主问题 · ${question?.categoryLabel || '待选择'}`}</span>
+          <span className="wb-label">{answerOverride ? '当前输入问题 · AI 临时回答' : `当前主问题 · ${question?.categoryLabel || '待选择'}`}</span>
           <h1>{answerOverride ? answerQuestion : question?.title || '选择一道题开始复习'}</h1>
         </div>
         {question && !answerOverride && <button className="wb-favorite" aria-pressed={favorite} onClick={() => toggleFavorite(question.id)}>{favorite ? '★ 已收藏' : '☆ 收藏题目'}</button>}
@@ -91,7 +92,7 @@ export function Workbench({ question, questions, activeKey, setActiveKey, catego
       <section className="wb-card wb-evidence" aria-label="代码依据">
         <span className="wb-label">代码依据</span>
         <div ref={evidenceRef} className="wb-scroll wb-evidence-text" tabIndex={0}>
-          {!answerOverride && evidence ? renderEvidence(evidence) : <p className="wb-empty">暂无代码依据</p>}
+          {evidenceOverride || (!answerOverride && evidence ? renderEvidence(evidence) : <p className="wb-empty">暂无代码依据</p>)}
         </div>
       </section>
     </div>

@@ -15,33 +15,30 @@ npm run dev
 
 `npm run dev` 同时启动 Vite 和本地 API（默认 `127.0.0.1:3001`），网页通过 Vite 的 `/api` 代理访问后端。修改 Key 或模型后重启命令。已有 `.env.local` 时直接编辑，不要覆盖。
 
-生产运行：`npm run build && npm start`，由 Node 服务同时提供 `dist` 页面与 API。单独发布静态 `dist` 不会提供语音和 AI 接口；部署时需要保留 `server`、`src`、`content` 和运行依赖，或将 `/api` 反向代理至该服务。麦克风要求 HTTPS 或 localhost。
+生产运行：`npm run build && npm start`，由 Node 服务同时提供 `dist` 页面与 API。单独发布静态 `dist` 不会提供检索和 AI 接口；部署时需要保留 `server`、`src`、`content` 和运行依赖，或将 `/api` 反向代理至该服务。
 
-## 语音自动查找
+## 自动查题与回答
 
-点击搜索框下方「开始聆听」并允许麦克风，即可收取外放声音。页面显示识别文字；语音搜索覆盖当前用户全部题库，命中后自动打开核心或题内追问答案。没有可靠命中时，主答案区域自动显示 AI 流式回答，普通布局与横屏工作台均可使用。
+使用豆包输入法、键盘或粘贴输入问题。候选即时更新；输入稳定 800 ms 后自动查当前用户全部题库，不受当前分类限制。中文输入法选词期间不会发模型请求，Enter 可立即查找；「暂停自动查找」保留手动触发。
 
-- 连续有效声音约 220 毫秒后开始处理；停顿约 550 毫秒提交完整片段。
-- 长句每约 2.5 秒尝试一次预转写，只更新搜索，不触发 AI；最终转写完成后才决定是否调用 AI。预转写尚在进行时不会叠加预请求。
-- 「立即查找」提交当前片段；「暂停聆听」丢弃尚未完成的音频和转写，已开始的 AI 回答可用「停止生成」单独停止。
-- 连续无停顿收音到 30 秒时，自动提交并暂停，避免无限增长；可再次开始聆听。
-- 手动输入、选择其他题目或分类、切换用户会停止收音并取消相关请求。新一句语音到来时取消旧转写和旧回答，旧结果不能覆盖新问题。
-- 麦克风会收到外放及你自己的声音，不区分说话人。准备自己回答时可暂停聆听。
+完整标题/别名明确命中时直接打开已有回答（包括题内追问）；口语、同义问法和复合问题由模型核对最多 16 条候选，只有答案完整覆盖问题才返回题库答案。没有匹配时根据改写后的检索词检索项目源码并流式生成。词项召回使用中文分词、技术词同义词和英文标识符；不是向量检索，也不保证所有语义问法都能召回。
 
-浏览器使用 AudioWorklet 采集，编码为 16 kHz 单声道 PCM WAV，通过本地后端转为 base64，调用 OpenRouter `POST /api/v1/audio/transcriptions`。该接口返回整段 JSON，**不是 WebSocket 实时识别**；页面的预览来自短片段请求，实际等待取决于网络和服务响应，预览也会产生转写用量。音频不落盘，API Key 不发送到浏览器。
+切换用户、编辑、清空、暂停或点选候选会取消旧任务。已确认题目才作为上下文，模型判断为追问时才用于生成，搜索第一名不会自动成为上下文。停止生成保留已收到的片段并标注不完整。AI 回答不会写入题库。普通布局和横屏工作台都能查看源码片段、相对路径、行号和索引版本；召回片段不等于模型已引用，模型引用使用 `[S1]` 等标记。
 
-服务端配置（均不使用 `VITE_` 前缀）：
+## 接入两个项目
 
-| 变量 | 默认值 / 用途 |
-| --- | --- |
-| `OPENROUTER_API_KEY` | 必填，OpenRouter Key |
-| `OPENROUTER_ASR_MODEL` | `qwen/qwen3-asr-flash-2026-02-10` |
-| `OPENROUTER_ANSWER_MODEL` | `qwen/qwen3-30b-a3b-instruct-2507`，可替换为其他文本模型 |
-| `API_PORT` | `3001` |
-| `API_HOST` | `127.0.0.1` |
-| `ALLOWED_ORIGINS` | 额外允许的网页来源，逗号分隔；默认允许同源 |
+`config/projects.json` 将原作者的两个公开仓库只读关联至 `default`（牛）：
 
-服务端先读取 `.env.local`，再读取 `.env`；已有进程环境变量优先。服务默认仅监听本机，不提供账户登录；公开部署应由入口层承担访问控制。
+- [轻购 mobile-shop](https://github.com/imeelinew/mobile-shop)：默认 `../mobile-shop`
+- [城市视图 datapilot-rebuild](https://github.com/imeelinew/datapilot-rebuild)：默认 `../datapilot-rebuild`
+
+首次部署可执行 `npm run projects:setup` 下载缺失仓库（已有目录只验证来源，不覆盖或更新）；也可以自行克隆后修改 `root`。`PROJECTS_CONFIG` 可指定另一份服务端配置，`root` 相对 Copilot 根目录解析。新机器需提供这些目录，静态网页无法自行读取你的电脑源码。源码不会复制进前端包，也不安装或执行项目的依赖。
+
+索引仅扫描 Git 已跟踪文本文件，排除隐藏文件、依赖、构建目录、锁文件、符号链接及常见密钥文件，并对常见内联凭据脱敏。每个项目最多 2000 个文件、单文件 512 KiB、总输入 20 MiB；返回的状态包含实际文件数和跳过项，并不代表完整仓库审计。源码片段最多返回 6 条；多项目比较保留各项目候选。源码以当前工作区为准，修改/删除在下次请求中刷新（检查间隔 3 秒）。不要把未审核的私密仓库加入配置。
+
+`GET /api/projects?userId=default` 查看索引状态；Aaron 请求不会取得这两个项目的状态或片段。用户 ID 是资料过滤条件，不是登录鉴权。公开部署应在入口层做访问控制。
+
+服务端变量：`OPENROUTER_API_KEY`、`OPENROUTER_ANSWER_MODEL`、`API_PORT`（3001）、`API_HOST`（127.0.0.1）、`ALLOWED_ORIGINS`（额外允许来源，逗号分隔）、`PROJECTS_CONFIG`。均不使用 `VITE_` 前缀。先读取 `.env.local` 再读取 `.env`，进程环境变量优先。修改配置后重启服务。
 
 ## 内容格式
 
@@ -77,24 +74,13 @@ npm run dev
 
 旧题的 `30 秒回答`、`标准回答`、`深入回答`、`展开回答`、`回答要点` 和 `面试官可能追问` 仍可读取。旧展开内容放在追问区的「补充说明」中，尚未配答案的旧追问会单独折叠显示。
 
-## Agent fallback
+## API 与外部 Agent
 
-默认向内置 `/api/answer` 发送请求，后端通过 OpenRouter 生成流式回答。它只读取请求指定用户的仓库题库，挑选最多三条相关答案及一条当前题目上下文，不接受客户端自定义的个人参考资料。答案要求先给简短口语回答；没有个人经历依据时不得编造。AI 结果不会写回 Markdown。
+自动流程使用内置 `POST /api/resolve`，请求 `{ "question": "问题", "userId": "default", "contextQuestionId": "可选已确认题目ID" }`。服务端验证用户并从仓库取资料，不接受客户端提供的源码或个人经历。
 
-请求示例：
+命中返回 JSON `{ "kind": "library", "match": { "questionId": "...", "followupIndex": 0 } }`；未命中返回 SSE，先发送 `{ sources, projects }`，然后发送 OpenRouter 兼容 `choices[0].delta.content` 和 `[DONE]`。语义核对失败明确报错，不把失败当作无匹配。模型 Key 仅保留在服务端。
 
-```json
-{
-  "question": "用户没有在题库中找到的问题",
-  "userId": "aaron",
-  "userName": "Aaron",
-  "contextQuestionId": "可选的当前题目 ID"
-}
-```
-
-内置接口从仓库解析用户名称，不信任请求中的 `userName`。响应为 OpenRouter 兼容的 SSE：`choices[0].delta.content` 增量文本、`[DONE]` 结束标记；中途错误也会显示，并保留重试入口。未命中时手动搜索仍可点击「询问 Agent」。
-
-已有外部 Agent 可通过 `VITE_AGENT_ENDPOINT` 设置地址。前端兼容原有 JSON 响应 `{ "answer": "一次性展示的口语回答" }`；外部接口需自行处理用户隔离和跨域。语音转写始终使用同源 `/api/transcribe`。
+显式「询问 Agent」使用 `/api/answer`，可通过 `VITE_AGENT_ENDPOINT` 替换为外部生成接口，兼容原有 `{ "answer": "..." }` JSON 和 SSE。外部地址只替换显式生成，不替换自动语义检索；外部服务需自行实现资料检索、用户隔离和跨域。
 
 ## 质量检查
 
@@ -105,7 +91,7 @@ npx playwright install chromium  # 首次运行浏览器测试
 npm run test:e2e
 ```
 
-测试使用 Node.js 24 的原生 TypeScript 支持，覆盖题库与用户隔离、WAV 编码、停顿分段、语音匹配、流式解析、服务端转发和取消。浏览器测试模拟音频与上游 API，验证自动命中、AI 兜底、两种布局、预览不误触发、缺少 Key 提示及过期转写丢弃；不会采集真实麦克风或消耗 API 额度。
+测试使用 Node.js 24 的原生 TypeScript 支持，覆盖题库与用户隔离、自然语言候选、语义分流、源码过滤和更新、流式解析与取消。浏览器测试模拟模型 API，验证稳定输入、输入法、取消、证据展示和两种布局，不消耗 API 额度。
 
 ## 多用户题库（仓库维护）
 
@@ -176,7 +162,7 @@ node scripts/import-local-bank.mjs ~/Downloads/interview-local-backup.json 旧�
 
 所有随网站发布的题库均可被访问，此方案不提供隐私访问控制，不适合存放私密资料。
 
-Agent 请求携带 `question`、`userId`、`userName` 和可选的 `contextQuestionId`。内置服务端按用户从仓库选择上下文，前端不会上传整份题库；切换用户会停止麦克风并取消尚未完成的请求。
+Agent 请求携带 `question`、`userId`、`userName` 和可选的 `contextQuestionId`。内置服务端按用户从仓库选择上下文，前端不会上传整份题库；切换用户会取消尚未完成的请求。
 
 用户隔离与迁移测试（Node.js 22.18+）：
 

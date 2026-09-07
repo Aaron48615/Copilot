@@ -36,7 +36,7 @@ export function searchCandidates(candidates: ReturnType<typeof answerCandidates>
   const byId = new Map(candidates.map((item) => [item.question.id, item]))
   const results = searchQuestions(candidates.map((item) => item.question), query).map((result) => {
     const item = byId.get(result.question.id)!
-    return { question: item.parent, score: result.score, followupIndex: item.followupIndex }
+    return { question: item.parent, score: result.score * 0.35, followupIndex: item.followupIndex }
   })
   let recall = recallIndices.get(candidates)
   if (!recall) {
@@ -44,11 +44,16 @@ export function searchCandidates(candidates: ReturnType<typeof answerCandidates>
     recallIndices.set(candidates, recall)
   }
   const ranked = recall(query, 40)
-  for (const [rank, { item }] of ranked.entries()) {
+  for (const { item, score } of ranked) {
     const existing = results.find((result) => result.question.id === item.parent.id && result.followupIndex === item.followupIndex)
-    const recallScore = 35 - rank * 0.5
-    if (existing) existing.score = Math.max(existing.score, recallScore)
+    const recallScore = 70 * score / Math.max(ranked[0]?.score || 1, 1)
+    if (existing) existing.score += recallScore
     else results.push({ question: item.parent, followupIndex: item.followupIndex, score: recallScore })
+  }
+  for (const result of results) {
+    const titles = result.followupIndex === undefined ? [result.question.title, ...result.question.aliases]
+      : [getAnswerContent(result.question).followups[result.followupIndex].title]
+    if (titles.some((title) => normalize(cleanQuery(title)) === normalize(query))) result.score = 200
   }
   results.sort((a, b) => b.score - a.score)
   cachedSearch.set(candidates, { query, results })
@@ -59,22 +64,20 @@ export function reliableAnswerMatch(results: AnswerMatch[], text: string, contex
   const first = results[0]
   if (!first || !getAnswerContent(first.question).core && first.followupIndex === undefined) return
   const q = normalize(cleanQuery(text))
+  if (!q || ['缓存', '权限', '错误', '请求', '失败', '项目'].includes(q)) return
   const exact = (item: AnswerMatch) => {
     const titles = item.followupIndex === undefined
       ? [item.question.title, ...item.question.aliases]
       : [getAnswerContent(item.question).followups[item.followupIndex].title]
-    return titles.some((title) => normalize(cleanQuery(title)) === q ||
-      q.length >= 4 && normalize(cleanQuery(title.split(/[？?；;。]/u)[0])) === q)
+    return titles.some((title) => normalize(cleanQuery(title)) === q)
   }
   if (exact(first)) {
     const contextual = results.find((item) => item.question.id === contextQuestionId && exact(item))
     if (contextual) return contextual
     const ambiguous = results.some((item) => item !== first && item.question.id !== first.question.id && exact(item))
     // Identical embedded prompts belong to different projects; do not pick one blindly.
-    if (ambiguous && (first.followupIndex !== undefined || q.length < 4)) return
+    if (ambiguous && (first.followupIndex !== undefined || first.question.projects.length || q.length < 4)) return
     return first
   }
-  // A broad term or multiple nearly equal answers should fall back instead of claiming certainty.
-  const second = results.find((item) => item.question.id !== first.question.id || item.followupIndex !== first.followupIndex)
-  if (q.length >= 4 && first.score >= 60 && first.score - (second?.score || 0) >= 12) return first
+  // Non-exact matches require semantic verification of the complete question.
 }

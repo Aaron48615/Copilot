@@ -12,7 +12,8 @@
     "dev:web": "vite",
     "dev:api": "node server/index.mjs",
     "start": "node server/index.mjs",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "projects:setup": "node scripts/setup-projects.mjs"
   },
   "dependencies": {
     "pinyin-pro": "3.29.3",

@@ -4,15 +4,28 @@
     "name": "轻购",
     "userId": "default",
     "root": "../mobile-shop",
-    "aliases": ["轻购", "mobile-shop", "商城", "移动商城"],
-    "description": "Vue 3 移动商城：商品、搜索、购物车、订单、地址、登录、AI 商品卖点和搜索建议。"
+    "aliases": [
+      "轻购",
+      "mobile-shop",
+      "商城",
+      "移动商城"
+    ],
+    "description": "Vue 3 移动商城：商品、搜索、购物车、订单、地址、登录、AI 商品卖点和搜索建议。",
+    "repository": "https://github.com/imeelinew/mobile-shop.git"
   },
   {
     "id": "datapilot-rebuild",
     "name": "城市视图",
     "userId": "default",
     "root": "../datapilot-rebuild",
-    "aliases": ["城市视图", "datapilot", "datapilot-rebuild", "数据大屏", "可视化平台"],
-    "description": "React 数据可视化平台：Dashboard、图表编辑、地图、3D 场景、权限、数据源与 AI。"
+    "aliases": [
+      "城市视图",
+      "datapilot",
+      "datapilot-rebuild",
+      "数据大屏",
+      "可视化平台"
+    ],
+    "description": "React 数据可视化平台：Dashboard、图表编辑、地图、3D 场景、权限、数据源与 AI。",
+    "repository": "https://github.com/imeelinew/datapilot-rebuild.git"
   }
 ]
