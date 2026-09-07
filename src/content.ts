@@ -1,5 +1,5 @@
 import users from '../content/users.json'
-import { buildRepositoryBanks } from './question-bank'
+import { buildRepositoryBanks, prepareQuestionSearch } from './question-bank'
 
 const markdownModules = import.meta.glob('../content/**/*.md', {
   eager: true,
@@ -9,3 +9,7 @@ const markdownModules = import.meta.glob('../content/**/*.md', {
 
 export const repositoryUsers = buildRepositoryBanks(users,
   Object.entries(markdownModules).map(([path, raw]) => ({ name: path.replace('../content/', ''), raw })))
+
+// Pay the immutable indexing cost during app bootstrap so the first keystroke is
+// as fast as later searches instead of unexpectedly pausing the input field.
+repositoryUsers.forEach((user) => prepareQuestionSearch(user.questions))

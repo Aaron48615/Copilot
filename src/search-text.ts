@@ -1,14 +1,6 @@
-import { match as matchPinyin } from 'pinyin-pro'
+import { pinyin } from 'pinyin-pro'
 
 export type TextRange = readonly [start: number, end: number]
-
-const PINYIN_OPTIONS = {
-  continuous: true,
-  insensitive: true,
-  precision: 'every',
-  space: 'ignore',
-  v: true,
-} as const
 
 function hasChinese(value: string) {
   return /[\u3400-\u9fff]/u.test(value)
@@ -18,6 +10,56 @@ export function normalize(value: string) {
   return value.toLocaleLowerCase().replace(/[\s`'"，。！？、/\-_:：]/g, '')
 }
 
+export interface PreparedSearchText {
+  normalized: string
+  bigrams: ReadonlySet<string>
+}
+
+interface PinyinToken {
+  sourceIndex: number
+  value: string
+  skippable: boolean
+}
+
+interface PreparedText extends PreparedSearchText {
+  pinyinTokens: PinyinToken[] | null
+}
+
+// Question content is immutable after loading. Preparing it once avoids repeatedly
+// normalizing and segmenting several megabytes of Markdown on every keystroke.
+const preparedText = new Map<string, PreparedText>()
+
+function makeBigrams(value: string) {
+  if (value.length < 2) return new Set([value])
+  return new Set(Array.from({ length: value.length - 1 }, (_, index) => value.slice(index, index + 2)))
+}
+
+function prepare(value: string): PreparedText {
+  const cached = preparedText.get(value)
+  if (cached) return cached
+
+  const normalized = normalize(value)
+  const characters = Array.from(value)
+  const syllables = hasChinese(value)
+    ? pinyin(value, { type: 'array', toneType: 'none', v: true })
+    : null
+  const result: PreparedText = {
+    normalized,
+    bigrams: makeBigrams(normalized),
+    pinyinTokens: syllables?.map((syllable, sourceIndex) => ({
+      sourceIndex,
+      value: syllable.toLocaleLowerCase(),
+      skippable: /^\s+$/u.test(characters[sourceIndex] || ''),
+    })) || null,
+  }
+  preparedText.set(value, result)
+  return result
+}
+
+export function prepareSearchText(value: string): PreparedSearchText {
+  return prepare(value)
+}
+
 function isPinyinQuery(value: string) {
   const query = normalize(value)
   return Boolean(query) && /^[a-z]+$/u.test(query)
@@ -25,11 +67,25 @@ function isPinyinQuery(value: string) {
 
 export function pinyinMatchIndices(text: string, query: string) {
   if (!isPinyinQuery(query) || !hasChinese(text)) return null
-  try {
-    return matchPinyin(text, normalize(query), PINYIN_OPTIONS)
-  } catch {
-    return null
+
+  const expected = normalize(query)
+  const tokens = prepare(text).pinyinTokens
+  if (!tokens) return null
+
+  for (let start = 0; start < tokens.length; start += 1) {
+    if (tokens[start].skippable || !tokens[start].value) continue
+    let remaining = expected
+    const indices: number[] = []
+    for (let index = start; index < tokens.length; index += 1) {
+      const token = tokens[index]
+      if (token.skippable) continue
+      if (!token.value || !remaining.startsWith(token.value) && !token.value.startsWith(remaining)) break
+      indices.push(token.sourceIndex)
+      if (token.value.startsWith(remaining)) return indices
+      remaining = remaining.slice(token.value.length)
+    }
   }
+  return null
 }
 
 function codeUnitStarts(characters: string[]) {

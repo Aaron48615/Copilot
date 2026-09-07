@@ -1,6 +1,7 @@
 import type { InterviewQuestion, SearchResult } from './types'
 import { getAnswerContent, parseAnswerSections } from './answers.ts'
-import { normalize, pinyinMatchIndices } from './search-text.ts'
+import { normalize, pinyinMatchIndices, prepareSearchText } from './search-text.ts'
+import type { PreparedSearchText } from './search-text.ts'
 
 export interface RepositoryUser {
   id: string
@@ -145,23 +146,71 @@ export function parseMarkdown(sourcePath: string, raw: string): InterviewQuestio
   }
 }
 
-function bigrams(value: string) {
-  const text = normalize(value)
-  if (text.length < 2) return [text]
-  return Array.from({ length: text.length - 1 }, (_, index) => text.slice(index, index + 2))
+interface SearchQuery {
+  normalized: string
+  bigrams: string[]
 }
 
-function similarity(query: string, target: string) {
-  const q = normalize(query)
-  const t = normalize(target)
+interface QuestionSearchIndex {
+  title: PreparedSearchText
+  aliases: PreparedSearchText[]
+  keywords: PreparedSearchText[]
+  projects: PreparedSearchText[]
+  category: PreparedSearchText
+  followupNames: string[]
+  followups: PreparedSearchText[]
+  bodyText: string
+  body: PreparedSearchText
+}
+
+const searchIndices = new WeakMap<InterviewQuestion, QuestionSearchIndex>()
+
+function createQuery(value: string): SearchQuery {
+  const normalized = normalize(value)
+  return {
+    normalized,
+    bigrams: normalized.length < 2
+      ? [normalized]
+      : Array.from({ length: normalized.length - 1 }, (_, index) => normalized.slice(index, index + 2)),
+  }
+}
+
+function indexQuestion(question: InterviewQuestion) {
+  const cached = searchIndices.get(question)
+  if (cached) return cached
+  const followupNames = Object.keys(question.sections)
+    .filter((name) => name.startsWith('追问：'))
+    .map((name) => name.slice(3))
+  const bodyText = Object.values(question.sections).join(' ')
+  const index: QuestionSearchIndex = {
+    title: prepareSearchText(question.title),
+    aliases: question.aliases.map(prepareSearchText),
+    keywords: question.keywords.map(prepareSearchText),
+    projects: question.projects.map(prepareSearchText),
+    category: prepareSearchText(question.categoryLabel),
+    followupNames,
+    followups: followupNames.map(prepareSearchText),
+    bodyText,
+    body: prepareSearchText(bodyText),
+  }
+  searchIndices.set(question, index)
+  return index
+}
+
+export function prepareQuestionSearch(questions: InterviewQuestion[]) {
+  questions.forEach(indexQuestion)
+}
+
+function similarity(query: SearchQuery, target: string, prepared: PreparedSearchText) {
+  const q = query.normalized
+  const t = prepared.normalized
   if (!q || !t) return 0
   if (q === t) return 120
   if (t.includes(q)) return 90 + Math.min(q.length, 20)
   if (q.includes(t)) return 70 + Math.min(t.length, 20)
-  const targetPairs = new Set(bigrams(t))
-  const overlap = bigrams(q).filter((pair) => targetPairs.has(pair)).length
-  const textScore = (overlap / Math.max(bigrams(q).length, targetPairs.size, 1)) * 60
-  const pinyinScore = pinyinMatchIndices(target, query)?.length
+  const overlap = query.bigrams.filter((pair) => prepared.bigrams.has(pair)).length
+  const textScore = (overlap / Math.max(query.bigrams.length, prepared.bigrams.size, 1)) * 60
+  const pinyinScore = pinyinMatchIndices(target, q)?.length
     ? 90 + Math.min(q.length, 20)
     : 0
   return Math.max(textScore, pinyinScore)
@@ -176,18 +225,19 @@ export function searchQuestions(questions: InterviewQuestion[], query: string, c
     return candidates.map((question) => ({ question, score: 1 }))
   }
 
+  const preparedQuery = createQuery(query)
+
   return candidates
     .map((question) => {
-      const titleScore = similarity(query, question.title)
-      const aliasScore = Math.max(0, ...question.aliases.map((alias) => similarity(query, alias) + 8))
+      const index = indexQuestion(question)
+      const titleScore = similarity(preparedQuery, question.title, index.title)
+      const aliasScore = Math.max(0, ...question.aliases.map((alias, aliasIndex) => similarity(preparedQuery, alias, index.aliases[aliasIndex]) + 8))
       // 短关键词（如“缓存”）只能召回候选，不能单独形成高置信度命中。
-      const keywordScore = Math.max(0, ...question.keywords.map((keyword) => similarity(query, keyword) * 0.45))
-      const projectScore = Math.max(0, ...question.projects.map((project) => similarity(query, project) * 0.55))
-      const categoryScore = similarity(query, question.categoryLabel) * 0.7
-      const followupScore = Math.max(0, ...Object.keys(question.sections)
-        .filter((name) => name.startsWith('追问：'))
-        .map((name) => similarity(query, name.slice(3)) * 0.85))
-      const bodyScore = similarity(query, Object.values(question.sections).join(' ')) * 0.35
+      const keywordScore = Math.max(0, ...question.keywords.map((keyword, keywordIndex) => similarity(preparedQuery, keyword, index.keywords[keywordIndex]) * 0.45))
+      const projectScore = Math.max(0, ...question.projects.map((project, projectIndex) => similarity(preparedQuery, project, index.projects[projectIndex]) * 0.55))
+      const categoryScore = similarity(preparedQuery, question.categoryLabel, index.category) * 0.7
+      const followupScore = Math.max(0, ...index.followupNames.map((name, followupIndex) => similarity(preparedQuery, name, index.followups[followupIndex]) * 0.85))
+      const bodyScore = similarity(preparedQuery, index.bodyText, index.body) * 0.35
       return { question, score: Math.max(titleScore, aliasScore, keywordScore, projectScore, categoryScore, bodyScore, followupScore) }
     })
     .filter((result) => result.score >= 12)

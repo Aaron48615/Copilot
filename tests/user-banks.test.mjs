@@ -69,6 +69,8 @@ test('快查支持完整拼音并高亮对应中文字符', () => {
   assert.ok(results.some(({ question }) => question.id === 'pinyin-project'))
   assert.deepEqual(getTextMatchRanges('轻购的请求层', 'qinggou'), [[0, 2]])
   assert.deepEqual(getTextMatchRanges('请求层', '请求 层'), [[0, 3]])
+  assert.deepEqual(getTextMatchRanges('轻购的请求层', 'qing'), [[0, 1], [3, 4]])
+  assert.deepEqual(getTextMatchRanges('轻购的请求层', 'inggou'), [])
 })
 
 test('快查列表展示全部结果，不按优先级截断或重排', () => {

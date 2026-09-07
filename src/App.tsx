@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useDeferredValue, useEffect, useMemo, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
 import { repositoryUsers } from './content'
 import { getSidebarCategory, getSidebarCategoryLabel, getSidebarSections, matchesSidebarCategory, searchQuestions } from './question-bank'
@@ -129,6 +129,7 @@ function UserWorkspace({ user, favorites, switchUser, updateFavorites, workbench
 
   const [activeAnswer, setActiveAnswer] = useState({ questionId: '', key: '' })
   const [query, setQuery] = useState('')
+  const deferredQuery = useDeferredValue(query)
   const [category, setCategory] = useState(defaultCategory)
   const [selectedId, setSelectedId] = useState(questions[0]?.id ?? '')
   const [agentState, setAgentState] = useState<'idle' | 'loading' | 'done' | 'error'>('idle')
@@ -139,14 +140,15 @@ function UserWorkspace({ user, favorites, switchUser, updateFavorites, workbench
     () => questions.filter((question) => matchesSidebarCategory(question, category)),
     [questions, category],
   )
-  const results = useMemo(() => searchQuestions(scopedQuestions, query), [scopedQuestions, query])
+  const results = useMemo(() => searchQuestions(scopedQuestions, deferredQuery), [scopedQuestions, deferredQuery])
+  const searchPending = query !== deferredQuery
   const selected = results.find(({ question }) => question.id === selectedId)?.question || results[0]?.question
   useEffect(() => {
     setActiveAnswer({ questionId: selected?.id || '', key: '' })
     agentRequest.current?.abort()
     setAgentState('idle')
   }, [selected?.id])
-  const hasReliableMatch = !query.trim() || (results[0]?.score ?? 0) >= 38
+  const hasReliableMatch = !deferredQuery.trim() || (results[0]?.score ?? 0) >= 38
 
   useEffect(() => {
     if (results.length && !results.some(({ question }) => question.id === selectedId)) {
@@ -232,7 +234,7 @@ function UserWorkspace({ user, favorites, switchUser, updateFavorites, workbench
     </div>
   </>)
   const searchBox = (<>
-    <div className="search-wrap">
+    <div className={`search-wrap ${searchPending ? 'is-searching' : ''}`} aria-busy={searchPending}>
       <span className="search-icon">⌕</span>
       <input
         ref={searchRef}
@@ -248,8 +250,8 @@ function UserWorkspace({ user, favorites, switchUser, updateFavorites, workbench
   </>)
   const questionResults = (<>
     <div className="result-heading">
-      <span>{query ? `找到 ${results.length} 个相关回答` : `${user.name} 的题库 · ${results.length} 道题`}</span>
-      {query && <small>按匹配程度排序</small>}
+      <span>{deferredQuery ? `找到 ${results.length} 个相关回答` : `${user.name} 的题库 · ${results.length} 道题`}</span>
+      {deferredQuery && <small>{searchPending ? '正在更新…' : '按匹配程度排序'}</small>}
     </div>
 
     <div className="question-list">
@@ -258,7 +260,7 @@ function UserWorkspace({ user, favorites, switchUser, updateFavorites, workbench
         <h2>{user.name} 的题库，等你填满</h2>
         <p>这位用户还没有发布题目。<br />维护者添加题目并更新网站后，即可在这里复习。</p>
       </div>}
-      {!!questions.length && !query && !results.length && <p className="import-message">当前分类暂无题目。</p>}
+      {!!questions.length && !deferredQuery && !results.length && <p className="import-message">当前分类暂无题目。</p>}
       {results.map(({ question, score }) => (
         <button
           key={`${user.id}:${question.id}`}
@@ -266,18 +268,18 @@ function UserWorkspace({ user, favorites, switchUser, updateFavorites, workbench
           onClick={() => { agentRequest.current?.abort(); setSelectedId(question.id); setAgentState('idle') }}
         >
           <span className="question-copy">
-            <strong>{highlightText(question.title, query)}</strong>
+            <strong>{highlightText(question.title, deferredQuery)}</strong>
             <small>
-              {highlightText(question.category === 'current-interview' ? getSidebarCategoryLabel(getSidebarCategory(question)) : question.categoryLabel, query)}
-              {[...new Set([...question.projects, ...question.keywords])].slice(0, 3).map((item) => <span key={item}> · {highlightText(item, query)}</span>)}
+              {highlightText(question.category === 'current-interview' ? getSidebarCategoryLabel(getSidebarCategory(question)) : question.categoryLabel, deferredQuery)}
+              {[...new Set([...question.projects, ...question.keywords])].slice(0, 3).map((item) => <span key={item}> · {highlightText(item, deferredQuery)}</span>)}
             </small>
           </span>
-          {query && <span className="match-score">{Math.min(99, Math.round(score))}%</span>}
+          {deferredQuery && <span className="match-score">{Math.min(99, Math.round(score))}%</span>}
           <span className="row-arrow">›</span>
         </button>
       ))}
 
-      {query && !hasReliableMatch && (
+      {deferredQuery && !searchPending && !hasReliableMatch && (
         <div className="fallback-card">
           <div className="agent-orb">✦</div>
           <div><strong>题库里暂时没有可靠答案</strong><p>向已配置的 Agent 请求一次性回答，个性化内容取决于服务端配置。</p></div>
@@ -332,7 +334,7 @@ function UserWorkspace({ user, favorites, switchUser, updateFavorites, workbench
       </main>
 
       <aside className="answer-panel">
-        {selected ? <AnswerPanel key={`${user.id}:${selected.id}`} question={selected} query={query} favorite={favorites.includes(selected.id)} toggleFavorite={toggleFavorite} /> : (
+        {selected ? <AnswerPanel key={`${user.id}:${selected.id}`} question={selected} query={deferredQuery} favorite={favorites.includes(selected.id)} toggleFavorite={toggleFavorite} /> : (
           <div className="empty-answer"><span>⌕</span><p>选择一道题查看口语回答</p></div>
         )}
       </aside>
