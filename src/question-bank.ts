@@ -78,6 +78,7 @@ export function buildQuestionBank(base: InterviewQuestion[], documents: { name: 
 }
 
 const categoryLabels: Record<string, string> = {
+  'current-interview': '本次面试',
   profile: '个人与求职',
   'html-css': 'HTML / CSS',
   javascript: 'JavaScript',
@@ -199,4 +200,157 @@ export function getCategories(questions: InterviewQuestion[]) {
     ...Array.from(new Set(questions.map((question) => question.category)))
       .map((id) => ({ id, label: categoryLabels[id] || id })),
   ]
+}
+
+export interface SidebarCategory {
+  id: string
+  label: string
+  count: number
+}
+
+export interface SidebarSection {
+  id: 'previous' | 'current'
+  label: string
+  categories: SidebarCategory[]
+}
+
+const currentSidebarCategoryLabels: Record<string, string> = {
+  'current:javascript': 'JavaScript',
+  'current:typescript': 'TypeScript',
+  'current:html-css': 'HTML / CSS',
+  'current:vue': 'Vue',
+  'current:react': 'React',
+  'current:project-light-shop': '项目 · 轻购',
+  'current:project-city': '项目 · 城市视图',
+  'current:project-work-order': '项目 · 智服工单',
+  'current:project-general': '项目 · 综合',
+  'current:network': '网络与工程化',
+  'current:performance': '性能与调试',
+  'current:git': 'Git',
+  'current:ai': 'AI 工具',
+  'current:coding': '代码题',
+  'current:testing': '测试与质量',
+  'current:system-design': '前端设计题',
+  'current:frameworks': '其他框架',
+  'current:other': '其他知识点',
+}
+
+const currentSidebarCategoryOrder = [
+  'current:javascript',
+  'current:typescript',
+  'current:html-css',
+  'current:vue',
+  'current:react',
+  'current:project-light-shop',
+  'current:project-city',
+  'current:project-work-order',
+  'current:project-general',
+  'current:network',
+  'current:performance',
+  'current:git',
+  'current:ai',
+  'current:coding',
+  'current:testing',
+  'current:system-design',
+  'current:frameworks',
+  'current:other',
+]
+
+function currentInterviewSidebarCategory(question: InterviewQuestion) {
+  const source = question.sourcePath.toLocaleLowerCase()
+
+  if (source.includes('01-project-overview') || source.includes('03-auth') || source.includes('19-resume-project-depth')) {
+    return 'current:project-general'
+  }
+  if (source.includes('02-light-shop') || source.includes('04-search') || source.includes('05-cart')) {
+    return 'current:project-light-shop'
+  }
+  if (source.includes('06-city') || source.includes('07-chart') || source.includes('08-map')) {
+    return 'current:project-city'
+  }
+  if (source.includes('09-work-order')) return 'current:project-work-order'
+  if (source.includes('18-ai-tools-and-ownership') || source.includes('import-06-ai-agent')) return 'current:ai'
+  if (source.includes('typescript') || /import-02-javascript-(api-state-union|conditional-infer|discriminated-union|function-overload|generic-api|interface-type|runtime-validation|tsconfig-strict|unknown-never)/.test(source)) {
+    return 'current:typescript'
+  }
+  if (source.includes('import-01-html-css') || source.includes('14-css')) return 'current:html-css'
+  if (source.includes('import-03-frameworks-vue') || source.includes('/12-vue')) return 'current:vue'
+  if (source.includes('import-03-frameworks-react') || source.includes('/13-react')) return 'current:react'
+  if (source.includes('import-03-frameworks')) return 'current:frameworks'
+  if (source.includes('10-javascript') || source.includes('11-javascript') || source.includes('import-02-javascript')) {
+    return 'current:javascript'
+  }
+  if (source.includes('import-07-testing')) return 'current:testing'
+  if (source.includes('import-08-coding')) return 'current:coding'
+  if (source.includes('import-09-system-design')) return 'current:system-design'
+  if (source.includes('/17-git') || source.includes('import-05-git')) return 'current:git'
+  if (source.includes('/16-debug') || source.includes('import-04-browser-network-engineering')) {
+    return /performance|web-vitals|browser-reflow|browser-render|monitoring|resource-loading|waterfall|optimization|tree-shaking|code-splitting|lazy/.test(source)
+      ? 'current:performance'
+      : 'current:network'
+  }
+  if (source.includes('/15-network')) return 'current:network'
+
+  if (question.projects.includes('轻购')) return 'current:project-light-shop'
+  if (question.projects.includes('城市视图')) return 'current:project-city'
+  if (question.projects.includes('智服工单')) return 'current:project-work-order'
+  return 'current:other'
+}
+
+export function getSidebarCategory(question: InterviewQuestion) {
+  return question.category === 'current-interview'
+    ? currentInterviewSidebarCategory(question)
+    : `previous:${question.category}`
+}
+
+export function getSidebarCategoryLabel(id: string) {
+  if (id === 'previous:all') return '全部之前的题库'
+  if (id === 'current:all') return '全部本次面试'
+  if (id.startsWith('previous:')) return categoryLabels[id.slice('previous:'.length)] || id.slice('previous:'.length)
+  return currentSidebarCategoryLabels[id] || id
+}
+
+export function getSidebarSections(questions: InterviewQuestion[]): SidebarSection[] {
+  const previousQuestions = questions.filter((question) => question.category !== 'current-interview')
+  const currentQuestions = questions.filter((question) => question.category === 'current-interview')
+  const previousCategories = getCategories(previousQuestions)
+    .filter((item) => item.id !== 'all')
+    .map((item) => ({
+      id: `previous:${item.id}`,
+      label: item.label,
+      count: previousQuestions.filter((question) => question.category === item.id).length,
+    }))
+  const currentIds = new Set(currentQuestions.map(getSidebarCategory))
+  const currentCategories = currentSidebarCategoryOrder
+    .filter((id) => currentIds.has(id))
+    .map((id) => ({
+      id,
+      label: getSidebarCategoryLabel(id),
+      count: currentQuestions.filter((question) => getSidebarCategory(question) === id).length,
+    }))
+
+  return [
+    previousQuestions.length ? {
+      id: 'previous' as const,
+      label: '之前的题库',
+      categories: [
+        { id: 'previous:all', label: getSidebarCategoryLabel('previous:all'), count: previousQuestions.length },
+        ...previousCategories,
+      ],
+    } : null,
+    currentQuestions.length ? {
+      id: 'current' as const,
+      label: '这次面试',
+      categories: [
+        { id: 'current:all', label: getSidebarCategoryLabel('current:all'), count: currentQuestions.length },
+        ...currentCategories,
+      ],
+    } : null,
+  ].filter((section): section is SidebarSection => section !== null)
+}
+
+export function matchesSidebarCategory(question: InterviewQuestion, id: string) {
+  if (id === 'previous:all') return question.category !== 'current-interview'
+  if (id === 'current:all') return question.category === 'current-interview'
+  return getSidebarCategory(question) === id
 }

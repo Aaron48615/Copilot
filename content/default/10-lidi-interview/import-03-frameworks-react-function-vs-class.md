@@ -1,0 +1,23 @@
+---
+id: lidi-202609-import-03-frameworks-react-function-vs-class
+title: 函数组件和类组件有什么区别？Hooks 解决了什么问题？
+aliases: [函数组件, 类组件, hooks解决了什么]
+category: current-interview
+difficulty: 高频
+priority: high
+projects: []
+keywords: [函数组件, 类组件, hooks, 逻辑复用]
+---
+
+# 函数组件和类组件有什么区别？Hooks 解决了什么问题？
+
+## 核心回答
+
+React 16.8 之前，函数组件没有 state 也没有生命周期，只能当纯展示用；要维护状态就得写 class，继承 React.Component，实现 render 方法。Hooks 出来之后函数组件什么都能干了，慢慢就成了主流。
+
+区别上，类组件有 this，事件处理函数要手动绑定，写起来啰嗦也容易错；逻辑还被打散在各生命周期里，同一个功能的初始化、更新、清理写在三个钩子里，改一处得翻三处。逻辑复用只能靠 HOC、render props 这类模式，层层包裹，组件树看着都晕。函数组件没有 this，它本质就是调一次渲染一次，每次渲染拿到的是那一次的 props 和 state 快照；逻辑复用可以抽成自定义 Hook，哪个组件要用就调哪个，不用包来包去。
+
+所以 Hooks 解决的核心问题就两个：让函数组件拥有状态和副作用的能力，以及让逻辑复用和拆分变得自然。
+
+"每次渲染都是一次函数调用"会带来闭包特点：setTimeout 这类异步回调里读到的 state 是当时那次渲染的快照，不是最新值，要最新值得用 ref 存。这也是函数组件要求不可变更新、每次都给新对象的原因，React 是靠引用比较判断数据变没变的。
+

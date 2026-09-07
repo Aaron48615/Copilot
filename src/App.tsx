@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
 import { repositoryUsers } from './content'
-import { getCategories, searchQuestions } from './question-bank'
+import { getSidebarCategory, getSidebarCategoryLabel, getSidebarSections, matchesSidebarCategory, searchQuestions } from './question-bank'
 import type { RepositoryUser } from './question-bank'
 import { LEGACY_STORAGE_KEY, loadProfiles, PROFILE_STORAGE_KEY } from './profiles'
 import type { ProfileStore } from './profiles'
@@ -102,7 +102,9 @@ function UserWorkspace({ user, favorites, switchUser, updateFavorites, workbench
   updateFavorites: (favorites: string[]) => void
 }) {
   const questions = user.questions
-  const categories = useMemo(() => getCategories(questions), [questions])
+  const sidebarSections = useMemo(() => getSidebarSections(questions), [questions])
+  const hasCurrentInterview = questions.some((question) => question.category === 'current-interview')
+  const defaultCategory = hasCurrentInterview ? 'current:all' : 'previous:all'
   const [menuOpen, setMenuOpen] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
   const avatarRef = useRef<HTMLButtonElement>(null)
@@ -127,13 +129,17 @@ function UserWorkspace({ user, favorites, switchUser, updateFavorites, workbench
 
   const [activeAnswer, setActiveAnswer] = useState({ questionId: '', key: '' })
   const [query, setQuery] = useState('')
-  const [category, setCategory] = useState('all')
+  const [category, setCategory] = useState(defaultCategory)
   const [selectedId, setSelectedId] = useState(questions[0]?.id ?? '')
   const [agentState, setAgentState] = useState<'idle' | 'loading' | 'done' | 'error'>('idle')
   const [agentAnswer, setAgentAnswer] = useState('')
   const searchRef = useRef<HTMLInputElement>(null)
 
-  const results = useMemo(() => searchQuestions(questions, query, category), [questions, query, category])
+  const scopedQuestions = useMemo(
+    () => questions.filter((question) => matchesSidebarCategory(question, category)),
+    [questions, category],
+  )
+  const results = useMemo(() => searchQuestions(scopedQuestions, query), [scopedQuestions, query])
   const selected = results.find(({ question }) => question.id === selectedId)?.question || results[0]?.question
   useEffect(() => {
     setActiveAnswer({ questionId: selected?.id || '', key: '' })
@@ -193,15 +199,16 @@ function UserWorkspace({ user, favorites, switchUser, updateFavorites, workbench
 
   const categoryNavigation = (<>
     <nav className="category-nav" aria-label="题目分类">
-      <p className="nav-label">题库</p>
-      {categories.map((item) => {
-        const count = item.id === 'all' ? questions.length : questions.filter((q) => q.category === item.id).length
-        return (
-          <button className={category === item.id ? 'active' : ''} key={item.id} onClick={() => setCategory(item.id)}>
-            <span>{item.label}</span><em>{count}</em>
-          </button>
-        )
-      })}
+      {sidebarSections.map((section) => (
+        <section className={`nav-section nav-section-${section.id}`} key={section.id}>
+          <p className="nav-section-title">{section.label}</p>
+          {section.categories.map((item) => (
+            <button className={category === item.id ? 'active' : ''} key={item.id} onClick={() => setCategory(item.id)}>
+              <span>{item.label}</span><em>{item.count}</em>
+            </button>
+          ))}
+        </section>
+      ))}
     </nav>
   </>)
   const userSwitcher = (<>
@@ -261,7 +268,7 @@ function UserWorkspace({ user, favorites, switchUser, updateFavorites, workbench
           <span className="question-copy">
             <strong>{highlightText(question.title, query)}</strong>
             <small>
-              {highlightText(question.categoryLabel, query)}
+              {highlightText(question.category === 'current-interview' ? getSidebarCategoryLabel(getSidebarCategory(question)) : question.categoryLabel, query)}
               {[...new Set([...question.projects, ...question.keywords])].slice(0, 3).map((item) => <span key={item}> · {highlightText(item, query)}</span>)}
             </small>
           </span>
@@ -289,7 +296,7 @@ function UserWorkspace({ user, favorites, switchUser, updateFavorites, workbench
   if (workbench) return <Workbench question={selected} questions={questions}
     activeKey={activeAnswer.questionId === selected?.id ? activeAnswer.key : ''}
     setActiveKey={(key) => setActiveAnswer({ questionId: selected?.id || '', key })}
-    categories={categoryNavigation} categoryLabel={categories.find((item) => item.id === category)?.label || '全部题目'}
+    categories={categoryNavigation} categoryLabel={getSidebarCategoryLabel(category)}
     search={searchBox} userMenu={userSwitcher} results={questionResults}
     favorite={!!selected && favorites.includes(selected.id)} toggleFavorite={toggleFavorite} exit={exitWorkbench} />
 
