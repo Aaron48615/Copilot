@@ -7,6 +7,7 @@ difficulty: 基础
 priority: normal
 projects: [映刻影视]
 keywords: [登录鉴权, 订单流程, uni-app]
+followupIds: [yingke-movies-followup-029-vuex]
 ---
 
 # 为什么没有使用 Vuex？

@@ -7,6 +7,7 @@ difficulty: 深入
 priority: high
 projects: [云枢智慧城市数据平台]
 keywords: [localStorage, HttpOnly Cookie, Token, XSS, Redux]
+followupIds: [yunshu-smart-city-followup-004-localstorage-token, yunshu-smart-city-followup-005-jwt, yunshu-smart-city-followup-011-ai-key-logout]
 ---
 
 # Token 为什么存在 localStorage，而不是 HttpOnly Cookie？

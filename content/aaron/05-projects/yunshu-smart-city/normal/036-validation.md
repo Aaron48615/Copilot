@@ -7,6 +7,7 @@ difficulty: 深入
 priority: normal
 projects: [云枢智慧城市数据平台]
 keywords: [首页数据, TypeScript, 分页, CSV 导出, 高德地图, 错误分层]
+followupIds: [yunshu-smart-city-followup-025-typescript-validation, yunshu-smart-city-followup-024-csv-export]
 ---
 
 # 接口运行时校验和错误分层不统一

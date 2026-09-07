@@ -7,6 +7,7 @@ difficulty: 基础
 priority: normal
 projects: [映刻影视]
 keywords: [uni-app, 影视小程序, Vue 2, 项目概览, 请求封装, 首页数据]
+followupIds: [yingke-movies-followup-001-axios-uni-request, yingke-movies-followup-009-promise-allsettled-promise-all, yingke-movies-followup-031-cross-platform, yingke-movies-followup-041-testing]
 ---
 
 # 项目介绍

@@ -7,6 +7,7 @@ difficulty: 基础
 priority: normal
 projects: [映刻影视]
 keywords: [跨端兼容, 移动端适配, 请求封装, 组件设计, uni.request, uni-app]
+followupIds: [yingke-movies-followup-031-cross-platform, yingke-movies-followup-035-vue-version, yingke-movies-followup-034-responsive-units]
 ---
 
 # 这个项目真的支持多端吗？

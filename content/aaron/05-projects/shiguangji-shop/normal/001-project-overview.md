@@ -7,6 +7,7 @@ difficulty: 基础
 priority: normal
 projects: [拾光集移动商城系统]
 keywords: [Vue 3, 移动商城, 前端工程, 项目概览, 移动端适配, 登录鉴权]
+followupIds: [shiguangji-shop-followup-011-ai-fallback, shiguangji-shop-followup-017-stale-response-pricing, shiguangji-shop-followup-022-deployment-proxy-image-proxy]
 ---
 
 # 项目介绍（约 1 分半到 2 分钟）

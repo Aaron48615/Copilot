@@ -7,6 +7,7 @@ difficulty: 深入
 priority: normal
 projects: [云枢智慧城市数据平台]
 keywords: [自动化测试, 请求封装, 登录鉴权, 首页数据, 组件设计, 验证方法]
+followupIds: [yunshu-smart-city-followup-026-testing-build]
 ---
 
 # 自动化测试覆盖仍集中在纯函数

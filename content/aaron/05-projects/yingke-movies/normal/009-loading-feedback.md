@@ -7,6 +7,7 @@ difficulty: 基础
 priority: normal
 projects: [映刻影视]
 keywords: [首页数据, 骨架屏, Vant Weapp, 加载状态]
+followupIds: [yingke-movies-followup-016-loading-state]
 ---
 
 # 页面等待反馈

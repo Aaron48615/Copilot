@@ -7,6 +7,7 @@ difficulty: 进阶
 priority: high
 projects: [拾光集移动商城系统]
 keywords: [首页数据, 验证方法, Promise.allSettled, Promise.all]
+followupIds: [shiguangji-shop-followup-015-homepage-promise-allsettled-promise-all, shiguangji-shop-followup-021-skeleton-vant-weapp]
 ---
 
 # 亮点二：首页一个接口失败，不影响其他区域

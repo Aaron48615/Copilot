@@ -7,6 +7,7 @@ difficulty: 进阶
 priority: high
 projects: [映刻影视]
 keywords: [分页, 首页数据, 页面导航, onShow, onLoad, 加载状态]
+followupIds: [yingke-movies-followup-013-onshow-onload, yingke-movies-followup-015-pagination, yingke-movies-followup-014-pagination, yingke-movies-followup-017-start-total, yingke-movies-followup-016-loading-state, yingke-movies-followup-018-movie-detail-scroll-restoration, yingke-movies-followup-043-pagination]
 ---
 
 # 分类列表和触底分页

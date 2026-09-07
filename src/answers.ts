@@ -36,3 +36,42 @@ export function filterFollowups<T extends { title: string; answer: string }>(ite
   const terms = query.trim().toLocaleLowerCase().split(/\s+/).filter(Boolean)
   return items.filter((item) => terms.every((term) => `${item.title} ${item.answer}`.toLocaleLowerCase().includes(term)))
 }
+
+export interface ResolvedFollowup {
+  key: string
+  title: string
+  answer: string
+  evidence?: string
+  source: 'embedded' | 'linked'
+}
+
+export function resolveFollowups(question: InterviewQuestion, questions: InterviewQuestion[]): ResolvedFollowup[] {
+  const content = getAnswerContent(question)
+  const bank = new Map(questions.map((item) => [item.id, item]))
+  return [
+    ...question.followupIds.map((id): ResolvedFollowup => {
+      const target = bank.get(id)!
+      const answer = getAnswerContent(target)
+      return { key: `linked:${id}`, title: target.title.slice(3).trim(), answer: answer.core, evidence: answer.evidence, source: 'linked' }
+    }),
+    ...content.followups.map((item, index): ResolvedFollowup => ({
+      ...item, key: `embedded:${index}`, evidence: content.evidence, source: 'embedded',
+    })),
+  ]
+}
+
+function normalizePrompt(title: string) {
+  return title.normalize('NFKC').replace(/^[\s>*-]+|^\d+[.)、]\s*/g, '')
+    .replace(/^追问[:：]\s*/, '').replace(/[\s\p{P}]/gu, '').toLocaleLowerCase()
+}
+
+export function getPendingFollowups(prompts = '', resolved: ResolvedFollowup[]) {
+  const seen = new Set(resolved.map((item) => normalizePrompt(item.title)))
+  return prompts.split('\n').map((line) => line.replace(/^\s*(?:[-*>]\s*|\d+[.)、]\s*)+/, '').trim())
+    .filter((title) => {
+      const key = normalizePrompt(title)
+      if (!key || seen.has(key)) return false
+      seen.add(key)
+      return true
+    })
+}

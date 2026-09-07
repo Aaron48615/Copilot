@@ -7,6 +7,7 @@ difficulty: 基础
 priority: normal
 projects: [映刻影视]
 keywords: [影视详情, 文本展开, onLoad]
+followupIds: [yingke-movies-followup-021-movie-detail, yingke-movies-followup-030-want-to-watch]
 ---
 
 # 影视详情查询

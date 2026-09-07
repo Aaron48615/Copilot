@@ -7,6 +7,7 @@ difficulty: 深入
 priority: high
 projects: [拾光集移动商城系统]
 keywords: [AES, RSA, 密码哈希, HTTPS]
+followupIds: [shiguangji-shop-followup-004-aes-rsa-hashing, shiguangji-shop-followup-003-aes, shiguangji-shop-followup-005-ecb-cbc-gcm]
 ---
 
 # 为什么密码使用 AES，不用 RSA、MD5 或 SHA-256？

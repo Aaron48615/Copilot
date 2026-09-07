@@ -7,6 +7,7 @@ difficulty: 深入
 priority: normal
 projects: [映刻影视]
 keywords: [Axios, uni.request, 地址管理, 请求适配器]
+followupIds: [yingke-movies-followup-001-axios-uni-request]
 ---
 
 # 为什么不直接使用 `uni.request`，还要引入 Axios？

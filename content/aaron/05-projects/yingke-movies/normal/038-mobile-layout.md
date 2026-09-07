@@ -7,6 +7,7 @@ difficulty: 基础
 priority: normal
 projects: [映刻影视]
 keywords: [移动端适配, 自动化测试, uni-app]
+followupIds: [yingke-movies-followup-034-responsive-units, yingke-movies-followup-033-vant-weapp]
 ---
 
 # 移动端布局

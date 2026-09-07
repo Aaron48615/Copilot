@@ -7,6 +7,7 @@ difficulty: 进阶
 priority: normal
 projects: [映刻影视]
 keywords: [自动化测试, 首页数据, 验证方法, 请求适配器, 分页]
+followupIds: [yingke-movies-followup-041-testing, yingke-movies-followup-042-request-layer, yingke-movies-followup-043-pagination]
 ---
 
 # 缺少可执行测试和明确构建脚本

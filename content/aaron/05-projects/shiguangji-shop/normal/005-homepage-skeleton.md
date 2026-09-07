@@ -7,6 +7,7 @@ difficulty: 进阶
 priority: normal
 projects: [拾光集移动商城系统]
 keywords: [首页数据, 骨架屏, 地址管理, 订单流程, Promise.allSettled, Promise.all]
+followupIds: [shiguangji-shop-followup-021-skeleton-vant-weapp, shiguangji-shop-followup-015-homepage-promise-allsettled-promise-all]
 ---
 
 # 首页数据加载和骨架屏

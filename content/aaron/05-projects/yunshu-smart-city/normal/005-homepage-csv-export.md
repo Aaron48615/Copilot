@@ -7,6 +7,7 @@ difficulty: 进阶
 priority: normal
 projects: [云枢智慧城市数据平台]
 keywords: [首页数据, CSV 导出, 地址管理, Promise.all, 分页, 数据可视化]
+followupIds: [yunshu-smart-city-followup-017-homepage-promise-allsettled-promise-all, yunshu-smart-city-followup-018-websocket-polling, yunshu-smart-city-followup-024-csv-export]
 ---
 
 # 首页数据总览、刷新和 CSV 导出

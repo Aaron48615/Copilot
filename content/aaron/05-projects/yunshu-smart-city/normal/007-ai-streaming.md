@@ -7,6 +7,7 @@ difficulty: 深入
 priority: normal
 projects: [云枢智慧城市数据平台]
 keywords: [Token, SSE, 流式解析, Fetch, 请求取消, 列表 Key]
+followupIds: [yunshu-smart-city-followup-013-sse-websocket-eventsource, yunshu-smart-city-followup-014-sse-stream-decoding, yunshu-smart-city-followup-015-request-cancellation-ai-streaming, yunshu-smart-city-followup-016-ai-data-access-ai-streaming]
 ---
 
 # AI 助手的流式回答

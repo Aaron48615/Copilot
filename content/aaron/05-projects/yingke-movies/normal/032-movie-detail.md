@@ -7,6 +7,7 @@ difficulty: 基础
 priority: normal
 projects: [映刻影视]
 keywords: [影视详情, 加载状态, uni-app]
+followupIds: [yingke-movies-followup-021-movie-detail, yingke-movies-followup-030-want-to-watch]
 ---
 
 # 详情页缺少加载期空值和异常保护

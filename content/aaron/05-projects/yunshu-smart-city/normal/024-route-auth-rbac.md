@@ -7,6 +7,7 @@ difficulty: 深入
 priority: normal
 projects: [云枢智慧城市数据平台]
 keywords: [登录鉴权, RBAC, Token]
+followupIds: [yunshu-smart-city-followup-012-rbac-menu-access, yunshu-smart-city-followup-005-jwt]
 ---
 
 # 前端路由守卫和 RBAC 能防住越权吗？

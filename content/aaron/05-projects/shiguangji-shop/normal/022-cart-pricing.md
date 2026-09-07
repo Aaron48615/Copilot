@@ -7,6 +7,7 @@ difficulty: 基础
 priority: high
 projects: [拾光集移动商城系统]
 keywords: [购物车, 服务端计价, 订单流程]
+followupIds: [shiguangji-shop-followup-017-stale-response-pricing]
 ---
 
 # 购物车为什么让服务端计价？

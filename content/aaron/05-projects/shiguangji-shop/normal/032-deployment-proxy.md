@@ -7,6 +7,7 @@ difficulty: 深入
 priority: normal
 projects: [拾光集移动商城系统]
 keywords: [验证方法, 同源代理, 性能优化, HTTPS]
+followupIds: [shiguangji-shop-followup-022-deployment-proxy-image-proxy]
 ---
 
 # 部署和代理还不能说成全部验证完成

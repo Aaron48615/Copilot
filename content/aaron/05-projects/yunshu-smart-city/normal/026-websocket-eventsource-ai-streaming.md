@@ -7,6 +7,7 @@ difficulty: 进阶
 priority: normal
 projects: [云枢智慧城市数据平台]
 keywords: [WebSocket, Axios, Fetch, 流式解析]
+followupIds: [yunshu-smart-city-followup-013-sse-websocket-eventsource, yunshu-smart-city-followup-014-sse-stream-decoding]
 ---
 
 # AI 流式请求为什么用 Fetch，不用 Axios、EventSource 或 WebSocket？

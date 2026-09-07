@@ -7,6 +7,7 @@ difficulty: 进阶
 priority: high
 projects: [拾光集移动商城系统]
 keywords: [Promise.allSettled, Promise.all, 首页数据, 加载状态]
+followupIds: [shiguangji-shop-followup-015-homepage-promise-allsettled-promise-all]
 ---
 
 # 为什么使用 Promise.allSettled，而不是 Promise.all？

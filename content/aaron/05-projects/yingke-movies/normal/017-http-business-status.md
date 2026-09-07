@@ -7,6 +7,7 @@ difficulty: 深入
 priority: normal
 projects: [映刻影视]
 keywords: [错误分层, uni.request, 请求适配器]
+followupIds: [yingke-movies-followup-005-http-business-status, yingke-movies-followup-004-interceptors]
 ---
 
 # HTTP 200 是否代表接口业务一定成功？

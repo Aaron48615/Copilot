@@ -7,6 +7,7 @@ difficulty: 深入
 priority: normal
 projects: [映刻影视]
 keywords: [首页数据, 组件设计, 页面导航, 验证方法, Promise.allSettled, Promise.all]
+followupIds: [yingke-movies-followup-012-homepage-api-function-design, yingke-movies-followup-011-settled-result, yingke-movies-followup-020-props]
 ---
 
 # 用数据驱动方式复用三个首页分类

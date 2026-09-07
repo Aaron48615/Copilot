@@ -7,6 +7,7 @@ difficulty: 基础
 priority: normal
 projects: [映刻影视]
 keywords: [localStorage, sessionStorage, AI Key, Token, 第三方 API]
+followupIds: [yingke-movies-followup-029-vuex, yingke-movies-followup-018-movie-detail-scroll-restoration]
 ---
 
 # 为什么数据不存 LocalStorage 或 sessionStorage？

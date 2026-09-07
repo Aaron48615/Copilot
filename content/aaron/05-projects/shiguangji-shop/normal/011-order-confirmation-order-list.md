@@ -7,6 +7,7 @@ difficulty: 进阶
 priority: normal
 projects: [拾光集移动商城系统]
 keywords: [订单流程, 商品详情, 地址管理, 购物车, SKU, 加载状态]
+followupIds: [shiguangji-shop-followup-023-order-confirmation-localstorage-sessionstorage]
 ---
 
 # 确认订单和订单列表

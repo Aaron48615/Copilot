@@ -7,6 +7,7 @@ difficulty: 深入
 priority: high
 projects: [映刻影视]
 keywords: [Axios, 请求适配器, 地址管理, 验证方法, uni.request, 请求取消]
+followupIds: [yingke-movies-followup-002-axios-adapter-axios, yingke-movies-followup-003-axios-adapter, yingke-movies-followup-007-axios-adapter-axios-promisify-adaptor, yingke-movies-followup-042-request-layer]
 ---
 
 # 用自定义 adapter 连接 Axios 和小程序请求

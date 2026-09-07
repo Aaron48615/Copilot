@@ -7,6 +7,7 @@ difficulty: 深入
 priority: high
 projects: [映刻影视]
 keywords: [请求乱序, 首页数据, 商品搜索, 分页]
+followupIds: [yingke-movies-followup-008-page-unload, yingke-movies-followup-014-pagination]
 ---
 
 # 为什么没有处理请求乱序？

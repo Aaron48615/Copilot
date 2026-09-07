@@ -7,6 +7,7 @@ difficulty: 深入
 priority: normal
 projects: [拾光集移动商城系统]
 keywords: [请求封装, 登录鉴权, 地址管理, HttpOnly Cookie, Token, Axios]
+followupIds: [shiguangji-shop-followup-014-axios-fetch]
 ---
 
 # 网络请求封装

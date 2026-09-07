@@ -7,6 +7,7 @@ difficulty: 基础
 priority: normal
 projects: [云枢智慧城市数据平台]
 keywords: [移动端适配, 验证方法, 自动化测试, 高德地图]
+followupIds: [yunshu-smart-city-followup-022-map-useref-usestate, yunshu-smart-city-followup-023-lazy-loading]
 ---
 
 # 移动端和容器布局

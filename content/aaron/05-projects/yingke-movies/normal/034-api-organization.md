@@ -7,6 +7,7 @@ difficulty: 基础
 priority: normal
 projects: [映刻影视]
 keywords: [首页数据, 地址管理, uni-app]
+followupIds: [yingke-movies-followup-028-homepage-api-organization, yingke-movies-followup-012-homepage-api-function-design]
 ---
 
 # API 定义存在重复和命名不清楚

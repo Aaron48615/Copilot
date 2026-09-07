@@ -7,6 +7,7 @@ difficulty: 深入
 priority: high
 projects: [云枢智慧城市数据平台]
 keywords: [登录鉴权, 首页数据, 组件设计, 页面导航, 验证方法, Token]
+followupIds: [yunshu-smart-city-followup-005-jwt, yunshu-smart-city-followup-011-ai-key-logout, yunshu-smart-city-followup-012-rbac-menu-access]
 ---
 
 # 前端路由鉴权

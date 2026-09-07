@@ -7,6 +7,7 @@ difficulty: 深入
 priority: high
 projects: [云枢智慧城市数据平台]
 keywords: [登录鉴权, Token, 密码哈希, HTTPS, 同源代理]
+followupIds: [yunshu-smart-city-followup-003-aes-hashing-password, yunshu-smart-city-followup-006-ai-key-password-https]
 ---
 
 # 密码链路和日志还有安全边界

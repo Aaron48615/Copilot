@@ -7,6 +7,7 @@ difficulty: 深入
 priority: high
 projects: [映刻影视]
 keywords: [分页, 加载状态, 验证方法, onShow, onLoad]
+followupIds: [yingke-movies-followup-013-onshow-onload, yingke-movies-followup-014-pagination, yingke-movies-followup-016-loading-state, yingke-movies-followup-017-start-total]
 ---
 
 # 分页缺少重入、并发和 loading 收口

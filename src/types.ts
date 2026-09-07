@@ -1,6 +1,7 @@
 export interface InterviewQuestion {
   id: string
   title: string
+  followupIds: string[]
   aliases: string[]
   category: string
   categoryLabel: string

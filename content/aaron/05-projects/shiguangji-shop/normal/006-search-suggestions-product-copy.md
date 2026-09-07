@@ -7,6 +7,7 @@ difficulty: 进阶
 priority: normal
 projects: [拾光集移动商城系统]
 keywords: [商品搜索, 文本展开, AI Key, localStorage, 服务端计价, 限流]
+followupIds: [shiguangji-shop-followup-011-ai-fallback, shiguangji-shop-followup-012-debounce-throttle, shiguangji-shop-followup-013-debounce-request-cancellation, shiguangji-shop-followup-001-ai-key-localstorage-sessionstorage, shiguangji-shop-followup-009-ai-key, shiguangji-shop-followup-010-debounce-rate-limit]
 ---
 
 # AI 搜索联想和商品卖点

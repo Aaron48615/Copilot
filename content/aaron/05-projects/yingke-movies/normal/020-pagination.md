@@ -7,6 +7,7 @@ difficulty: 进阶
 priority: high
 projects: [映刻影视]
 keywords: [分页, 加载状态, uni-app]
+followupIds: [yingke-movies-followup-014-pagination, yingke-movies-followup-017-start-total, yingke-movies-followup-043-pagination]
 ---
 
 # 怎样防止快速触底导致重复分页请求？

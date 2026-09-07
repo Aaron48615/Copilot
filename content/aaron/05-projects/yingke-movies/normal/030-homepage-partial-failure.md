@@ -7,6 +7,7 @@ difficulty: 深入
 priority: normal
 projects: [映刻影视]
 keywords: [首页数据, 组件设计, Promise.allSettled, Promise.all, 加载状态]
+followupIds: [yingke-movies-followup-010-partial-failure, yingke-movies-followup-011-settled-result]
 ---
 
 # 首页没有完成单分类失败降级

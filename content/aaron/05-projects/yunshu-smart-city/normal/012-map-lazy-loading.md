@@ -7,6 +7,7 @@ difficulty: 深入
 priority: normal
 projects: [云枢智慧城市数据平台]
 keywords: [同源代理, 高德地图, 路由懒加载, React, 列表 Key]
+followupIds: [yunshu-smart-city-followup-023-lazy-loading, yunshu-smart-city-followup-006-ai-key-password-https]
 ---
 
 # 页面懒加载、接口代理和地图资源配置

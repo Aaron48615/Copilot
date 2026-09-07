@@ -7,6 +7,7 @@ difficulty: 深入
 priority: high
 projects: [云枢智慧城市数据平台]
 keywords: [AI Key, Token, 列表 Key, localStorage, sessionStorage, HttpOnly Cookie]
+followupIds: [yunshu-smart-city-followup-001-ai-key-localstorage-sessionstorage, yunshu-smart-city-followup-002-ai-key-aes, yunshu-smart-city-followup-004-localstorage-token, yunshu-smart-city-followup-011-ai-key-logout]
 ---
 
 # 浏览器长期保存 Token 和 AI Key

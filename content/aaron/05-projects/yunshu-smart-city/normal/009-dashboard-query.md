@@ -7,6 +7,7 @@ difficulty: 进阶
 priority: normal
 projects: [云枢智慧城市数据平台]
 keywords: [Promise.allSettled, Promise.all, 数据可视化]
+followupIds: [yunshu-smart-city-followup-020-chart-config-echarts, yunshu-smart-city-followup-019-data-aggregation-top-categories]
 ---
 
 # 仪表盘管理和动态重查

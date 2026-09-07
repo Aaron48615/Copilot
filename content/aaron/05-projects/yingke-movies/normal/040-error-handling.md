@@ -7,6 +7,7 @@ difficulty: 进阶
 priority: normal
 projects: [映刻影视]
 keywords: [请求封装, 地址管理, 验证方法, 分页, 错误分层]
+followupIds: [yingke-movies-followup-005-http-business-status, yingke-movies-followup-010-partial-failure, yingke-movies-followup-021-movie-detail]
 ---
 
 # 接口结果和错误状态

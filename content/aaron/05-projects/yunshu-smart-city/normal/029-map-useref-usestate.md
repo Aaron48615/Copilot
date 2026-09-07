@@ -7,6 +7,7 @@ difficulty: 进阶
 priority: normal
 projects: [云枢智慧城市数据平台]
 keywords: [useRef, useState, 高德地图, React]
+followupIds: [yunshu-smart-city-followup-022-map-useref-usestate]
 ---
 
 # 为什么地图实例用 useRef，不用 useState？

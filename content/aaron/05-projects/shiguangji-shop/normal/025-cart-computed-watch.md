@@ -7,6 +7,7 @@ difficulty: 基础
 priority: normal
 projects: [拾光集移动商城系统]
 keywords: [购物车, 请求封装, 服务端计价]
+followupIds: [shiguangji-shop-followup-016-cart-computed-watch]
 ---
 
 # computed 和 watch 在购物车里分别做什么？

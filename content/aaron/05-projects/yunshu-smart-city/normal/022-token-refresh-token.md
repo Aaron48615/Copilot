@@ -7,6 +7,7 @@ difficulty: 深入
 priority: high
 projects: [云枢智慧城市数据平台]
 keywords: [Token, React, 智慧城市]
+followupIds: [yunshu-smart-city-followup-007-settimeout-setinterval, yunshu-smart-city-followup-008-token]
 ---
 
 # 为什么提前 30 秒刷新 Token？

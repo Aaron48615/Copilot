@@ -7,6 +7,7 @@ difficulty: 基础
 priority: normal
 projects: [云枢智慧城市数据平台]
 keywords: [自动化测试, 组件设计, 验证方法, Token, 高德地图, 数据可视化]
+followupIds: [yunshu-smart-city-followup-026-testing-build]
 ---
 
 # 当前测试状态怎么说明

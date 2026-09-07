@@ -7,6 +7,7 @@ difficulty: 进阶
 priority: normal
 projects: [拾光集移动商城系统]
 keywords: [商品搜索, 首页数据, 防抖]
+followupIds: [shiguangji-shop-followup-012-debounce-throttle, shiguangji-shop-followup-013-debounce-request-cancellation]
 ---
 
 # 分类和搜索

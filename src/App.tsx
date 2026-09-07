@@ -8,6 +8,8 @@ import type { ProfileStore } from './profiles'
 import { getTextMatchRanges } from './search-text'
 import type { InterviewQuestion } from './types'
 import { filterFollowups, getAnswerContent } from './answers'
+import { renderText } from './TextContent'
+import { Workbench, WorkbenchDialog, useLandscapeViewport } from './Workbench'
 
 function highlightText(text: string, query: string): ReactNode {
   const ranges = getTextMatchRanges(text, query)
@@ -24,20 +26,11 @@ function highlightText(text: string, query: string): ReactNode {
   return parts
 }
 
-function renderText(text = '') {
-  return text.split('\n').map((line, index) => {
-    const heading = line.match(/^#{1,6} (.+)$/)
-    const content = line
-      .replace(/^([-*] |#{1,6} )/, '')
-      .replace(/`([^`]+)`/g, '$1')
-      .replace(/\*\*([^*]+)\*\*/g, '$1')
-    if (!content.trim()) return <br key={index} />
-    if (heading) return <p key={index}><strong>{content}</strong></p>
-    return line.startsWith('- ') || line.startsWith('* ') ? <li key={index}>{content}</li> : <p key={index}>{content}</p>
-  })
-}
+const LEGACY_NOTICE_DISMISSED_KEY = 'interview-legacy-notice-dismissed'
 
 function App() {
+  const [workbench, setWorkbench] = useState(false)
+  const landscapeReady = useLandscapeViewport()
   const [store, setStore] = useState(() => {
     try { return loadProfiles(localStorage, repositoryUsers.map((user) => user.id)) }
     catch { return { activeUserId: repositoryUsers[0].id, favorites: {} } as ProfileStore }
@@ -46,6 +39,15 @@ function App() {
     try { return localStorage.getItem(LEGACY_STORAGE_KEY) || '' }
     catch { return '' }
   })
+  const [legacyNoticeDismissed, setLegacyNoticeDismissed] = useState(() => {
+    try { return localStorage.getItem(LEGACY_NOTICE_DISMISSED_KEY) === 'true' }
+    catch { return false }
+  })
+  function dismissLegacyNotice() {
+    setLegacyNoticeDismissed(true)
+    try { localStorage.setItem(LEGACY_NOTICE_DISMISSED_KEY, 'true') }
+    catch { /* 存储不可用时仍允许关闭本次会话的提示，不删除旧数据。 */ }
+  }
   const [error, setError] = useState('')
   const user = repositoryUsers.find((item) => item.id === store.activeUserId) || repositoryUsers[0]
   function save(next: ProfileStore) {
@@ -69,20 +71,31 @@ function App() {
     if (!repositoryUsers.some((item) => item.id === id)) return
     save({ ...store, activeUserId: id })
   }
-  return <>
+  return <div className={workbench ? "application application-workbench" : "application"}>
     {error && <div className="storage-error" role="alert">{error}</div>}
-    {legacyBackup && <div className="legacy-notice">
+    {legacyBackup && !legacyNoticeDismissed && <div className="legacy-notice">
       <span>检测到旧版本地数据，尚未自动加入仓库。请导出备份后按 README 迁移题目；原数据仍保留在此浏览器。</span>
-      <button onClick={exportLegacy}>导出旧数据</button>
+      <div className="legacy-notice-actions">
+        <button onClick={exportLegacy}>导出旧数据</button>
+        <button onClick={dismissLegacyNotice} title="关闭提示，保留旧数据备份">不再提示</button>
+      </div>
     </div>}
-    <UserWorkspace key={user.id} user={user} favorites={Array.isArray(store.favorites[user.id]) ? store.favorites[user.id] : []}
+    <UserWorkspace exportLegacy={legacyBackup ? exportLegacy : undefined} key={user.id} workbench={workbench && landscapeReady} requestWorkbench={() => setWorkbench(true)} exitWorkbench={() => setWorkbench(false)} user={user} favorites={Array.isArray(store.favorites[user.id]) ? store.favorites[user.id] : []}
       switchUser={switchUser}
       updateFavorites={(favorites) => save({ ...store, favorites: { ...store.favorites, [user.id]: favorites } })}
     />
-  </>
+    {workbench && !landscapeReady && <WorkbenchDialog title="旋转设备，继续复习" className="wb-rotation" close={() => setWorkbench(false)}>
+      <p>横屏工作台需要横向视口，且至少为 667 × 360。请旋转设备或增大窗口，满足条件后会自动进入。</p>
+      <p>当前题目和追问会保留。</p><button onClick={() => setWorkbench(false)}>取消，返回普通布局</button>
+    </WorkbenchDialog>}
+  </div>
 }
 
-function UserWorkspace({ user, favorites, switchUser, updateFavorites }: {
+function UserWorkspace({ user, favorites, switchUser, updateFavorites, workbench, requestWorkbench, exitWorkbench, exportLegacy }: {
+  exportLegacy?: () => void
+  workbench: boolean
+  requestWorkbench: () => void
+  exitWorkbench: () => void
   user: RepositoryUser
   favorites: string[]
   switchUser: (id: string) => void
@@ -112,6 +125,7 @@ function UserWorkspace({ user, favorites, switchUser, updateFavorites }: {
     }
   }, [menuOpen])
 
+  const [activeAnswer, setActiveAnswer] = useState({ questionId: '', key: '' })
   const [query, setQuery] = useState('')
   const [category, setCategory] = useState('all')
   const [selectedId, setSelectedId] = useState(questions[0]?.id ?? '')
@@ -121,6 +135,11 @@ function UserWorkspace({ user, favorites, switchUser, updateFavorites }: {
 
   const results = useMemo(() => searchQuestions(questions, query, category), [questions, query, category])
   const selected = results.find(({ question }) => question.id === selectedId)?.question || results[0]?.question
+  useEffect(() => {
+    setActiveAnswer({ questionId: selected?.id || '', key: '' })
+    agentRequest.current?.abort()
+    setAgentState('idle')
+  }, [selected?.id])
   const hasReliableMatch = !query.trim() || (results[0]?.score ?? 0) >= 38
 
   useEffect(() => {
@@ -172,6 +191,108 @@ function UserWorkspace({ user, favorites, switchUser, updateFavorites }: {
     }
   }
 
+  const categoryNavigation = (<>
+    <nav className="category-nav" aria-label="题目分类">
+      <p className="nav-label">题库</p>
+      {categories.map((item) => {
+        const count = item.id === 'all' ? questions.length : questions.filter((q) => q.category === item.id).length
+        return (
+          <button className={category === item.id ? 'active' : ''} key={item.id} onClick={() => setCategory(item.id)}>
+            <span>{item.label}</span><em>{count}</em>
+          </button>
+        )
+      })}
+    </nav>
+  </>)
+  const userSwitcher = (<>
+    <div className="user-switcher" ref={menuRef}>
+      <button ref={avatarRef} className="avatar" title={`当前用户：${user.name}，点击切换用户`}
+        aria-label={`切换用户，当前：${user.name}`} aria-expanded={menuOpen} aria-controls="user-menu"
+        onClick={() => setMenuOpen(!menuOpen)}>{Array.from(user.name)[0]}</button>
+      {menuOpen && <div className="user-menu" id="user-menu" aria-label="用户切换">
+        <p className="user-menu-title">切换用户<span>题库随网站发布 · 收藏仅限本机</span></p>
+        <div className="user-options">
+          {repositoryUsers.map((item) => <button className={`user-option ${item.id === user.id ? 'active' : ''}`} key={item.id}
+            aria-pressed={item.id === user.id} onClick={() => { switchUser(item.id); setMenuOpen(false) }}>
+            <span className="user-initial">{Array.from(item.name)[0]}</span>
+            <span className="user-detail"><strong>{item.name}</strong><small>{item.questions.length} 道题</small></span>
+            {item.id === user.id && <span className="user-check">✓</span>}
+          </button>)}
+        </div>
+        <p className="repository-note">用户和题库由仓库统一维护，发布后在各浏览器中可见。</p>
+        {exportLegacy && <button className="user-option" onClick={exportLegacy}>导出旧数据备份</button>}
+      </div>}
+    </div>
+  </>)
+  const searchBox = (<>
+    <div className="search-wrap">
+      <span className="search-icon">⌕</span>
+      <input
+        ref={searchRef}
+        value={query}
+        onChange={(event) => { agentRequest.current?.abort(); setQuery(event.target.value); setAgentState('idle') }}
+        aria-label="搜索题库"
+        placeholder="搜索知识点、项目难点或面试官的问法，中文或拼音都可以…"
+        autoFocus
+      />
+      {query && <button aria-label="清空搜索" className="clear-search" onClick={() => { agentRequest.current?.abort(); setQuery(''); setAgentState('idle') }}>×</button>}
+      <kbd>⌘ K</kbd>
+    </div>
+  </>)
+  const questionResults = (<>
+    <div className="result-heading">
+      <span>{query ? `找到 ${results.length} 个相关回答` : `${user.name} 的题库 · ${results.length} 道题`}</span>
+      {query && <small>按匹配程度排序</small>}
+    </div>
+
+    <div className="question-list">
+      {!questions.length && <div className="empty-bank">
+        <span className="empty-bank-mark">题</span>
+        <h2>{user.name} 的题库，等你填满</h2>
+        <p>这位用户还没有发布题目。<br />维护者添加题目并更新网站后，即可在这里复习。</p>
+      </div>}
+      {!!questions.length && !query && !results.length && <p className="import-message">当前分类暂无题目。</p>}
+      {results.map(({ question, score }) => (
+        <button
+          key={`${user.id}:${question.id}`}
+          className={`question-row ${selected?.id === question.id ? 'selected' : ''}`}
+          onClick={() => { agentRequest.current?.abort(); setSelectedId(question.id); setAgentState('idle') }}
+        >
+          <span className="question-copy">
+            <strong>{highlightText(question.title, query)}</strong>
+            <small>
+              {highlightText(question.categoryLabel, query)}
+              {[...new Set([...question.projects, ...question.keywords])].slice(0, 3).map((item) => <span key={item}> · {highlightText(item, query)}</span>)}
+            </small>
+          </span>
+          {query && <span className="match-score">{Math.min(99, Math.round(score))}%</span>}
+          <span className="row-arrow">›</span>
+        </button>
+      ))}
+
+      {query && !hasReliableMatch && (
+        <div className="fallback-card">
+          <div className="agent-orb">✦</div>
+          <div><strong>题库里暂时没有可靠答案</strong><p>向已配置的 Agent 请求一次性回答，个性化内容取决于服务端配置。</p></div>
+          <button onClick={askAgent} disabled={agentState === 'loading'}>{agentState === 'loading' ? '正在分析…' : '询问 Agent'}</button>
+        </div>
+      )}
+
+      {agentState !== 'idle' && agentState !== 'loading' && (
+        <div className={`agent-result ${agentState}`}>
+          <span>AGENT 临时回答</span>
+          <p>{agentAnswer}</p>
+        </div>
+      )}
+    </div>
+  </>)
+  if (workbench) return <Workbench question={selected} questions={questions}
+    activeKey={activeAnswer.questionId === selected?.id ? activeAnswer.key : ''}
+    setActiveKey={(key) => setActiveAnswer({ questionId: selected?.id || '', key })}
+    categories={categoryNavigation} categoryLabel={categories.find((item) => item.id === category)?.label || '全部题目'}
+    search={searchBox} userMenu={userSwitcher} results={questionResults}
+    favorite={!!selected && favorites.includes(selected.id)} toggleFavorite={toggleFavorite} exit={exitWorkbench} />
+
   return (
     <div className="app-shell">
       <aside className="sidebar">
@@ -180,17 +301,7 @@ function UserWorkspace({ user, favorites, switchUser, updateFavorites }: {
           <div><strong>面试话术库</strong><small>Interview Copilot</small></div>
         </div>
 
-        <nav className="category-nav" aria-label="题目分类">
-          <p className="nav-label">题库</p>
-          {categories.map((item) => {
-            const count = item.id === 'all' ? questions.length : questions.filter((q) => q.category === item.id).length
-            return (
-              <button className={category === item.id ? 'active' : ''} key={item.id} onClick={() => setCategory(item.id)}>
-                <span>{item.label}</span><em>{count}</em>
-              </button>
-            )
-          })}
-        </nav>
+        {categoryNavigation}
 
         <div className="sidebar-note">
           <span className="status-dot" />
@@ -204,84 +315,13 @@ function UserWorkspace({ user, favorites, switchUser, updateFavorites }: {
             <span className="eyebrow">FRONTEND INTERVIEW</span>
             <h1>你现在想复习什么？</h1>
           </div>
-          <div className="user-switcher" ref={menuRef}>
-            <button ref={avatarRef} className="avatar" title={`当前用户：${user.name}，点击切换用户`}
-              aria-label={`切换用户，当前：${user.name}`} aria-expanded={menuOpen} aria-controls="user-menu"
-              onClick={() => setMenuOpen(!menuOpen)}>{Array.from(user.name)[0]}</button>
-            {menuOpen && <div className="user-menu" id="user-menu" aria-label="用户切换">
-              <p className="user-menu-title">切换用户<span>题库随网站发布 · 收藏仅限本机</span></p>
-              <div className="user-options">
-                {repositoryUsers.map((item) => <button className={`user-option ${item.id === user.id ? 'active' : ''}`} key={item.id}
-                  aria-pressed={item.id === user.id} onClick={() => { switchUser(item.id); setMenuOpen(false) }}>
-                  <span className="user-initial">{Array.from(item.name)[0]}</span>
-                  <span className="user-detail"><strong>{item.name}</strong><small>{item.questions.length} 道题</small></span>
-                  {item.id === user.id && <span className="user-check">✓</span>}
-                </button>)}
-              </div>
-              <p className="repository-note">用户和题库由仓库统一维护，发布后在各浏览器中可见。</p>
-            </div>}
-          </div>
+          <div className="topbar-actions"><button className="workbench-entry" aria-pressed={false} onClick={requestWorkbench}>横屏工作台</button>{userSwitcher}</div>
         </header>
 
-        <div className="search-wrap">
-          <span className="search-icon">⌕</span>
-          <input
-            ref={searchRef}
-            value={query}
-            onChange={(event) => { agentRequest.current?.abort(); setQuery(event.target.value); setAgentState('idle') }}
-            placeholder="搜索知识点、项目难点或面试官的问法，中文或拼音都可以…"
-            autoFocus
-          />
-          {query && <button className="clear-search" onClick={() => { agentRequest.current?.abort(); setQuery(''); setAgentState('idle') }}>×</button>}
-          <kbd>⌘ K</kbd>
-        </div>
+        {searchBox}
 
         <p className="bank-origin">已发布题库 · 各浏览器均可访问</p>
-        <div className="result-heading">
-          <span>{query ? `找到 ${results.length} 个相关回答` : `${user.name} 的题库 · ${results.length} 道题`}</span>
-          {query && <small>按匹配程度排序</small>}
-        </div>
-
-        <div className="question-list">
-          {!questions.length && <div className="empty-bank">
-            <span className="empty-bank-mark">题</span>
-            <h2>{user.name} 的题库，等你填满</h2>
-            <p>这位用户还没有发布题目。<br />维护者添加题目并更新网站后，即可在这里复习。</p>
-          </div>}
-          {!!questions.length && !query && !results.length && <p className="import-message">当前分类暂无题目。</p>}
-          {results.map(({ question, score }) => (
-            <button
-              key={`${user.id}:${question.id}`}
-              className={`question-row ${selected?.id === question.id ? 'selected' : ''}`}
-              onClick={() => { agentRequest.current?.abort(); setSelectedId(question.id); setAgentState('idle') }}
-            >
-              <span className="question-copy">
-                <strong>{highlightText(question.title, query)}</strong>
-                <small>
-                  {highlightText(question.categoryLabel, query)}
-                  {[...new Set([...question.projects, ...question.keywords])].slice(0, 3).map((item) => <span key={item}> · {highlightText(item, query)}</span>)}
-                </small>
-              </span>
-              {query && <span className="match-score">{Math.min(99, Math.round(score))}%</span>}
-              <span className="row-arrow">›</span>
-            </button>
-          ))}
-
-          {query && !hasReliableMatch && (
-            <div className="fallback-card">
-              <div className="agent-orb">✦</div>
-              <div><strong>题库里暂时没有可靠答案</strong><p>向已配置的 Agent 请求一次性回答，个性化内容取决于服务端配置。</p></div>
-              <button onClick={askAgent} disabled={agentState === 'loading'}>{agentState === 'loading' ? '正在分析…' : '询问 Agent'}</button>
-            </div>
-          )}
-
-          {agentState !== 'idle' && agentState !== 'loading' && (
-            <div className={`agent-result ${agentState}`}>
-              <span>AGENT 临时回答</span>
-              <p>{agentAnswer}</p>
-            </div>
-          )}
-        </div>
+        {questionResults}
       </main>
 
       <aside className="answer-panel">

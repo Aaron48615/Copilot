@@ -7,6 +7,7 @@ difficulty: 深入
 priority: normal
 projects: [映刻影视]
 keywords: [首页数据, 组件设计, 页面导航, Promise.allSettled, Vant Weapp, Props]
+followupIds: [yingke-movies-followup-011-settled-result, yingke-movies-followup-019-list-key, yingke-movies-followup-020-props]
 ---
 
 # 首页影视卡片组件

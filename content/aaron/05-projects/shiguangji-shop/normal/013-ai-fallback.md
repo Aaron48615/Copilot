@@ -7,6 +7,7 @@ difficulty: 基础
 priority: high
 projects: [拾光集移动商城系统]
 keywords: [验证方法, AI Key, 商品搜索, 列表 Key]
+followupIds: [shiguangji-shop-followup-011-ai-fallback, shiguangji-shop-followup-009-ai-key, shiguangji-shop-followup-010-debounce-rate-limit]
 ---
 
 # 亮点一：AI 功能失败后，商城仍然能正常使用

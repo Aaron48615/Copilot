@@ -7,6 +7,7 @@ difficulty: 深入
 priority: normal
 projects: [拾光集移动商城系统]
 keywords: [AES, XSS, 商品详情, 地址管理]
+followupIds: [shiguangji-shop-followup-003-aes, shiguangji-shop-followup-005-ecb-cbc-gcm, shiguangji-shop-followup-008-product-detail-xss]
 ---
 
 # 前端 AES 和商品富文本仍有安全边界

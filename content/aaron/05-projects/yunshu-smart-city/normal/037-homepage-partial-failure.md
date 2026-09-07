@@ -7,6 +7,7 @@ difficulty: 进阶
 priority: normal
 projects: [云枢智慧城市数据平台]
 keywords: [首页数据, 数据可视化, 性能优化, Promise.allSettled, Promise.all, 加载状态]
+followupIds: [yunshu-smart-city-followup-017-homepage-promise-allsettled-promise-all, yunshu-smart-city-followup-019-data-aggregation-top-categories, yunshu-smart-city-followup-021-map-city-limit]
 ---
 
 # 首页失败隔离和图表大数据处理有限

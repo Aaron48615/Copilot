@@ -7,6 +7,7 @@ difficulty: 进阶
 priority: high
 projects: [拾光集移动商城系统]
 keywords: [商品搜索, 请求封装, 防抖, 请求乱序, 加载状态]
+followupIds: [shiguangji-shop-followup-012-debounce-throttle, shiguangji-shop-followup-013-debounce-request-cancellation]
 ---
 
 # 难点一：搜索建议既要减少请求，也要防止旧结果覆盖新输入
