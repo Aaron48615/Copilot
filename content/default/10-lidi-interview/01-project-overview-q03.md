@@ -1,12 +1,12 @@
 ---
 id: lidi-202609-project-overview-q03
 title: 项目中最难的地方是什么？
-aliases: []
+aliases: [难点, 项目难点, 轻购难点, 轻购项目难点, 难点轻购]
 category: current-interview
 difficulty: 必问
 priority: high
 projects: [轻购, 城市视图, 智服工单]
-keywords: [项目介绍, Vue3, React, Vue2, 技术栈, 项目难点]
+keywords: [项目难点, 项目介绍, Vue3, React, Vue2, 技术栈]
 ---
 
 # 项目中最难的地方是什么？

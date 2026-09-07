@@ -1,12 +1,12 @@
 ---
 id: lidi-202609-project-lazy-route
 title: 轻购为什么使用路由懒加载？部署后动态模块加载失败怎么办？
-aliases: [路由懒加载, 动态 import, vite preload error, 分包]
+aliases: [路由懒加载, 动态 import, vite preload error, 分包, 难点, 项目难点, 轻购难点, 轻购项目难点, 难点轻购]
 category: current-interview
 difficulty: 进阶
 priority: high
 projects: [轻购]
-keywords: [Vue Router, dynamic import, Vite, 分包, 部署恢复]
+keywords: [项目难点, Vue Router, dynamic import, Vite, 分包, 部署恢复]
 ---
 
 # 轻购为什么使用路由懒加载？部署后动态模块加载失败怎么办？

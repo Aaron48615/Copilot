@@ -1,12 +1,12 @@
 ---
 id: lidi-202609-map-and-3d-q02
 title: 3D 数据柱的高度如何避免差距太大？
-aliases: []
+aliases: [难点, 项目难点, 城市视图难点, 城市视图项目难点, 难点城市视图]
 category: current-interview
 difficulty: 项目追问
 priority: high
 projects: [城市视图]
-keywords: [高德地图, React Three Fiber, 地图标记, 3D, 性能]
+keywords: [项目难点, 高德地图, React Three Fiber, 地图标记, 3D, 性能]
 ---
 
 # 3D 数据柱的高度如何避免差距太大？

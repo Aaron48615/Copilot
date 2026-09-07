@@ -1,12 +1,12 @@
 ---
 id: lidi-202609-search-debounce-ai
 title: 轻购的搜索防抖和 AI 搜索建议是怎么实现的？
-aliases: [搜索防抖, 300 毫秒防抖, AI 搜索联想, 搜索结果异常]
+aliases: [搜索防抖, 300 毫秒防抖, AI 搜索联想, 搜索结果异常, 亮点, 项目亮点, 轻购亮点, 轻购项目亮点, 亮点轻购, 难点, 项目难点, 轻购难点, 轻购项目难点, 难点轻购]
 category: current-interview
 difficulty: 高频
 priority: high
 projects: [轻购]
-keywords: [防抖, AI, 搜索, 异常降级, 结果乱序, 输入联想]
+keywords: [项目亮点, 项目难点, 防抖, AI, 搜索, 异常降级, 结果乱序, 输入联想]
 ---
 
 # 轻购的搜索防抖和 AI 搜索建议是怎么实现的？

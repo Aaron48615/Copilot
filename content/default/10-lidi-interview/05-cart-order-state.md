@@ -1,12 +1,12 @@
 ---
 id: lidi-202609-cart-order-state
 title: 轻购的购物车、价格联动和订单确认状态是怎么处理的？
-aliases: [购物车实现, 购物车嵌套数据, 价格联动, sessionStorage 地址]
+aliases: [购物车实现, 购物车嵌套数据, 价格联动, sessionStorage 地址, 亮点, 项目亮点, 轻购亮点, 轻购项目亮点, 亮点轻购, 难点, 项目难点, 轻购难点, 轻购项目难点, 难点轻购]
 category: current-interview
 difficulty: 高频
 priority: high
 projects: [轻购]
-keywords: [购物车, 嵌套数据, 全选, 数量, 价格, sessionStorage, 订单]
+keywords: [项目亮点, 项目难点, 购物车, 嵌套数据, 全选, 数量, 价格, sessionStorage, 订单]
 ---
 
 # 轻购的购物车、价格联动和订单确认状态是怎么处理的？

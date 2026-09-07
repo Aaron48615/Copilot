@@ -1,12 +1,12 @@
 ---
 id: lidi-202609-cart-order-state-q03
 title: 如果用户连续点击加号怎么办？
-aliases: []
+aliases: [难点, 项目难点, 轻购难点, 轻购项目难点, 难点轻购]
 category: current-interview
 difficulty: 高频
 priority: high
 projects: [轻购]
-keywords: [购物车, 嵌套数据, 全选, 数量, 价格, sessionStorage, 订单]
+keywords: [项目难点, 购物车, 嵌套数据, 全选, 数量, 价格, sessionStorage, 订单]
 ---
 
 # 如果用户连续点击加号怎么办？

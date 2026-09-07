@@ -1,12 +1,12 @@
 ---
 id: lidi-202609-light-shop-ai-failure
 title: 轻购AI接口超时或失败时，页面怎么处理？
-aliases: [AI超时, AI接口失败, 轻购AI降级]
+aliases: [AI超时, AI接口失败, 轻购AI降级, 难点, 项目难点, 轻购难点, 轻购项目难点, 难点轻购]
 category: current-interview
 difficulty: 必问
 priority: high
 projects: [轻购]
-keywords: [AI失败, timeout, Toast, loading, fallback]
+keywords: [项目难点, AI失败, timeout, Toast, loading, fallback]
 ---
 
 # 轻购AI接口超时或失败时，页面怎么处理？
