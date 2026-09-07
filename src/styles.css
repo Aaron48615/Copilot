@@ -59,6 +59,7 @@ button { color: inherit; }
 .question-copy { display: flex; min-width: 0; flex-direction: column; }
 .question-copy strong { overflow: hidden; font-size: 13px; font-weight: 600; text-overflow: ellipsis; white-space: nowrap; }
 .question-copy small { overflow: hidden; margin-top: 5px; color: #99958e; font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
+.search-highlight { padding: 0 2px; border-radius: 3px; color: #8c3d20; background: #ffd9c8; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
 .match-score { color: #aaa69d; font-size: 9px; }
 .row-arrow { color: #aaa69d; font-family: serif; font-size: 22px; }
 .fallback-card { display: grid; grid-template-columns: 40px 1fr auto; gap: 13px; align-items: center; margin-top: 10px; padding: 18px; border: 1px dashed #d8b7a6; border-radius: 12px; background: #fff8f3; }

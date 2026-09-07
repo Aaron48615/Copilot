@@ -1,5 +1,6 @@
 import type { InterviewQuestion, SearchResult } from './types'
 import { parseAnswerSections } from './answers.ts'
+import { normalize, pinyinMatchIndices } from './search-text.ts'
 
 export interface RepositoryUser {
   id: string
@@ -128,10 +129,6 @@ export function parseMarkdown(sourcePath: string, raw: string): InterviewQuestio
   }
 }
 
-function normalize(value: string) {
-  return value.toLowerCase().replace(/[\s`'"，。！？、/\-_:：]/g, '')
-}
-
 function bigrams(value: string) {
   const text = normalize(value)
   if (text.length < 2) return [text]
@@ -147,7 +144,11 @@ function similarity(query: string, target: string) {
   if (q.includes(t)) return 70 + Math.min(t.length, 20)
   const targetPairs = new Set(bigrams(t))
   const overlap = bigrams(q).filter((pair) => targetPairs.has(pair)).length
-  return (overlap / Math.max(bigrams(q).length, targetPairs.size, 1)) * 60
+  const textScore = (overlap / Math.max(bigrams(q).length, targetPairs.size, 1)) * 60
+  const pinyinScore = pinyinMatchIndices(target, query)?.length
+    ? 90 + Math.min(q.length, 20)
+    : 0
+  return Math.max(textScore, pinyinScore)
 }
 
 export function searchQuestions(questions: InterviewQuestion[], query: string, category = 'all'): SearchResult[] {
@@ -166,11 +167,12 @@ export function searchQuestions(questions: InterviewQuestion[], query: string, c
       // 短关键词（如“缓存”）只能召回候选，不能单独形成高置信度命中。
       const keywordScore = Math.max(0, ...question.keywords.map((keyword) => similarity(query, keyword) * 0.45))
       const projectScore = Math.max(0, ...question.projects.map((project) => similarity(query, project) * 0.55))
+      const categoryScore = similarity(query, question.categoryLabel) * 0.7
       const followupScore = Math.max(0, ...Object.keys(question.sections)
         .filter((name) => name.startsWith('追问：'))
         .map((name) => similarity(query, name.slice(3)) * 0.85))
       const bodyScore = similarity(query, Object.values(question.sections).join(' ')) * 0.35
-      return { question, score: Math.max(titleScore, aliasScore, keywordScore, projectScore, bodyScore, followupScore) }
+      return { question, score: Math.max(titleScore, aliasScore, keywordScore, projectScore, categoryScore, bodyScore, followupScore) }
     })
     .filter((result) => result.score >= 12)
     .sort((a, b) => b.score - a.score)
