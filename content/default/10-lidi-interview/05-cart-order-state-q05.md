@@ -1,12 +1,12 @@
 ---
 id: lidi-202609-cart-total-watch
 title: 购物车勾选以后总价是怎么更新的？
-aliases: [购物车总价, selectedBasketIds, computed watch]
+aliases: [购物车总价, selectedBasketIds, computed watch, 难点, 项目难点, 轻购难点, 轻购项目难点, 难点轻购]
 category: current-interview
 difficulty: 高频
 priority: high
 projects: [轻购]
-keywords: [selectedBasketIds, allChecked, watch, totalPay]
+keywords: [项目难点, selectedBasketIds, allChecked, watch, totalPay]
 ---
 
 # 购物车勾选以后总价是怎么更新的？

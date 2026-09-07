@@ -1,12 +1,12 @@
 ---
 id: lidi-202609-search-ai-cache
 title: 搜索联想为什么要缓存？缓存是怎么限制的？
-aliases: [AI建议缓存, Map缓存, 五分钟缓存]
+aliases: [AI建议缓存, Map缓存, 五分钟缓存, 亮点, 项目亮点, 轻购亮点, 轻购项目亮点, 亮点轻购]
 category: current-interview
 difficulty: 进阶
 priority: high
 projects: [轻购]
-keywords: [CACHE_TTL, CACHE_LIMIT, Map, 5分钟, 缓存淘汰]
+keywords: [项目亮点, CACHE_TTL, CACHE_LIMIT, Map, 5分钟, 缓存淘汰]
 ---
 
 # 搜索联想为什么要缓存？缓存是怎么限制的？

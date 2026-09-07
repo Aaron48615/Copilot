@@ -1,12 +1,12 @@
 ---
 id: lidi-202609-map-and-3d
 title: 城市视图中的地图和 3D 数据柱是怎么实现的？遇到性能问题怎么办？
-aliases: [高德地图, React Three Fiber, 3D 数据可视化, 地图性能]
+aliases: [高德地图, React Three Fiber, 3D 数据可视化, 地图性能, 亮点, 项目亮点, 城市视图亮点, 城市视图项目亮点, 亮点城市视图, 难点, 项目难点, 城市视图难点, 城市视图项目难点, 难点城市视图]
 category: current-interview
 difficulty: 项目追问
 priority: high
 projects: [城市视图]
-keywords: [高德地图, React Three Fiber, 地图标记, 3D, 性能]
+keywords: [项目亮点, 项目难点, 高德地图, React Three Fiber, 地图标记, 3D, 性能]
 ---
 
 # 城市视图中的地图和 3D 数据柱是怎么实现的？遇到性能问题怎么办？

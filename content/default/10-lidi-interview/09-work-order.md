@@ -1,12 +1,12 @@
 ---
 id: lidi-202609-work-order
 title: 智服工单的状态机、SLA 和权限是怎么设计的？
-aliases: [工单流程, 工单状态机, SLA 超时, 售后系统]
+aliases: [工单流程, 工单状态机, SLA 超时, 售后系统, 亮点, 项目亮点, 智服工单亮点, 智服工单项目亮点, 亮点智服工单, 难点, 项目难点, 智服工单难点, 智服工单项目难点, 难点智服工单]
 category: current-interview
 difficulty: 项目追问
 priority: high
 projects: [智服工单]
-keywords: [Vue2, Vuex, 工单, 状态机, SLA, 权限, ECharts]
+keywords: [项目亮点, 项目难点, Vue2, Vuex, 工单, 状态机, SLA, 权限, ECharts]
 ---
 
 # 智服工单的状态机、SLA 和权限是怎么设计的？

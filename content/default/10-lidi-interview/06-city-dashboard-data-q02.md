@@ -1,12 +1,12 @@
 ---
 id: lidi-202609-city-dashboard-data-q02
 title: 如果其中一个接口失败怎么办？
-aliases: []
+aliases: [难点, 项目难点, 城市视图难点, 城市视图项目难点, 难点城市视图]
 category: current-interview
 difficulty: 高频
 priority: high
 projects: [城市视图]
-keywords: [React, Redux Toolkit, ECharts, Promise.all, 仪表盘, CSV]
+keywords: [项目难点, React, Redux Toolkit, ECharts, Promise.all, 仪表盘, CSV]
 ---
 
 # 如果其中一个接口失败怎么办？
