@@ -1,7 +1,7 @@
 [
   {
     "id": "default", "name": "牛",
-    "projects": ["轻购", "城市视图", "智服工单"],
+    "projects": ["轻购", "城市视图", "智服工单", "style3D"],
     "identityMarkers": ["牛颢然", "elinew.tech", "/Users/eli/"]
   },
   {

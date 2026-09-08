@@ -273,6 +273,7 @@ const currentSidebarCategoryLabels: Record<string, string> = {
   'current:project-light-shop': '项目 · 轻购',
   'current:project-city': '项目 · 城市视图',
   'current:project-work-order': '项目 · 智服工单',
+  'current:project-style3d': '项目 · style3D',
   'current:project-general': '项目 · 综合',
   'current:network': '网络与工程化',
   'current:performance': '性能与调试',
@@ -294,6 +295,7 @@ const currentSidebarCategoryOrder = [
   'current:project-light-shop',
   'current:project-city',
   'current:project-work-order',
+  'current:project-style3d',
   'current:project-general',
   'current:network',
   'current:performance',
@@ -319,6 +321,7 @@ function currentInterviewSidebarCategory(question: InterviewQuestion) {
     return 'current:project-city'
   }
   if (source.includes('09-work-order')) return 'current:project-work-order'
+  if (source.includes('20-style3d')) return 'current:project-style3d'
   if (source.includes('18-ai-tools-and-ownership') || source.includes('import-06-ai-agent')) return 'current:ai'
   if (source.includes('typescript') || /import-02-javascript-(api-state-union|conditional-infer|discriminated-union|function-overload|generic-api|interface-type|runtime-validation|tsconfig-strict|unknown-never)/.test(source)) {
     return 'current:typescript'
@@ -344,6 +347,7 @@ function currentInterviewSidebarCategory(question: InterviewQuestion) {
   if (question.projects.includes('轻购')) return 'current:project-light-shop'
   if (question.projects.includes('城市视图')) return 'current:project-city'
   if (question.projects.includes('智服工单')) return 'current:project-work-order'
+  if (question.projects.includes('style3D')) return 'current:project-style3d'
   return 'current:other'
 }
 
