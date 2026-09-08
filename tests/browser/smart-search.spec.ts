@@ -34,7 +34,7 @@ test('IME composition and candidate selection never submit unfinished text', asy
   expect(calls).toBe(1)
 })
 
-test('rapid edits debounce, pause cancels, and Enter submits manually', async ({ page }) => {
+test('rapid edits debounce, clearing cancels, and Enter submits the complete question', async ({ page }) => {
   const requests: string[] = []
   await page.route('**/api/resolve', async (route) => { requests.push(route.request().postDataJSON().question); await route.fulfill({ json: { answer: '新结果' } }) })
   const input = page.getByRole('textbox', { name: '搜索题库' })
@@ -43,22 +43,23 @@ test('rapid edits debounce, pause cancels, and Enter submits manually', async ({
   await expect(page.getByText('新结果')).toBeVisible()
   expect(requests).toEqual(['最终完整的测试问题'])
   await input.fill('取消的问题')
-  await page.getByRole('button', { name: '暂停自动查找' }).click()
+  await input.fill('')
   await page.waitForTimeout(1000)
   expect(requests).toHaveLength(1)
+  await input.fill('回车提交的完整问题')
   await input.press('Enter')
   await expect.poll(() => requests.length).toBe(2)
 })
 
-test('local exact match needs no network and searches outside the current category', async ({ page }) => {
+test('the model chooses the answer even for exact input and outside the current category', async ({ page }) => {
   let requests = 0
-  await page.route('**/api/resolve', async (route) => { requests++; await route.abort() })
+  await page.route('**/api/resolve', async (route) => { requests++; await route.fulfill({ json: { kind: 'library', match: { questionId: 'js-prototype-chain' } } }) })
   await page.getByRole('textbox', { name: '搜索题库' }).fill('！！！')
   await page.waitForTimeout(900)
   expect(requests).toBe(0)
   await page.getByRole('textbox', { name: '搜索题库' }).fill('原型链是什么')
   await page.waitForTimeout(1000)
-  expect(requests).toBe(0)
+  expect(requests).toBe(1)
   await expect(page.locator('.answer-reader h2').first()).toContainText('原型链是什么')
   await expect(page.locator('.question-row').first()).toBeVisible()
 })
@@ -92,6 +93,7 @@ test('clicking a candidate cancels scheduled automatic work', async ({ page }) =
 })
 
 test('matched embedded followup opens its answer instead of the parent core', async ({ page }) => {
+  await page.route('**/api/resolve', (route) => route.fulfill({ json: { kind: 'library', match: { questionId: 'lidi-202609-javascript-core-q02', followupIndex: 0 } } }))
   await page.getByRole('textbox', { name: '搜索题库' }).fill('同一个工厂函数生成的两个计数器会共享状态吗？')
   await expect(page.getByRole('region', { name: '追问回答' })).toContainText('每调用一次工厂函数就会创建新的局部绑定')
 })
@@ -110,4 +112,42 @@ test('switching users drops an in-flight response', async ({ page }) => {
   await page.waitForTimeout(1400)
   await expect(page.getByText('原用户的独占答案')).toHaveCount(0)
   await expect(page.getByRole('textbox', { name: '搜索题库' })).toHaveValue('')
+})
+
+test('search has only its input and no voice-era toolbar', async ({ page }) => {
+  await expect(page.locator('.search-toolbar')).toHaveCount(0)
+  await expect(page.getByRole('button', { name: '暂停自动查找' })).toHaveCount(0)
+  await expect(page.getByRole('button', { name: '立即查找' })).toHaveCount(0)
+})
+
+test('a model-selected semantic answer replaces the lexical leader and opens its stored answer', async ({ page }) => {
+  await page.route('**/api/resolve', async (route) => {
+    expect(route.request().postDataJSON().question).toBe('函数都执行完了，为啥里面那个变量还在？')
+    await route.fulfill({ json: { kind: 'library', match: { questionId: 'js-closure' } } })
+  })
+  await page.getByRole('textbox', { name: '搜索题库' }).fill('函数都执行完了，为啥里面那个变量还在？')
+  await expect(page.getByText('已匹配相近回答')).toBeVisible()
+  await expect(page.locator('.question-row').first()).toContainText('什么是闭包')
+  await expect(page.locator('.answer-reader h2')).toContainText('什么是闭包')
+})
+
+test('ambiguous semantic results offer stored candidates instead of generating or picking blindly', async ({ page }) => {
+  await page.route('**/api/resolve',route=>route.fulfill({json:{kind:'candidates',reason:'找到几个相近问题，请选择',candidates:[{questionId:'js-closure',title:'什么是闭包？'},{questionId:'js-prototype-chain',title:'原型链是什么？'}]}}))
+  await page.getByRole('textbox',{name:'搜索题库'}).fill('变量与函数的关系能展开讲讲吗')
+  await expect(page.getByText('找到几个相近问题，请选择')).toBeVisible()
+  await page.locator('.agent-primary').getByRole('button',{name:'什么是闭包？',exact:true}).click()
+  await expect(page.locator('.answer-reader h2')).toContainText('什么是闭包')
+  await expect(page.getByText('找到几个相近问题，请选择')).toHaveCount(0)
+})
+
+test('rejecting uncertain candidates generates for the same complete question', async ({ page }) => {
+  const question = '候选都不合适时的问题'
+  await page.route('**/api/resolve', route => route.fulfill({json:{kind:'candidates',reason:'请选择相近问题',candidates:[]}}))
+  await page.route('**/api/answer', route => {
+    expect(route.request().postDataJSON().question).toBe(question)
+    return route.fulfill({contentType:'text/event-stream',body:'data: {"choices":[{"delta":{"content":"新的补充回答"}}]}\n\ndata: [DONE]\n\n'})
+  })
+  await page.getByRole('textbox',{name:'搜索题库'}).fill(question)
+  await page.getByRole('button',{name:'这些都不符合，生成补充回答'}).click()
+  await expect(page.getByText('新的补充回答',{exact:true})).toBeVisible()
 })

@@ -11,8 +11,8 @@ import { filterFollowups, getAnswerContent } from './answers'
 import { renderText } from './TextContent'
 import { Workbench, WorkbenchDialog, useLandscapeViewport } from './Workbench'
 import { useSmartSearch } from './useSmartSearch'
-import { cleanQuery, reliableAnswerMatch, searchCandidates, answerCandidates } from './query-search'
-import type { AnswerMetadata, LibraryMatch } from './answer-stream'
+import { cleanQuery, searchCandidates, answerCandidates } from './query-search'
+import type { AnswerMetadata, LibraryMatch, CandidateResponse } from './answer-stream'
 import { readAnswer } from './answer-stream'
 
 function highlightText(text: string, query: string): ReactNode {
@@ -34,6 +34,28 @@ const LEGACY_NOTICE_DISMISSED_KEY = 'interview-legacy-notice-dismissed'
 
 function App() {
   const [workbench, setWorkbench] = useState(false)
+  const [serviceProblem, setServiceProblem] = useState('')
+  useEffect(() => {
+    let controller: AbortController | undefined
+    const check = async () => {
+      controller?.abort()
+      const request = new AbortController()
+      controller = request
+      const timer = window.setTimeout(() => request.abort(), 5000)
+      try {
+        const response = await fetch('/api/health', { signal: request.signal })
+        if (!response.ok) throw new Error('unavailable')
+        const status = await response.json()
+        if (controller === request && !request.signal.aborted) setServiceProblem(status.semantic?.status === 'ready' ? '' : status.semantic?.status === 'loading' ? '本地语义索引准备中，关键词检索可用。首次准备完成后，后续查题无需等待大模型。' : '本地语义服务暂不可用，关键词检索可用。')
+      } catch {
+        if (controller === request) setServiceProblem('本地检索服务未连接，当前可使用关键词检索。')
+      } finally { window.clearTimeout(timer) }
+    }
+    void check()
+    const interval = window.setInterval(check, 10000)
+    window.addEventListener('focus', check)
+    return () => { window.clearInterval(interval); controller?.abort(); controller = undefined; window.removeEventListener('focus', check) }
+  }, [])
   const landscapeReady = useLandscapeViewport()
   const [store, setStore] = useState(() => {
     try { return loadProfiles(localStorage, repositoryUsers.map((user) => user.id)) }
@@ -76,6 +98,7 @@ function App() {
     save({ ...store, activeUserId: id })
   }
   return <div className={workbench ? "application application-workbench" : "application"}>
+    {serviceProblem && <div className="storage-error" role="status">{serviceProblem}</div>}
     {error && <div className="storage-error" role="alert">{error}</div>}
     {legacyBackup && !legacyNoticeDismissed && <div className="legacy-notice">
       <span>检测到旧版本地数据，尚未自动加入仓库。请导出备份后按 README 迁移题目；原数据仍保留在此浏览器。</span>
@@ -142,28 +165,34 @@ function UserWorkspace({ user, favorites, switchUser, updateFavorites, workbench
   const [metadata, setMetadata] = useState<AnswerMetadata>({ sources: [], projects: [] })
   const [agentState, setAgentState] = useState<'idle' | 'loading' | 'done' | 'error' | 'stopped'>('idle')
   const [agentAnswer, setAgentAnswer] = useState('')
+  const [matchedQuestion, setMatchedQuestion] = useState('')
+  const [suggestions, setSuggestions] = useState<CandidateResponse | null>(null)
   const searchRef = useRef<HTMLInputElement>(null)
 
   const results = useMemo(() => {
     if (!deferredQuery.trim()) return searchQuestions(questions.filter((question) => matchesSidebarCategory(question, category)), '')
     const seen = new Set<string>()
-    return searchCandidates(searchIndex, deferredQuery).filter(({ question }) => {
+    const candidates = searchCandidates(searchIndex, deferredQuery).filter(({ question }) => {
       if (seen.has(question.id)) return false
       seen.add(question.id); return true
     })
-  }, [questions, category, deferredQuery, searchIndex])
+    if (matchedQuestion === deferredQuery) {
+      const matched = questions.find((question) => question.id === selectedId)
+      if (matched && !seen.has(matched.id)) candidates.unshift({ question: matched, score: 0 })
+      candidates.sort((a, b) => Number(b.question.id === selectedId) - Number(a.question.id === selectedId))
+    }
+    return candidates
+  }, [questions, category, deferredQuery, searchIndex, matchedQuestion, selectedId])
   const searchPending = query !== deferredQuery
   const selected = questions.find((question) => question.id === selectedId)
-  const hasReliableMatch = !deferredQuery.trim() || !!reliableAnswerMatch(searchCandidates(searchIndex, deferredQuery), deferredQuery, confirmedId.current)
   const smart = useSmartSearch((text) => {
     if (!cleanQuery(text)) return
-    const match = reliableAnswerMatch(searchCandidates(searchIndex, text), text, confirmedId.current)
-    if (match) selectMatch({ questionId: match.question.id, followupIndex: match.followupIndex })
-    else void askAgent(text, confirmedId.current, true)
-  }, () => { agentRequest.current?.abort(); setAgentState('idle'); setMetadata({ sources: [], projects: [] }) }, query)
+    void askAgent(text, confirmedId.current)
+  }, () => { agentRequest.current?.abort(); setAgentState('idle'); setMatchedQuestion(''); setSuggestions(null); setMetadata({ sources: [], projects: [] }) }, query)
 
   function selectMatch(match: LibraryMatch) {
     if (!questions.some((question) => question.id === match.questionId)) throw new Error('返回题目不属于当前用户。')
+    setSuggestions(null)
     confirmedId.current = match.questionId
     setSelectedId(match.questionId)
     setActiveAnswer({ questionId: match.questionId, key: match.followupIndex === undefined ? '' : `embedded:${match.followupIndex}` })
@@ -187,14 +216,14 @@ function UserWorkspace({ user, favorites, switchUser, updateFavorites, workbench
     updateFavorites(next)
   }
 
-  async function askAgent(questionText = query, contextQuestionId = confirmedId.current, resolve = false) {
+  async function askAgent(questionText = query, contextQuestionId = confirmedId.current, generate = false) {
     if (!questionText.trim()) return
     agentRequest.current?.abort()
     const controller = new AbortController()
     agentRequest.current = controller
-    setAgentState('loading'); setAgentAnswer(''); setAgentQuestion(questionText); setMetadata({ sources: [], projects: [] })
+    setSuggestions(null); setAgentState('loading'); setAgentAnswer(''); setAgentQuestion(questionText); setMetadata({ sources: [], projects: [] })
     try {
-      const endpoint = resolve ? '/api/resolve' : import.meta.env.VITE_AGENT_ENDPOINT || '/api/answer'
+      const endpoint = generate ? '/api/answer' : '/api/resolve'
       const response = await fetch(endpoint, {
         signal: controller.signal,
         method: 'POST',
@@ -207,7 +236,9 @@ function UserWorkspace({ user, favorites, switchUser, updateFavorites, workbench
       }, (data) => {
         if (!controller.signal.aborted && agentRequest.current === controller) setMetadata(data)
       }, (match) => {
-        if (!controller.signal.aborted && agentRequest.current === controller) { matched = true; selectMatch(match) }
+        if (!controller.signal.aborted && agentRequest.current === controller) { matched = true; selectMatch(match); setMatchedQuestion(questionText) }
+      }, (data) => {
+        if (!controller.signal.aborted && agentRequest.current === controller) { matched = true; setSuggestions(data); setAgentState('idle') }
       })
       if (!matched && !controller.signal.aborted && agentRequest.current === controller) setAgentState('done')
     } catch (error) {
@@ -224,14 +255,14 @@ function UserWorkspace({ user, favorites, switchUser, updateFavorites, workbench
       <small>索引版本 {source.revision}</small><pre>{source.text}</pre>
     </details>)}</> : <p>本次没有检索到源码依据。</p>}
   </div>
-  const aiAnswer = agentState === 'idle' ? undefined : <div className={`agent-result agent-primary ${agentState}`} aria-busy={agentState === 'loading'}>
-    <span>AI 临时回答 · {agentState === 'loading' ? '正在核对 / 生成' : agentState === 'error' ? '请求失败' : agentState === 'stopped' ? '已停止 · 内容可能不完整' : '已完成'}</span>
+  const aiAnswer = suggestions ? <div className="agent-result agent-primary"><h2>{agentQuestion}</h2><p>{suggestions.reason}</p>{suggestions.candidates.map((match) => <button className="question-row" key={`${match.questionId}:${match.followupIndex}`} onClick={() => { smart.stop(); selectMatch(match) }}>{match.title || questions.find((q) => q.id === match.questionId)?.title}</button>)}<button className="secondary-button" onClick={() => { smart.stop(); void askAgent(agentQuestion, confirmedId.current, true) }}>这些都不符合，生成补充回答</button></div> : agentState === 'idle' ? undefined : <div className={`agent-result agent-primary ${agentState}`} aria-busy={agentState === 'loading'}>
+    <span>查题 · {agentState === 'loading' ? '正在检索 / 生成' : agentState === 'error' ? '请求失败' : agentState === 'stopped' ? '已停止 · 内容可能不完整' : '已完成'}</span>
     <h2>{agentQuestion}</h2>
-    <div className="agent-text">{agentAnswer ? renderText(agentAnswer) : <p role="status">正在查找并核对题库，必要时生成回答…</p>}</div>
+    <div className="agent-text">{agentAnswer ? renderText(agentAnswer) : <p role="status">正在查找相近回答，没有合适答案时再生成补充…</p>}</div>
     {!workbench && evidence}
     <div className="agent-actions">
-      {agentState === 'loading' && <button onClick={() => { agentRequest.current?.abort(); setAgentState('stopped') }}>停止生成</button>}
-      {agentState === 'error' && <button onClick={() => void askAgent(agentQuestion, confirmedId.current, true)}>重试回答</button>}
+      {agentState === 'loading' && <button onClick={() => { agentRequest.current?.abort(); setAgentState('stopped') }}>取消</button>}
+      {agentState === 'error' && <button onClick={() => void askAgent(agentQuestion, confirmedId.current)}>重试查题</button>}
       <button onClick={() => { agentRequest.current?.abort(); setAgentState('idle') }}>返回题库答案</button>
     </div>
   </div>
@@ -282,22 +313,17 @@ function UserWorkspace({ user, favorites, switchUser, updateFavorites, workbench
         onCompositionEnd={(event) => { smart.compositionEnd(); setQuery(event.currentTarget.value) }}
         onKeyDown={(event) => { if (event.key === 'Enter' && !event.nativeEvent.isComposing && event.keyCode !== 229) { event.preventDefault(); smart.submit() } }}
         aria-label="搜索题库"
-        placeholder="搜索知识点、项目难点或面试官的问法，中文或拼音都可以…"
+        placeholder="输入面试官的完整问题，查找意思最接近的回答…"
         autoFocus
       />
       {query && <button aria-label="清空搜索" className="clear-search" onClick={() => editQuery('')}>×</button>}
       <kbd>⌘ K</kbd>
     </div>
-    <div className="search-toolbar">
-      <button aria-pressed={smart.automatic} onClick={smart.toggle}>{smart.automatic ? '暂停自动查找' : '开启自动查找'}</button>
-      <button onClick={() => smart.submit()}>立即查找</button>
-      <span>豆包输入或粘贴 · 停顿后查全部题库 · 无匹配自动生成</span>
-    </div>
   </div>)
   const questionResults = (<>
     <div className="result-heading">
       <span>{deferredQuery ? `找到 ${results.length} 个相关回答` : `${user.name} 的题库 · ${results.length} 道题`}</span>
-      {deferredQuery && <small>{searchPending ? '正在更新…' : '按匹配程度排序'}</small>}
+      {deferredQuery && <small>{searchPending ? '正在更新…' : matchedQuestion === query ? '已匹配相近回答' : suggestions ? '相近题目待选择' : agentState === 'loading' ? '正在检索 / 生成' : '关键词候选'}</small>}
     </div>
 
     <div className="question-list">
@@ -325,13 +351,6 @@ function UserWorkspace({ user, favorites, switchUser, updateFavorites, workbench
         </button>
       ))}
 
-      {deferredQuery && !searchPending && !hasReliableMatch && (
-        <div className="fallback-card">
-          <div className="agent-orb">✦</div>
-          <div><strong>正在查找适合的答案</strong><p>自动核对题库；也可以直接生成补充回答。</p></div>
-          <button onClick={() => { smart.stop(); void askAgent() }} disabled={agentState === 'loading'}>{agentState === 'loading' ? '正在分析…' : '询问 Agent'}</button>
-        </div>
-      )}
 
 
     </div>
