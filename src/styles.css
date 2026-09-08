@@ -257,6 +257,13 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 .workbench .fallback-card { grid-template-columns: 1fr; padding: 12px; }
 .workbench .agent-orb { display: none; }
 .wb-followups { display: flex; flex-direction: column; }
+.wb-followups > .answer-modes { flex: none; margin: 8px 12px; }
+.wb-followups > .answer-modes button { width: auto; justify-content: center; align-items: center; padding: 6px; }
+.wb-answer-body .answer-card { margin: 0; padding: 0; border: 0; border-radius: 0; background: transparent; box-shadow: none; }
+.wb-answer-body .answer-card + .answer-card { margin-top: 16px; }
+.wb-answer-body .answer-body { padding: 0; }
+.wb-followups .followup-finder { margin: 12px 0; }
+.wb-followups .followup-search input { min-width: 0; width: 100%; }
 .wb-followups > header { color: var(--ink); border-color: var(--line); }
 .wb-followups > header span { font-size: 11px; color: #766f63; }
 .wb-followups > .wb-scroll { flex: 1; padding: 0 12px 12px; }

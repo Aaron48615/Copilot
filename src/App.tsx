@@ -7,7 +7,7 @@ import { LEGACY_STORAGE_KEY, loadProfiles, PROFILE_STORAGE_KEY } from './profile
 import type { ProfileStore } from './profiles'
 import { getTextMatchRanges } from './search-text'
 import type { InterviewQuestion } from './types'
-import { filterFollowups, getAnswerContent } from './answers'
+import { useLibraryAnswer } from './LibraryAnswer'
 import { renderText } from './TextContent'
 import { Workbench, WorkbenchDialog, useLandscapeViewport } from './Workbench'
 import { useSmartSearch } from './useSmartSearch'
@@ -220,6 +220,10 @@ function UserWorkspace({ user, favorites, switchUser, updateFavorites, workbench
     }
   }
 
+  const library = useLibraryAnswer(selected, questions,
+    activeAnswer.questionId === selected?.id ? activeAnswer.key : '',
+    (key) => { smart.stop(); setActiveAnswer({ questionId: selected?.id || '', key }) })
+
   const evidence = <div className="source-evidence">
     {metadata.projects.map((project) => <p key={project.id}>{project.name}：{project.error || `已索引 ${project.files} 个文件${project.skipped ? `，跳过 ${project.skipped} 项` : ''}`}</p>)}
     {metadata.sources.length > 0 ? <><p>检索到的源码片段；回答中的 [S编号] 表示模型引用。</p>{metadata.sources.map((source) => <details key={source.id}>
@@ -339,9 +343,8 @@ function UserWorkspace({ user, favorites, switchUser, updateFavorites, workbench
 
     </div>
   </>)
-  if (workbench) return <Workbench evidenceOverride={aiAnswer ? evidence : undefined} answerQuestion={agentQuestion} answerOverride={aiAnswer} question={selected} questions={questions}
-    activeKey={activeAnswer.questionId === selected?.id ? activeAnswer.key : ''}
-    setActiveKey={(key) => { smart.stop(); setAgentState('idle'); setActiveAnswer({ questionId: selected?.id || '', key }) }}
+  if (workbench) return <Workbench evidenceOverride={aiAnswer ? evidence : undefined} answerQuestion={agentQuestion} answerOverride={aiAnswer} question={selected}
+    library={library}
     categories={categoryNavigation} categoryLabel={getSidebarCategoryLabel(category)}
     search={searchBox} userMenu={userSwitcher} results={questionResults}
     favorite={!!selected && favorites.includes(selected.id)} toggleFavorite={toggleFavorite} exit={exitWorkbench} />
@@ -378,118 +381,25 @@ function UserWorkspace({ user, favorites, switchUser, updateFavorites, workbench
       </main>
 
       <aside className="answer-panel">
-        {aiAnswer || (selected ? <AnswerPanel initialFollowupIndex={activeAnswer.questionId === selected.id && activeAnswer.key.startsWith('embedded:') ? Number(activeAnswer.key.slice(9)) : undefined} key={`${user.id}:${selected.id}:${activeAnswer.key}`} question={selected} query={deferredQuery} favorite={favorites.includes(selected.id)} toggleFavorite={toggleFavorite} /> : (
-          <div className="empty-answer"><span>⌕</span><p>选择一道题查看口语回答</p></div>
-        ))}
+        {aiAnswer || (selected ? <div className="answer-reader">
+          <div className="answer-intro">
+            <div className="answer-header">
+              <div className="answer-meta"><span>{selected.categoryLabel}</span><span>{selected.difficulty}</span></div>
+              <button aria-label={favorites.includes(selected.id) ? '取消收藏' : '收藏题目'} className={favorites.includes(selected.id) ? 'favorite active' : 'favorite'} onClick={() => toggleFavorite(selected.id)}>{favorites.includes(selected.id) ? '★' : '☆'}</button>
+            </div>
+            <h2>{highlightText(selected.title, deferredQuery)}</h2>
+            {library.modes}
+          </div>
+          <div className="answer-scroll">
+            {library.body}
+            {library.followups}
+            <section className="answer-card" aria-label="代码依据"><div className="section-title"><strong>代码依据</strong></div>{library.evidence}</section>
+          </div>
+        </div> : <div className="empty-answer"><span>⌕</span><p>选择一道题查看口语回答</p></div>)}
       </aside>
     </div>
   )
 }
 
-function AnswerPanel({ question, query, favorite, toggleFavorite, initialFollowupIndex }: {
-  initialFollowupIndex?: number
-  question: InterviewQuestion
-  query: string
-  favorite: boolean
-  toggleFavorite: (id: string) => void
-}) {
-  const content = getAnswerContent(question)
-  const [mode, setMode] = useState<'core' | 'followups'>('core')
-  const [filter, setFilter] = useState('')
-  const [activeTitle, setActiveTitle] = useState(content.followups[0]?.title || '')
-  const scrollRef = useRef<HTMLDivElement>(null)
-  useEffect(() => {
-    const followup = initialFollowupIndex === undefined ? undefined : content.followups[initialFollowupIndex]
-    setMode(followup ? 'followups' : 'core')
-    if (followup) { setFilter(''); setActiveTitle(followup.title) }
-    scrollRef.current?.scrollTo({ top: 0 })
-  }, [initialFollowupIndex, question.id])
-  const matches = filterFollowups(content.followups, filter)
-  const active = matches.find((item) => item.title === activeTitle) || matches[0]
-  const hasExtras = content.followups.length > 0 || content.points || content.prompts || content.evidence
-
-  function changeMode(next: 'core' | 'followups') {
-    setMode(next)
-    scrollRef.current?.scrollTo({ top: 0 })
-  }
-
-  function openFollowup(title: string) {
-    setActiveTitle(title)
-    setFilter('')
-    changeMode('followups')
-  }
-
-  return (
-    <div className="answer-reader">
-      <div className="answer-intro">
-      <div className="answer-header">
-        <div className="answer-meta"><span>{question.categoryLabel}</span><span>{question.difficulty}</span></div>
-        <button aria-label={favorite ? '取消收藏' : '收藏题目'} className={favorite ? 'favorite active' : 'favorite'} onClick={() => toggleFavorite(question.id)}>{favorite ? '★' : '☆'}</button>
-      </div>
-      <h2>{highlightText(question.title, query)}</h2>
-      {hasExtras && (
-        <div className="answer-modes" role="group" aria-label="回答模式">
-          <button aria-pressed={mode === 'core'} onClick={() => changeMode('core')}>核心回答</button>
-          <button aria-pressed={mode === 'followups'} onClick={() => changeMode('followups')}>追问速查 <span>{content.followups.length || '补充'}</span></button>
-        </div>
-      )}
-      </div>
-      <div ref={scrollRef} className="answer-scroll">
-
-      {mode === 'core' && <>
-      {content.core && (
-        <section className="answer-card core">
-          <div className="section-title"><span className="quote-mark">“</span><strong>先这样回答</strong></div>
-          <div className="answer-body">{renderText(content.core)}</div>
-        </section>
-      )}
-
-      {content.otherSections.map(([name, text]) => (
-        <section key={name} className="answer-card">
-          <div className="section-title"><strong>{name}</strong></div>
-          <div className="answer-body">{renderText(text)}</div>
-        </section>
-      ))}
-      {content.followups.length > 0 && (
-        <nav className="quick-followups" aria-label="本题追问入口">
-          <div className="section-title"><strong>面试官接着问</strong><span>点问题，直接看回答</span></div>
-          {content.followups.map((item) => <button key={item.title} onClick={() => openFollowup(item.title)}>{item.title}<span aria-hidden="true">↗</span></button>)}
-        </nav>
-      )}
-      </>}
-
-      {mode === 'followups' && <>
-      {content.followups.length > 0 && <>
-        <div className="followup-finder">
-          <label htmlFor="followup-search">查本题追问</label>
-          <div className="followup-search">
-            <input id="followup-search" value={filter} onChange={(event) => setFilter(event.target.value)} placeholder="输入关键词，如：并发、为什么、失败" />
-            {filter && <button aria-label="清空追问搜索" onClick={() => setFilter('')}>×</button>}
-          </div>
-          <nav className="followup-options" aria-label="选择追问">
-            {matches.map((item, index) => <button key={item.title} aria-pressed={active?.title === item.title} onClick={() => {
-              setActiveTitle(item.title)
-              scrollRef.current?.scrollTo({ top: 0 })
-            }}><span>{String(index + 1).padStart(2, '0')}</span>{item.title}</button>)}
-          </nav>
-        </div>
-        {active ? <section key={active.title} className="answer-card followup-answer" aria-label="追问回答" tabIndex={0}>
-          <div className="section-title"><strong>被问到这里，再这样说</strong></div>
-          <h3>{active.title}</h3>
-          <div className="answer-body">{renderText(active.answer)}</div>
-        </section> : <div className="followup-empty" role="status"><p>本题没有匹配的追问，试试更短的关键词。</p><button onClick={() => setFilter('')}>查看全部追问</button></div>}
-      </>}
-      {content.points && (
-        <details className="answer-notes"><summary>回答要点</summary><div>{renderText(content.points)}</div></details>
-      )}
-      {content.prompts && (
-        <details className="answer-notes"><summary>其他待准备的追问</summary><div>{renderText(content.prompts)}</div></details>
-      )}
-      {content.evidence && <details className="answer-notes"><summary>代码参考</summary><div className="evidence">{renderText(content.evidence)}</div></details>}
-      </>}
-      </div>
-    </div>
-  )
-}
 
 export default App

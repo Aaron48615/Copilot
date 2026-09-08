@@ -40,7 +40,7 @@ test('rapid edits debounce, pause cancels, and Enter submits manually', async ({
   const input = page.getByRole('textbox', { name: '搜索题库' })
   await input.fill('一个未完成问题')
   await input.fill('最终完整的测试问题')
-  await expect(page.getByText('新结果')).toBeVisible()
+  await expect(page.locator('.agent-text').getByText('新结果', { exact: true })).toBeVisible()
   expect(requests).toEqual(['最终完整的测试问题'])
   await input.fill('取消的问题')
   await page.getByRole('button', { name: '暂停自动查找' }).click()
@@ -93,7 +93,7 @@ test('clicking a candidate cancels scheduled automatic work', async ({ page }) =
 
 test('matched embedded followup opens its answer instead of the parent core', async ({ page }) => {
   await page.getByRole('textbox', { name: '搜索题库' }).fill('同一个工厂函数生成的两个计数器会共享状态吗？')
-  await expect(page.getByRole('region', { name: '追问回答' })).toContainText('每调用一次工厂函数就会创建新的局部绑定')
+  await expect(page.getByRole('region', { name: '追问回答' })).toContainText('每调一次工厂就有一份新的')
 })
 
 test('switching users drops an in-flight response', async ({ page }) => {
