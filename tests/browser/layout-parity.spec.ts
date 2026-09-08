@@ -12,17 +12,12 @@ async function snapshot(page: import('@playwright/test').Page) {
   }
 }
 
-for (const kind of ['embedded', 'linked']) {
-  test(`${kind} answers, evidence, filters and selection stay identical across layouts`, async ({ page }) => {
+for (const query of ['什么是闭包', '请介绍一下你做过的项目，哪个项目最值得展开？']) {
+  test(`answers, evidence, filters and selection stay identical across layouts: ${query}`, async ({ page }) => {
     await page.goto('/')
     let requests = 0
     await page.route('**/api/**', async (route) => { requests++; await route.abort() })
-    if (kind === 'linked') {
-      await page.getByRole('button', { name: '切换用户，当前：牛' }).click()
-      await page.locator('.user-option').filter({ hasText: 'Aaron' }).click()
-    }
     await page.getByRole('button', { name: '暂停自动查找' }).click()
-    const query = kind === 'embedded' ? '什么是闭包' : '为什么 AI Key 原来放 localStorage，后来又放到服务端？'
     await page.getByRole('textbox', { name: '搜索题库' }).fill(query)
     await page.locator('.question-row').first().click()
     await expect(page.locator('.followup-options button').first()).toBeVisible()

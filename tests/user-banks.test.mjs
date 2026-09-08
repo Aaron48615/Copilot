@@ -10,26 +10,23 @@ import { importLocalBank } from '../scripts/import-local-bank.mjs'
 
 const document = (id, title = id, category = 'react') => ({ name: `${id}.md`, raw: `---\nid: ${id}\ntitle: ${title}\ncategory: ${category}\n---\n\n## 核心回答\n\n${title} 的答案。` })
 const storage = (values = {}) => ({ getItem: (key) => values[key] ?? null })
-const users = [{ id: 'default', name: '牛' }, { id: 'aaron', name: 'Aaron' }]
+const users = [{ id: 'default', name: '牛' }, { id: 'guest', name: '访客' }]
 const ids = users.map((user) => user.id)
 const docs = [
   { ...document('same', '原用户问题', 'javascript'), name: 'default/same.md' },
-  { ...document('same', '独有测试题'), name: 'aaron/react/same.md' },
+  { ...document('same', '独有测试题'), name: 'guest/react/same.md' },
 ]
 
-test('repository content keeps the 137-question baseline and adds a separate Aaron bank', () => {
+test('repository content only publishes the default bank', () => {
   const root = new URL('../content/', import.meta.url)
   const registry = JSON.parse(readFileSync(new URL('users.json', root), 'utf8'))
   const documents = readdirSync(root, { recursive: true }).filter((name) => name.endsWith('.md'))
     .map((name) => ({ name, raw: readFileSync(new URL(name, root), 'utf8') }))
   const banks = buildRepositoryBanks(registry, documents)
   const defaultQuestions = banks.find((user) => user.id === 'default').questions
-  assert.ok(defaultQuestions.length >= 137)
-  assert.ok(defaultQuestions.length > 137, '扩充计划应在原有题库之外新增题目')
-  assert.ok(defaultQuestions.some((question) => question.category === 'coding'))
-  assert.ok(defaultQuestions.some((question) => question.category === 'testing'))
-  assert.ok(defaultQuestions.some((question) => question.category === 'system-design'))
-  assert.ok(banks.some((user) => user.id === 'aaron'))
+  assert.ok(defaultQuestions.length >= 500)
+  assert.ok(defaultQuestions.every((question) => question.category === 'current-interview'))
+  assert.deepEqual(banks.map((user) => user.id), ['default'])
 })
 
 test('two clean browser stores resolve identical users and banks without importing', () => {
@@ -48,7 +45,7 @@ test('two clean browser stores resolve identical users and banks without importi
 test('repository user search matches an answered follow-up heading', () => {
   const followup = {
     ...document('request-failure', '请求策略'),
-    name: 'aaron/react/request-failure.md',
+    name: 'guest/react/request-failure.md',
   }
   followup.raw += '\n\n## 追问：请求失败怎么办？\n\n取消旧请求并展示可重试的错误状态。'
   const banks = buildRepositoryBanks(users, [followup])
@@ -88,7 +85,7 @@ test('快查列表展示全部结果，不按优先级截断或重排', () => {
 
 test('registry rejects unknown folders, duplicate users and duplicate IDs within one bank', () => {
   assert.throws(() => buildRepositoryBanks(users, [{ ...docs[0], name: 'unknown/q.md' }]), /已配置/)
-  assert.throws(() => buildRepositoryBanks(users, [{ ...docs[0], name: 'default/../aaron/q.md' }]))
+  assert.throws(() => buildRepositoryBanks(users, [{ ...docs[0], name: 'default/../guest/q.md' }]))
   assert.throws(() => buildRepositoryBanks([...users, users[0]], []), /唯一/)
   assert.throws(() => buildRepositoryBanks([{ id: '../escape', name: 'bad' }], []))
   assert.throws(() => buildRepositoryBanks(users, [docs[0], { ...docs[0], name: 'default/another.md' }]), /已存在/)
@@ -103,22 +100,22 @@ test('legacy preferences migrate without importing local users or overwriting re
   const restored = loadProfiles(storage(values), ids)
   assert.equal(restored.activeUserId, 'default')
   assert.deepEqual(restored.favorites.default, ['same'])
-  assert.equal(restored.favorites.aaron, undefined)
+  assert.equal(restored.favorites.guest, undefined)
   assert.equal(values[LEGACY_STORAGE_KEY], legacy)
   assert.equal(buildRepositoryBanks(users, docs)[0].name, '牛')
   assert.deepEqual(loadProfiles(storage({ 'interview-favorites': '["old-question"]' }), ids).favorites.default, ['old-question'])
 })
 
 test('current user and separate favorites survive reload; unavailable storage does not block banks', () => {
-  const preferences = { activeUserId: 'aaron', favorites: { default: [], aaron: ['same'] } }
+  const preferences = { activeUserId: 'guest', favorites: { default: [], guest: ['same'] } }
   assert.deepEqual(loadProfiles(storage({ [PROFILE_STORAGE_KEY]: JSON.stringify(preferences) }), ids), preferences)
   for (const bad of ['{broken', 'null', '{"favorites":[]}']) {
     assert.equal(loadProfiles(storage({ [PROFILE_STORAGE_KEY]: bad }), ids).activeUserId, 'default')
   }
   assert.equal(loadProfiles({ getItem() { throw new Error('blocked') } }, ids).activeUserId, 'default')
   assert.equal(loadProfiles(storage({ [PROFILE_STORAGE_KEY]: '{"activeUserId":"removed","favorites":{}}' }), ids).activeUserId, 'default')
-  assert.deepEqual(loadProfiles(storage({ [PROFILE_STORAGE_KEY]: JSON.stringify({ activeUserId: 'aaron', favorites: { default: ['same'], aaron: ['same'], stranger: ['secret'] } }) }), ids), {
-    activeUserId: 'aaron', favorites: { default: ['same'], aaron: ['same'] },
+  assert.deepEqual(loadProfiles(storage({ [PROFILE_STORAGE_KEY]: JSON.stringify({ activeUserId: 'guest', favorites: { default: ['same'], guest: ['same'], stranger: ['secret'] } }) }), ids), {
+    activeUserId: 'guest', favorites: { default: ['same'], guest: ['same'] },
   })
 })
 
@@ -134,13 +131,13 @@ test('migration writes original Markdown to the chosen bank and refuses repeat i
   try {
     writeFileSync(join(directory, 'users.json'), JSON.stringify(users))
     const backup = { users: [{ id: 'legacy-id', documents: [document('first'), document('second')] }] }
-    assert.equal(importLocalBank(directory, backup, 'legacy-id', 'aaron'), 2)
-    const files = readdirSync(join(directory, 'aaron/imported'))
+    assert.equal(importLocalBank(directory, backup, 'legacy-id', 'guest'), 2)
+    const files = readdirSync(join(directory, 'guest/imported'))
     assert.equal(files.length, 2)
-    const contents = files.map((file) => readFileSync(join(directory, 'aaron/imported', file), 'utf8')).sort()
+    const contents = files.map((file) => readFileSync(join(directory, 'guest/imported', file), 'utf8')).sort()
     assert.deepEqual(contents, backup.users[0].documents.map((doc) => doc.raw).sort())
-    assert.throws(() => importLocalBank(directory, backup, 'legacy-id', 'aaron'), /已存在/)
+    assert.throws(() => importLocalBank(directory, backup, 'legacy-id', 'guest'), /已存在/)
     assert.throws(() => importLocalBank(directory, backup, 'legacy-id', '../outside'), /不存在/)
-    assert.deepEqual(files, readdirSync(join(directory, 'aaron/imported')))
+    assert.deepEqual(files, readdirSync(join(directory, 'guest/imported')))
   } finally { rmSync(directory, { recursive: true, force: true }) }
 })

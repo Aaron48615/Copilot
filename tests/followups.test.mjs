@@ -50,19 +50,11 @@ test('pending prompts deduplicate exact normalized titles, retaining different q
   assert.deepEqual(getPendingFollowups(undefined, []), [])
 })
 
-test('all 95 Aaron standalone followups are explicitly referenced by same-project normal questions', () => {
+test('the published default bank keeps answered embedded followups', () => {
   const root = new URL('../content/', import.meta.url)
   const documents = readdirSync(root, { recursive: true }).filter((name) => name.endsWith('.md')).map((name) => ({ name, raw: readFileSync(new URL(name, root), 'utf8') }))
   const users = JSON.parse(readFileSync(new URL('users.json', root), 'utf8'))
   const banks = buildRepositoryBanks(users, documents)
-  const bank = banks.find((user) => user.id === 'aaron').questions
-  const followups = bank.filter((question) => question.sourcePath.includes('/followups/'))
-  assert.equal(followups.length, 95)
-  for (const target of followups) {
-    const parents = bank.filter((question) => question.followupIds.includes(target.id))
-    assert.ok(parents.length, target.id)
-    assert.ok(parents.every((parent) => parent.sourcePath.includes('/normal/') && parent.category === target.category), target.id)
-  }
   const defaultBank = banks.find((user) => user.id === 'default').questions
   assert.ok(defaultBank.some((question) => resolveFollowups(question, defaultBank).some((item) => item.source === 'embedded')))
 })

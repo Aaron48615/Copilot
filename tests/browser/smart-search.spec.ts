@@ -95,19 +95,3 @@ test('matched embedded followup opens its answer instead of the parent core', as
   await page.getByRole('textbox', { name: '搜索题库' }).fill('同一个工厂函数生成的两个计数器会共享状态吗？')
   await expect(page.getByRole('region', { name: '追问回答' })).toContainText('每调一次工厂就有一份新的')
 })
-
-test('switching users drops an in-flight response', async ({ page }) => {
-  let started = false
-  await page.route('**/api/resolve', async (route) => {
-    started = true
-    await new Promise((resolve) => setTimeout(resolve, 1200))
-    await route.fulfill({ json: { answer: '原用户的独占答案' } }).catch(() => {})
-  })
-  await page.getByRole('textbox', { name: '搜索题库' }).fill('需要长时间生成的独占测试')
-  await expect.poll(() => started).toBe(true)
-  await page.getByRole('button', { name: '切换用户，当前：牛' }).click()
-  await page.locator('.user-option').filter({ hasText: 'Aaron' }).click()
-  await page.waitForTimeout(1400)
-  await expect(page.getByText('原用户的独占答案')).toHaveCount(0)
-  await expect(page.getByRole('textbox', { name: '搜索题库' })).toHaveValue('')
-})

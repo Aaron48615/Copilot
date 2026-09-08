@@ -257,7 +257,7 @@ function UserWorkspace({ user, favorites, switchUser, updateFavorites, workbench
       ))}
     </nav>
   </>)
-  const userSwitcher = (<>
+  const userSwitcher = repositoryUsers.length === 1 && !exportLegacy ? null : (<>
     <div className="user-switcher" ref={menuRef}>
       <button ref={avatarRef} className="avatar" title={`当前用户：${user.name}，点击切换用户`}
         aria-label={`切换用户，当前：${user.name}`} aria-expanded={menuOpen} aria-controls="user-menu"
