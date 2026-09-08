@@ -1,40 +1,40 @@
 ---
 id: lidi-202609-react-q05
-title: Redux Toolkit 解决了什么问题？
-aliases: []
+title: Redux 和 Redux Toolkit 是什么？
+aliases: [Redux Toolkit 解决了什么问题, Redux 的核心概念, action、reducer、store, redux基础, redux工作原理, 单向数据流]
 category: current-interview
 difficulty: 高频
 priority: high
-projects: []
-keywords: [React19, Hooks, useEffect, Redux Toolkit, memo, 受控组件]
+projects: [城市视图]
+keywords: [Redux, Redux Toolkit, RTK, store, action, reducer, dispatch, createSlice, configureStore, react-redux, redux-persist]
 ---
 
-# Redux Toolkit 解决了什么问题？
+# Redux 和 Redux Toolkit 是什么？
 
-## 核心回答
+Redux 是一个全局状态管理库，我一般会用它来管理多个组件都需要共享的数据，比如用户信息、登录状态或者一些全局业务状态。
 
-1. Redux Toolkit 主要解决传统 Redux 配置和样板代码偏多的问题。`configureStore` 给出常用配置，`createSlice` 把一类状态的初始值、reducer 和生成的 action 放一起，一次状态更新对应什么行为更清楚。调试时也能顺着 action 找到状态变化从哪来，看是不是预期的用户操作触发的。
+Redux 里面几个核心概念是 `store`、`state`、`action`、`reducer` 和 `dispatch`。
 
-2. slice 的 reducer 可以写出 `state.count += 1` 这种代码，是因为内部用 Immer 处理草稿，再生成不可变结果。这不代表 Redux 允许在任意地方直接改 store。组件还是通过 `dispatch` 描述更新。
+`store` 用来保存全局状态，组件通过 `dispatch` 发送一个 action，reducer 根据 action 计算出新的 state，然后组件拿到新的状态重新渲染。
 
-3. 城市视图的登录信息和角色，好几个页面都会用，可以放在共享状态里管。页面上只用一次的输入框、弹窗开关，不一定进 store。不然简单交互也要跨文件找更新逻辑。
+在 React 里面一般会配合 `react-redux` 使用。读取状态我会用 `useSelector`，修改状态会用 `useDispatch` 去派发 action。
 
-4. 异步请求可以用 `createAsyncThunk` 表达执行过程，但它不会自动替你做完所有缓存策略。RTK Query 更侧重服务端数据获取和缓存，用不用看需求。比如多个组件读同一份商品数据，先把缓存共享、失效、重新请求的规则说清楚，再决定用哪种。
+现在实际项目里我会更倾向于用 Redux Toolkit，也就是 RTK。它是 Redux 官方推荐的现代写法，本质上还是 Redux，只是把很多原来比较繁琐的写法封装掉了。
 
-5. `redux-persist` 是独立的持久化方案，要选保存哪些字段、怎么恢复。角色缓存只能帮界面展示，不能代替服务端鉴权。退出登录、账号切换、旧数据版本变化时，别把上一个用户的状态恢复回来。
+城市视图就是这么做的。项目用 RTK 的 `configureStore` 创建 store，再用 `createSlice` 拆了两个模块：`auth` 管 token 和用户信息，`app` 管亮暗主题。登录成功后 `dispatch(setAuth({ token, user }))`，退出或者接口返回 401 时 `dispatch(clearAuth())`，主题切换走 `toggleTheme`。布局、登录守卫、个人中心里用 `useSelector` 读用户和主题，请求拦截器也会从 store 里取 token 带到请求头上。图表、仪表盘这些页面数据没有进 Redux，还是页面自己请求、自己管。
 
-## 追问：为什么 reducer 看起来可以直接修改 state？
+另外项目还用了 `redux-persist`，把 `auth` 和 `app` 都持久化到 localStorage，刷新之后登录态和主题还能恢复。接口请求本身还是 Axios，没有用 RTK Query，也没有 `createAsyncThunk`。
 
-1. 在 `createSlice` 这类 reducer 里，`state` 通常是 Immer 提供的草稿，对它的修改会被记下来再转成新结果。没变的部分可以继续共享引用，不必每更新一个字段就深拷贝整棵状态树。依赖引用比较的订阅，也更容易判断哪些数据变了。
+RTK 里面我比较常用的就是 `configureStore` 和 `createSlice`。
 
-2. 改草稿，或返回替换状态，选一种。别一边改字段，一边又返回另一个新对象。`state = action.payload` 只改了局部变量指向，不等于替换整个 slice。整体替换应明确 `return`。
+`configureStore` 用来创建 store，相比以前的 `createStore` 配置更简单，而且默认已经配置了一些常用功能，比如 thunk 和 Redux DevTools。`createSlice` 可以把 state、reducer 和 action 放在一起定义，并且会自动生成对应的 action。
 
-3. reducer 仍然要可预测，别在里面发请求、操作 DOM、读写本地存储。异步和外部操作放在相应逻辑里处理，再 `dispatch` 结果。重放 action、定位某次更新时更清楚。
+比如城市视图里，我会先通过 `createSlice` 定义 `auth` 模块，在里面定义初始 state，以及 `setAuth`、`clearAuth` 这些 reducers，然后把这个 slice 的 reducer 注册到 `configureStore` 里面。组件里再通过 `useSelector` 获取数据，通过 `dispatch(setAuth(...))` 这种方式修改状态。
 
-## 追问：登录信息持久化后，刷新页面就一定能直接使用吗？
+Redux 和 RTK 最大的区别主要是写法。
 
-1. 不一定。本地恢复出来的信息可能过期，Token 也可能被撤销。「有缓存」和「当前认证有效」是两回事。需要时向服务端确认身份，别因为缓存里有管理员角色就开放真实权限。
+传统 Redux 通常需要自己定义 action type、action creator、reducer，还要手动处理不可变数据，代码会比较多。
 
-2. 页面初始化还要考虑恢复状态的时机，不然没恢复完可能被错跳到登录页。可以有明确的初始化状态，认证判断完成前给出加载反馈，别把暂时没有数据当成已经退出。
+RTK 通过 `createSlice` 把这些整合到一起，而且内部使用 Immer，所以 reducer 里面可以写类似 `state.user = data` 这种代码，最终仍然会正确生成不可变更新。
 
-3. 保存内容范围要清楚，密码不应进持久化状态，敏感凭据按认证方案判断。账号切换时的清理、持久化结构迁移也要查，别让旧缓存让新版本页面读到错误字段。
+所以如果现在让我做一个新的 React 项目，需要 Redux 做全局状态管理，我会直接选择 Redux Toolkit。Redux 的核心思想还是需要理解，但是实际开发一般使用 RTK。
