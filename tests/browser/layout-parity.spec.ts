@@ -12,14 +12,15 @@ async function snapshot(page: import('@playwright/test').Page) {
   }
 }
 
-for (const query of ['什么是闭包', '请介绍一下你做过的项目，哪个项目最值得展开？']) {
+for (const query of ['什么是闭包', '轻购项目的目录和页面是怎么拆的？']) {
   test(`answers, evidence, filters and selection stay identical across layouts: ${query}`, async ({ page }) => {
+    await page.route('**/api/health', route => route.fulfill({json:{configured:false,semantic:{status:'ready'}}}))
     await page.goto('/')
     let requests = 0
-    await page.route('**/api/**', async (route) => { requests++; await route.abort() })
-    await page.getByRole('button', { name: '暂停自动查找' }).click()
+    await page.route('**/api/resolve', async (route) => { requests++; await route.abort() })
     await page.getByRole('textbox', { name: '搜索题库' }).fill(query)
-    await page.locator('.question-row').first().click()
+    const expectedTitle = query === '什么是闭包' ? '什么是闭包？项目中哪里用到了？' : query
+    await page.locator('.question-row').filter({ has: page.locator('strong', { hasText: expectedTitle }) }).first().click()
     await expect(page.locator('.followup-options button').first()).toBeVisible()
     const core = await snapshot(page)
     await page.getByRole('button', { name: '横屏工作台', exact: true }).click()
@@ -50,6 +51,7 @@ for (const query of ['什么是闭包', '请介绍一下你做过的项目，哪
 
 test('rotating the viewport preserves the selected answer', async ({ page }) => {
   await page.goto('/')
+  await page.route('**/api/resolve', route => route.fulfill({json:{kind:'library',match:{questionId:'lidi-202609-javascript-core-q02',followupIndex:0}}}))
   await page.getByRole('textbox', { name: '搜索题库' }).fill('同一个工厂函数生成的两个计数器会共享状态吗？')
   await expect(page.getByRole('region', { name: '追问回答', exact: true })).toBeVisible()
   const before = await snapshot(page)

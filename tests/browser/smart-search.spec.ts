@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test'
 
 test.beforeEach(async ({ page }) => {
+  await page.route('**/api/health', route => route.fulfill({json:{configured:false,semantic:{status:'ready'}}}))
   await page.goto('/')
   await expect(page.getByRole('textbox', { name: '搜索题库' })).toBeVisible()
 })
@@ -34,7 +35,7 @@ test('IME composition and candidate selection never submit unfinished text', asy
   expect(calls).toBe(1)
 })
 
-test('rapid edits debounce, pause cancels, and Enter submits manually', async ({ page }) => {
+test('rapid edits debounce, clearing cancels, and Enter submits the complete question', async ({ page }) => {
   const requests: string[] = []
   await page.route('**/api/resolve', async (route) => { requests.push(route.request().postDataJSON().question); await route.fulfill({ json: { answer: '新结果' } }) })
   const input = page.getByRole('textbox', { name: '搜索题库' })
@@ -43,22 +44,23 @@ test('rapid edits debounce, pause cancels, and Enter submits manually', async ({
   await expect(page.locator('.agent-text').getByText('新结果', { exact: true })).toBeVisible()
   expect(requests).toEqual(['最终完整的测试问题'])
   await input.fill('取消的问题')
-  await page.getByRole('button', { name: '暂停自动查找' }).click()
+  await input.fill('')
   await page.waitForTimeout(1000)
   expect(requests).toHaveLength(1)
+  await input.fill('回车提交的完整问题')
   await input.press('Enter')
   await expect.poll(() => requests.length).toBe(2)
 })
 
-test('local exact match needs no network and resolves inside the current category', async ({ page }) => {
+test('semantic matches open current-bank answers outside the selected category', async ({ page }) => {
   let requests = 0
-  await page.route('**/api/resolve', async (route) => { requests++; await route.abort() })
+  await page.route('**/api/resolve', async (route) => { requests++; await route.fulfill({ json: { kind: 'library', match: { questionId: 'lidi-202609-import-02-javascript-prototype-chain' } } }) })
   await page.getByRole('textbox', { name: '搜索题库' }).fill('！！！')
   await page.waitForTimeout(900)
   expect(requests).toBe(0)
   await page.getByRole('textbox', { name: '搜索题库' }).fill('原型链是什么')
   await page.waitForTimeout(1000)
-  expect(requests).toBe(0)
+  expect(requests).toBe(1)
   await expect(page.locator('.answer-reader h2').first()).toContainText('原型链是什么')
   await expect(page.locator('.question-row').first()).toBeVisible()
 })
@@ -92,6 +94,69 @@ test('clicking a candidate cancels scheduled automatic work', async ({ page }) =
 })
 
 test('matched embedded followup opens its answer instead of the parent core', async ({ page }) => {
+  await page.route('**/api/resolve', (route) => route.fulfill({ json: { kind: 'library', match: { questionId: 'lidi-202609-javascript-core-q02', followupIndex: 0 } } }))
   await page.getByRole('textbox', { name: '搜索题库' }).fill('同一个工厂函数生成的两个计数器会共享状态吗？')
   await expect(page.getByRole('region', { name: '追问回答' })).toContainText('每调一次工厂就有一份新的')
+})
+
+test('search has only its input and no voice-era toolbar', async ({ page }) => {
+  await expect(page.locator('.search-toolbar')).toHaveCount(0)
+  await expect(page.getByRole('button', { name: '暂停自动查找' })).toHaveCount(0)
+  await expect(page.getByRole('button', { name: '立即查找' })).toHaveCount(0)
+})
+
+test('a model-selected semantic answer replaces the lexical leader and opens its stored answer', async ({ page }) => {
+  await page.route('**/api/resolve', async (route) => {
+    expect(route.request().postDataJSON().question).toBe('函数都执行完了，为啥里面那个变量还在？')
+    await route.fulfill({ json: { kind: 'library', match: { questionId: 'lidi-202609-javascript-core-q02' } } })
+  })
+  await page.getByRole('textbox', { name: '搜索题库' }).fill('函数都执行完了，为啥里面那个变量还在？')
+  await expect(page.getByText('已匹配相近回答')).toBeVisible()
+  await expect(page.locator('.question-row').first()).toContainText('什么是闭包')
+  await expect(page.locator('.answer-reader h2')).toContainText('什么是闭包')
+})
+
+test('ambiguous semantic results offer stored candidates instead of generating or picking blindly', async ({ page }) => {
+  await page.route('**/api/resolve',route=>route.fulfill({json:{kind:'candidates',reason:'找到几个相近问题，请选择',candidates:[{questionId:'lidi-202609-javascript-core-q02',title:'什么是闭包？'},{questionId:'lidi-202609-import-02-javascript-prototype-chain',title:'原型链是什么？'}]}}))
+  await page.getByRole('textbox',{name:'搜索题库'}).fill('变量与函数的关系能展开讲讲吗')
+  await expect(page.getByText('找到几个相近问题，请选择')).toBeVisible()
+  await page.locator('.agent-primary').getByRole('button',{name:'什么是闭包？',exact:true}).click()
+  await expect(page.locator('.answer-reader h2')).toContainText('什么是闭包')
+  await expect(page.getByText('找到几个相近问题，请选择')).toHaveCount(0)
+})
+
+test('rejecting uncertain candidates generates for the same complete question', async ({ page }) => {
+  const question = '候选都不合适时的问题'
+  await page.route('**/api/resolve', route => route.fulfill({json:{kind:'candidates',reason:'请选择相近问题',candidates:[]}}))
+  await page.route('**/api/answer', route => {
+    expect(route.request().postDataJSON().question).toBe(question)
+    return route.fulfill({contentType:'text/event-stream',body:'data: {"choices":[{"delta":{"content":"新的补充回答"}}]}\n\ndata: [DONE]\n\n'})
+  })
+  await page.getByRole('textbox',{name:'搜索题库'}).fill(question)
+  await page.getByRole('button',{name:'这些都不符合，生成补充回答'}).click()
+  await expect(page.getByText('新的补充回答',{exact:true})).toBeVisible()
+})
+
+test('pinyin stays local, keeps Chinese highlights, and respects the selected category', async ({ page }) => {
+  let calls = 0
+  await page.route('**/api/resolve', route => { calls++; return route.abort() })
+  const input = page.getByRole('textbox', { name: '搜索题库' })
+  await input.fill('qinggou')
+  await expect(page.locator('.question-row mark').first()).toBeVisible()
+  await expect(page.locator('.question-row').first()).toContainText('轻购')
+  await input.press('Enter')
+  await page.waitForTimeout(1000)
+  expect(calls).toBe(0)
+  await page.getByRole('navigation', { name: '题目分类' }).getByRole('button', { name: /^自我介绍/ }).click()
+  await input.fill('ziwojieshao')
+  await expect(page.locator('.question-row')).toHaveCount(1)
+  await page.getByRole('navigation', { name: '题目分类' }).getByRole('button', { name: /^JavaScript/ }).click()
+  await expect(page.locator('.question-row strong').filter({hasText:'三分钟的自我介绍'})).toHaveCount(0)
+  for (const label of await page.locator('.question-row small').allTextContents()) expect(label).toContain('JavaScript')
+  await page.getByRole('navigation', { name: '题目分类' }).getByRole('button', { name: /^自我介绍/ }).click()
+  await page.locator('.question-row').click()
+  await expect(page.locator('.answer-reader h2')).toContainText('三分钟的自我介绍')
+  await expect(page.locator('.answer-body').first()).toContainText('牛颢然')
+  await expect(page.getByRole('button', { name: /切换用户/ })).toHaveCount(0)
+  expect(calls).toBe(0)
 })

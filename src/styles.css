@@ -349,8 +349,6 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
   .agent-primary { padding: 18px; }
 }
 
-.search-toolbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 8px 0; font-size: 12px; color: var(--text-muted, #777); }
-.search-toolbar button { padding: 6px 10px; border: 1px solid #ddd; border-radius: 8px; background: transparent; color: inherit; cursor: pointer; }
 .source-evidence { font-size: 12px; overflow-wrap: anywhere; }
 .source-evidence details { margin: 8px 0; }
 .source-evidence summary { cursor: pointer; }

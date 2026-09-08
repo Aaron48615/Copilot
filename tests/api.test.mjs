@@ -69,11 +69,11 @@ test('disconnecting a browser aborts the upstream generation request', async (t)
   assert.equal(signal.aborted, true)
 })
 
-test('resolve returns an exact library answer without a provider key', async (t) => {
+test('resolve reports missing model configuration even for an exact title', async (t) => {
   const url = await serve(t, { apiKey: '', fetchImpl: () => { throw new Error('must not call provider') } })
   const response = await fetch(`${url}/api/resolve`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ userId: 'one', question: '缓存策略' }) })
-  assert.equal(response.status, 200)
-  assert.equal((await response.json()).match.questionId, 'a')
+  assert.equal(response.status, 503)
+  assert.match((await response.json()).error, /OPENROUTER_API_KEY/)
 })
 
 test('semantic selection validates IDs and returns stored content', async (t) => {
@@ -121,4 +121,39 @@ test('unknown semantic candidate and malformed semantic JSON fail without genera
     const response = await fetch(`${url}/api/resolve`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ userId: 'one', question: '一个全新问题' }) })
     assert.equal(response.status, 502); assert.equal(calls, 1)
   }
+})
+
+test('complete input is matched by the model even when a title is an exact lexical match', async (t) => {
+  let modelCalls = 0
+  const url = await serve(t, { fetchImpl: async (_url, options) => {
+    modelCalls++
+    const payload = JSON.parse(options.body)
+    const input = JSON.parse(payload.messages[1].content)
+    assert.equal(input.question, '缓存策略')
+    return Response.json({ choices: [{ message: { content: JSON.stringify({ matchCandidateId: input.candidates[0].candidateId, isFollowup: false, projectIds: [], searchQueries: [] }) } }] })
+  } })
+  const response = await fetch(`${url}/api/resolve`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ userId: 'one', question: '缓存策略' }) })
+  assert.equal((await response.json()).match.questionId, 'a')
+  assert.equal(modelCalls, 1)
+})
+
+test('production hybrid path returns stored answers with no cloud calls or key', async (t) => {
+  let calls=0
+  const url=await serve(t,{apiKey:'',semanticIndex:{status:()=>({status:'ready'}),search:async()=>[]},fetchImpl:async()=>{calls++;throw Error('cloud must not be used')}})
+  const response=await fetch(`${url}/api/resolve`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:'one',question:'缓存策略'})})
+  assert.equal((await response.json()).kind,'library');assert.equal(calls,0)
+})
+
+test('DeepSeek only receives a generation request after hybrid retrieval misses', async(t)=>{
+  const {providerConfig}=await import('../server/provider.mjs')
+  let calls=0
+  const url=await serve(t,{...providerConfig({DEEPSEEK_API_KEY:'test-deepseek'}),semanticIndex:{status:()=>({status:'ready'}),search:async()=>[]},fetchImpl:async(endpoint,options)=>{
+    calls++;assert.equal(endpoint,'https://api.deepseek.com/chat/completions')
+    const payload=JSON.parse(options.body)
+    assert.equal(payload.model,'deepseek-v4-flash');assert.deepEqual(payload.thinking,{type:'disabled'});assert.equal(payload.stream,true)
+    assert.equal(options.headers.Authorization,'Bearer test-deepseek')
+    return new Response('data: {"choices":[{"delta":{"content":"补充答案"}}]}\n\ndata: [DONE]\n\n',{headers:{'Content-Type':'text/event-stream'}})
+  }})
+  const response=await fetch(`${url}/api/resolve`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:'one',question:'完全不相关的量子问题怎么解释'})})
+  let answer;await readAnswer(response,(value)=>{answer=value});assert.equal(answer,'补充答案');assert.equal(calls,1)
 })
