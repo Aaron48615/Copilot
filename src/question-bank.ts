@@ -265,6 +265,7 @@ export interface SidebarSection {
 }
 
 const currentSidebarCategoryLabels: Record<string, string> = {
+  'current:self-introduction': '自我介绍',
   'current:javascript': 'JavaScript',
   'current:typescript': 'TypeScript',
   'current:html-css': 'HTML / CSS',
@@ -287,6 +288,7 @@ const currentSidebarCategoryLabels: Record<string, string> = {
 }
 
 const currentSidebarCategoryOrder = [
+  'current:self-introduction',
   'current:javascript',
   'current:typescript',
   'current:html-css',
@@ -311,6 +313,7 @@ const currentSidebarCategoryOrder = [
 function currentInterviewSidebarCategory(question: InterviewQuestion) {
   const source = question.sourcePath.toLocaleLowerCase()
 
+  if (source.includes('00-self-introduction')) return 'current:self-introduction'
   if (source.includes('01-project-overview') || source.includes('03-auth') || source.includes('19-resume-project-depth')) {
     return 'current:project-general'
   }
