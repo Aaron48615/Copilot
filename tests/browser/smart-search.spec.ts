@@ -157,6 +157,6 @@ test('pinyin stays local, keeps Chinese highlights, and respects the selected ca
   await page.locator('.question-row').click()
   await expect(page.locator('.answer-reader h2')).toContainText('三分钟的自我介绍')
   await expect(page.locator('.answer-body').first()).toContainText('牛颢然')
-  await expect(page.getByRole('button', { name: /切换用户/ })).toHaveCount(0)
+  await expect(page.getByRole('button', { name: '切换用户，当前：牛', exact: true })).toBeVisible()
   expect(calls).toBe(0)
 })

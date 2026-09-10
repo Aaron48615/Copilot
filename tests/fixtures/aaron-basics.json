@@ -1,0 +1,1302 @@
+[
+  {
+    "source": "HTML面试题-实习速背.md",
+    "number": 1,
+    "title": "你对 HTML 语义化的理解",
+    "path": "content/aaron/basics/html/semantic-html.md",
+    "category": "html",
+    "sha256": "67a9f720cbafff831d1e2c362d96c3ab548180c622804309aa766a6e2c830f44"
+  },
+  {
+    "source": "HTML面试题-实习速背.md",
+    "number": 2,
+    "title": "DOCTYPE 的作用和标准模式、混杂模式",
+    "path": "content/aaron/basics/html/doctype-modes.md",
+    "category": "html",
+    "sha256": "38ab0d0de5f0b8fd62116a907ad26d70f87d2280df8692d2ce7dd5bf40e1111b"
+  },
+  {
+    "source": "HTML面试题-实习速背.md",
+    "number": 3,
+    "title": "行内元素和块级元素有什么区别，怎么转换",
+    "path": "content/aaron/basics/html/inline-block-elements.md",
+    "category": "html",
+    "sha256": "31bf785e1a9aff885a2b73abdf95875d46cbcd5c82fe8ff5e221d78191a8d6df"
+  },
+  {
+    "source": "HTML面试题-实习速背.md",
+    "number": 4,
+    "title": "页面乱码怎么排查",
+    "path": "content/aaron/basics/html/character-encoding.md",
+    "category": "html",
+    "sha256": "4ca0a7201282816f0cd29b4f5967971d1a6fbbc8b96f8076409638ff89e78816"
+  },
+  {
+    "source": "HTML面试题-实习速背.md",
+    "number": 5,
+    "title": "HTML5 新增了哪些能力",
+    "path": "content/aaron/basics/html/html5-features.md",
+    "category": "html",
+    "sha256": "c0174fc71996e2929d629e50f91fc70961f21a7715e2bd74409d7c981b046153"
+  },
+  {
+    "source": "HTML面试题-实习速背.md",
+    "number": 6,
+    "title": "你对浏览器内核的理解",
+    "path": "content/aaron/basics/html/browser-engines.md",
+    "category": "html",
+    "sha256": "0c0d236393565b66fb57c9114298f5ffe05d526b590a1b063ed66ceb395f8f19"
+  },
+  {
+    "source": "HTML面试题-实习速背.md",
+    "number": 7,
+    "title": "从输入 URL 到页面显示，以及浏览器的渲染过程",
+    "path": "content/aaron/basics/html/url-rendering.md",
+    "category": "html",
+    "sha256": "476875f95e1613a2df0166e5220a333c37e011710a50a661f8f96e7864d85726"
+  },
+  {
+    "source": "HTML面试题-实习速背.md",
+    "number": 8,
+    "title": "重绘和回流的区别、触发条件，以及怎么减少",
+    "path": "content/aaron/basics/html/reflow-repaint.md",
+    "category": "html",
+    "sha256": "f5a1408e2dc3aed411ae39b63b834f8cc377ff4115f6d0448fc37f64494275dd"
+  },
+  {
+    "source": "HTML面试题-实习速背.md",
+    "number": 9,
+    "title": "localStorage、sessionStorage 和 Cookie 的区别",
+    "path": "content/aaron/basics/html/browser-storage.md",
+    "category": "html",
+    "sha256": "978fd7c089782ccdda219d7ae8ea452494e0199544f6e07ef252c39719d29879"
+  },
+  {
+    "source": "HTML面试题-实习速背.md",
+    "number": 10,
+    "title": "Canvas 和 SVG 的区别",
+    "path": "content/aaron/basics/html/canvas-svg.md",
+    "category": "html",
+    "sha256": "e03de3a261af67e2fa91924ccc8a46ddde67a59908d8ad17eb3c77e83ea296b8"
+  },
+  {
+    "source": "HTML面试题-实习速背.md",
+    "number": 11,
+    "title": "前端性能优化",
+    "path": "content/aaron/basics/html/frontend-performance.md",
+    "category": "html",
+    "sha256": "0f6b11059c3cfdb9afc01d42c9d912f9852fe46f6d2df265e44742a57a607259"
+  },
+  {
+    "source": "CSS面试题-实习速背.md",
+    "number": 1,
+    "title": "元素怎么在屏幕中间居中",
+    "path": "content/aaron/basics/css/center-element.md",
+    "category": "css",
+    "sha256": "21b41eaf338063ca3e1f4afd5077d9010c6739c9492dbf41e28e7dc0bb9e08c0"
+  },
+  {
+    "source": "CSS面试题-实习速背.md",
+    "number": 2,
+    "title": "flex: 1 是哪些属性的复合属性",
+    "path": "content/aaron/basics/css/flex-shorthand.md",
+    "category": "css",
+    "sha256": "f7def71d71874fe7ae91ee0567742b6a94b1656e4908a14ad2df45afb77343f8"
+  },
+  {
+    "source": "CSS面试题-实习速背.md",
+    "number": 3,
+    "title": "CSS3 新增了哪些特性",
+    "path": "content/aaron/basics/css/css3-features.md",
+    "category": "css",
+    "sha256": "9abd1b697240f0fca4c8907499572fdae1b1079c0dec6a03bd53d789b0d6d4b0"
+  },
+  {
+    "source": "CSS面试题-实习速背.md",
+    "number": 4,
+    "title": "transition 和 animation 有什么区别",
+    "path": "content/aaron/basics/css/transition-animation.md",
+    "category": "css",
+    "sha256": "d353f440756d2265e4e9120aff0c3c131b8bebb5c6f71f9ec65c6784aca1715e"
+  },
+  {
+    "source": "CSS面试题-实习速背.md",
+    "number": 5,
+    "title": "三种隐藏方式有什么区别",
+    "path": "content/aaron/basics/css/hide-elements.md",
+    "category": "css",
+    "sha256": "b9a4375fe3725b84f098385e7339989695bb24b0d3a17ca799b455fc51593e33"
+  },
+  {
+    "source": "CSS面试题-实习速背.md",
+    "number": 6,
+    "title": "CSS 怎么画三角形",
+    "path": "content/aaron/basics/css/border-triangle.md",
+    "category": "css",
+    "sha256": "7dba0402da94133030188ea36409e22574d409bce433ea12d908cd5af880fdf2"
+  },
+  {
+    "source": "CSS面试题-实习速背.md",
+    "number": 7,
+    "title": "怎么理解盒模型",
+    "path": "content/aaron/basics/css/box-model.md",
+    "category": "css",
+    "sha256": "eb200561a2fede24c901d78857f8f80d18f7c4249b522f9217a46440e76dedf3"
+  },
+  {
+    "source": "CSS面试题-实习速背.md",
+    "number": 8,
+    "title": "position 的取值和区别",
+    "path": "content/aaron/basics/css/position-values.md",
+    "category": "css",
+    "sha256": "7f9a936f012ee8c503e8a71fdf3c9b5bdae9c89c1e1dfd4a2ffad5e3c1d978a3"
+  },
+  {
+    "source": "CSS面试题-实习速背.md",
+    "number": 9,
+    "title": "CSS Hack 是什么，有哪几种",
+    "path": "content/aaron/basics/css/css-hacks.md",
+    "category": "css",
+    "sha256": "564025fce8a703772de027f7cd15a22fa99cc238a2c2f2bc568c7d9fe25d45f6"
+  },
+  {
+    "source": "CSS面试题-实习速背.md",
+    "number": 10,
+    "title": "px、em 和 rem 有什么区别",
+    "path": "content/aaron/basics/css/length-units.md",
+    "category": "css",
+    "sha256": "c75c1eed215f1548fb1f316d8a6c95d8af0b0aeab5fa1ed8f481dead093b6bc9"
+  },
+  {
+    "source": "CSS面试题-实习速背.md",
+    "number": 11,
+    "title": "遇到 CSS 兼容问题怎么处理",
+    "path": "content/aaron/basics/css/browser-compatibility.md",
+    "category": "css",
+    "sha256": "7eca124dd7c555d09163cdbaa6f13b4f40aadd3f6eaf64e5b4b65fd0476f2e84"
+  },
+  {
+    "source": "CSS面试题-实习速背.md",
+    "number": 12,
+    "title": "CSS 选择器优先级怎么判断",
+    "path": "content/aaron/basics/css/selector-specificity.md",
+    "category": "css",
+    "sha256": "d0932b6677b58d23f0a7a435a90c79c9bd2aa8758659fdd0bc08bad96d824f98"
+  },
+  {
+    "source": "CSS面试题-实习速背.md",
+    "number": 13,
+    "title": "BFC 是什么，怎么触发，有哪些应用，怎么清除浮动",
+    "path": "content/aaron/basics/css/bfc-floats.md",
+    "category": "css",
+    "sha256": "c9ddf8a958d2d6992882ce85ec194f4132fc5acf96b1928d39e6861393d93386"
+  },
+  {
+    "source": "CSS面试题-实习速背.md",
+    "number": 14,
+    "title": "::after 和 :after 有什么区别",
+    "path": "content/aaron/basics/css/pseudo-element-colons.md",
+    "category": "css",
+    "sha256": "cd4c1b45bb3f029dc992c7a5d77c69b160ed1282c96d477bac156f5cabde0c76"
+  },
+  {
+    "source": "CSS面试题-实习速背.md",
+    "number": 15,
+    "title": "link 和 @import 引入 CSS 有什么区别",
+    "path": "content/aaron/basics/css/link-import.md",
+    "category": "css",
+    "sha256": "2a66ac08ab983d821823bc39c0a176dce174cb15fbe4b91ae5ea615655e33738"
+  },
+  {
+    "source": "CSS面试题-实习速背.md",
+    "number": 16,
+    "title": "雪碧图是什么，适合什么场景",
+    "path": "content/aaron/basics/css/css-sprites.md",
+    "category": "css",
+    "sha256": "2cbca3f9433577f5eca32c0689f4db9a0f4c45a3c924f13095fe415015ae5b38"
+  },
+  {
+    "source": "CSS面试题-实习速背.md",
+    "number": 17,
+    "title": "SCSS 和 Less 有什么共同点和区别",
+    "path": "content/aaron/basics/css/scss-less.md",
+    "category": "css",
+    "sha256": "4557ec3a940a3e87389bcf268be161fc79690ed60f907634b80838cc37da05be"
+  },
+  {
+    "source": "CSS面试题-实习速背.md",
+    "number": 18,
+    "title": "CSS 属性一般按什么顺序写",
+    "path": "content/aaron/basics/css/property-order.md",
+    "category": "css",
+    "sha256": "0b3ef366d71522a3db0cf018de09bb0f02d0e069d9bf86ce94aa2ac19e699093"
+  },
+  {
+    "source": "JavaScript面试题-实习速背.md",
+    "number": 1,
+    "title": "深拷贝和浅拷贝有什么区别，怎么选择",
+    "path": "content/aaron/basics/javascript/deep-shallow-copy.md",
+    "category": "javascript",
+    "sha256": "84a7b32c371dc391890e533ba144701d48e0a359d79e2c43857090a72c5a78ce"
+  },
+  {
+    "source": "JavaScript面试题-实习速背.md",
+    "number": 2,
+    "title": "ES6 有哪些新特性，var、let、const 和作用域怎么理解",
+    "path": "content/aaron/basics/javascript/es6-scope.md",
+    "category": "javascript",
+    "sha256": "3afb5612a785625f20968125d12e175bdf6997bac2e674c2e305ae6b76ac3f4c"
+  },
+  {
+    "source": "JavaScript面试题-实习速背.md",
+    "number": 3,
+    "title": "原型、原型链和继承怎么联系起来理解",
+    "path": "content/aaron/basics/javascript/prototypes-inheritance.md",
+    "category": "javascript",
+    "sha256": "fe3757ad6b3d735d61d4528dbb3b2229612c61eb9dcfe508eadd1bbdf5055873"
+  },
+  {
+    "source": "JavaScript面试题-实习速背.md",
+    "number": 4,
+    "title": "== 和 === 有什么区别",
+    "path": "content/aaron/basics/javascript/equality-operators.md",
+    "category": "javascript",
+    "sha256": "2443877c1b72056c115aad16a83b2cb19f91fcd04dbff403d5d8970e1cb050cd"
+  },
+  {
+    "source": "JavaScript面试题-实习速背.md",
+    "number": 5,
+    "title": "this 怎么判断，call、apply、bind 有什么区别",
+    "path": "content/aaron/basics/javascript/this-binding.md",
+    "category": "javascript",
+    "sha256": "9478a93234f5d9e2b441a729f2e651ad4ad8c99c2b02fbfd422386ccda5aed23"
+  },
+  {
+    "source": "JavaScript面试题-实习速背.md",
+    "number": 6,
+    "title": "闭包是什么，和垃圾回收、内存泄漏有什么关系",
+    "path": "content/aaron/basics/javascript/closures-memory.md",
+    "category": "javascript",
+    "sha256": "977b7dfe6ba62976e22e7ed027d5d4fd26aa81e2642838de90d23e9e4126f4c0"
+  },
+  {
+    "source": "JavaScript面试题-实习速背.md",
+    "number": 7,
+    "title": "JS 有哪些数据类型，怎么判断，null 和 undefined 有什么区别",
+    "path": "content/aaron/basics/javascript/data-types.md",
+    "category": "javascript",
+    "sha256": "a1f2bf285b1fd45245422303151a9aac9757b7d21458f2b7e0d529de525731d2"
+  },
+  {
+    "source": "JavaScript面试题-实习速背.md",
+    "number": 8,
+    "title": "Cookie、localStorage 和 sessionStorage 怎么选",
+    "path": "content/aaron/basics/javascript/storage-selection.md",
+    "category": "javascript",
+    "sha256": "8f96f31022b271330d7c4e0f84eed4716fa76588a386671fb5423f44e4ede68c"
+  },
+  {
+    "source": "JavaScript面试题-实习速背.md",
+    "number": 9,
+    "title": "你了解哪些设计模式",
+    "path": "content/aaron/basics/javascript/design-patterns.md",
+    "category": "javascript",
+    "sha256": "25b1ffcf6ba660a821df907b09ffe2050a1fb53920d71d27ec098ab33fae318b"
+  },
+  {
+    "source": "JavaScript面试题-实习速背.md",
+    "number": 10,
+    "title": "跨域为什么发生，有哪些解决方式",
+    "path": "content/aaron/basics/javascript/cross-origin.md",
+    "category": "javascript",
+    "sha256": "bc1080024f58aea4c5b5df2934c8bb9917ffc32dc023343374f0fe61f8cfdba0"
+  },
+  {
+    "source": "JavaScript面试题-实习速背.md",
+    "number": 11,
+    "title": "前端有哪些页面优化方法",
+    "path": "content/aaron/basics/javascript/page-performance.md",
+    "category": "javascript",
+    "sha256": "ac1aac439de6380c008e60ba2965138e929b80306fc8bdb22763bcf5a8fccd04"
+  },
+  {
+    "source": "JavaScript面试题-实习速背.md",
+    "number": 12,
+    "title": "Ajax 怎么发请求，readyState 和 HTTP 状态码有什么区别",
+    "path": "content/aaron/basics/javascript/ajax-status.md",
+    "category": "javascript",
+    "sha256": "a4530a1406ae67574030e996345acf5b58f00855eaef4a2ec79239813080adc6"
+  },
+  {
+    "source": "JavaScript面试题-实习速背.md",
+    "number": 13,
+    "title": "JS 里有哪些异步任务",
+    "path": "content/aaron/basics/javascript/async-tasks.md",
+    "category": "javascript",
+    "sha256": "015b5f68ed925409389dc2f897acd5821de81ee6207c0ff40396434bd16720a9"
+  },
+  {
+    "source": "JavaScript面试题-实习速背.md",
+    "number": 14,
+    "title": "map、forEach、for...in 和 for...of 怎么选择",
+    "path": "content/aaron/basics/javascript/iteration-methods.md",
+    "category": "javascript",
+    "sha256": "2cdedf1c5a02f386a85266f5e0199b891552540554e1243f30f21c2c3ac15446"
+  },
+  {
+    "source": "JavaScript面试题-实习速背.md",
+    "number": 15,
+    "title": "数组和字符串有哪些常用方法",
+    "path": "content/aaron/basics/javascript/array-string-methods.md",
+    "category": "javascript",
+    "sha256": "30481016c01b2c687dd0fbc78c1352d6473ce7f6bf70f27711e1772481928948"
+  },
+  {
+    "source": "Git 使用.md（结合原 Git 题授权改写）",
+    "number": 1,
+    "title": "Git 是什么，和 SVN 有什么区别？",
+    "path": "content/aaron/basics/git/git-workflow.md",
+    "category": "git",
+    "sha256": "498fa93f23c27860cf962b82a8249403f6f613d06f55eaa46107bc5c16bbfc9e",
+    "provenance": "user-approved-rewrite"
+  },
+  {
+    "source": "Git 使用.md（结合原 Git 题授权改写）",
+    "number": 2,
+    "title": "Git 常用指令有哪些？",
+    "path": "content/aaron/basics/git/common-commands.md",
+    "category": "git",
+    "sha256": "fd1631777a1c47b35393991497c11c648fa08248c6838a40c5242c34b9d7fdc7",
+    "provenance": "user-approved-rewrite"
+  },
+  {
+    "source": "Git 使用.md（结合原 Git 题授权改写）",
+    "number": 3,
+    "title": "工作区、暂存区和仓库有什么区别？",
+    "path": "content/aaron/basics/git/working-tree-staging.md",
+    "category": "git",
+    "sha256": "c2d17d155b828fa7625924aaa6df2c601cf696810ff899862f89ab3c4bdb6996",
+    "provenance": "user-approved-rewrite"
+  },
+  {
+    "source": "Git 使用.md（结合原 Git 题授权改写）",
+    "number": 4,
+    "title": "开发一个新功能时，Git 分支怎么用？",
+    "path": "content/aaron/basics/git/branch-workflow.md",
+    "category": "git",
+    "sha256": "3afc5af75ee2b27cfa7ac9b5af8de8bea1796b85ac2a70e5284befb8ea0bfe42",
+    "provenance": "user-approved-rewrite"
+  },
+  {
+    "source": "Git 使用.md（结合原 Git 题授权改写）",
+    "number": 5,
+    "title": "git fetch 和 git pull 有什么区别？",
+    "path": "content/aaron/basics/git/fetch-pull.md",
+    "category": "git",
+    "sha256": "9f5ab591f44263f97d7457ef11d1042a99f9ed654474baa6850ce17e8d57ddfd",
+    "provenance": "user-approved-rewrite"
+  },
+  {
+    "source": "Git 使用.md（结合原 Git 题授权改写）",
+    "number": 6,
+    "title": "git merge 和 git rebase 有什么区别？",
+    "path": "content/aaron/basics/git/merge-rebase.md",
+    "category": "git",
+    "sha256": "a795d5e2288383b533cf060e61afaa7e402f73da0ec0c3d27509dfd2b0563ee2",
+    "provenance": "user-approved-rewrite"
+  },
+  {
+    "source": "Git 使用.md（结合原 Git 题授权改写）",
+    "number": 7,
+    "title": "Git 出现冲突时，你会怎么处理？",
+    "path": "content/aaron/basics/git/resolve-conflicts.md",
+    "category": "git",
+    "sha256": "414bbc370c3b147cd7ad82251e52627edcfc6f0c998d14e5b06086ad7b490b7b",
+    "provenance": "user-approved-rewrite"
+  },
+  {
+    "source": "Git 使用.md（结合原 Git 题授权改写）",
+    "number": 8,
+    "title": "提交错了怎么撤销，reset 和 revert 有什么区别？",
+    "path": "content/aaron/basics/git/undo-commits.md",
+    "category": "git",
+    "sha256": "d85fc86170f17aa7fd8ddf8e906e5dfba380610d6e19279bcffb94c036f745f7",
+    "provenance": "user-approved-rewrite"
+  },
+  {
+    "source": "Git 使用.md（结合原 Git 题授权改写）",
+    "number": 9,
+    "title": "代码没写完要切换任务，git stash 怎么用？",
+    "path": "content/aaron/basics/git/stash-changes.md",
+    "category": "git",
+    "sha256": "974789fdee442d58b64fbeb599fe8289b1c7a6d2cf7f4f665f3bdcf7e831169b",
+    "provenance": "user-approved-rewrite"
+  },
+  {
+    "source": "Git 使用.md（结合原 Git 题授权改写）",
+    "number": 10,
+    "title": "Fork、分支和 Pull Request 分别是什么？",
+    "path": "content/aaron/basics/git/fork-pull-request.md",
+    "category": "git",
+    "sha256": "619bb288540631e2a2d9a0a7a2ab404ee21cfb51f2cd0c58fafa20237e927005",
+    "provenance": "user-approved-rewrite"
+  },
+  {
+    "source": "Git 使用.md（结合原 Git 题授权改写）",
+    "number": 11,
+    "title": "怎么判断当前分支是否落后于远程？",
+    "path": "content/aaron/basics/git/check-upstream.md",
+    "category": "git",
+    "sha256": "c984ca0b0c5998b13a6e0b76e2922b52f3376a65a902694aac8369193c2aac54",
+    "provenance": "user-approved-rewrite"
+  },
+  {
+    "source": "Git 使用.md（结合原 Git 题授权改写）",
+    "number": 12,
+    "title": "Git 配置的用户名、邮箱和 SSH 密钥分别有什么用？",
+    "path": "content/aaron/basics/git/identity-ssh.md",
+    "category": "git",
+    "sha256": "882dfd62edb90c8060aa53e7cc7d88b60d6080360abf670324ebe848ac1f87e9",
+    "provenance": "user-approved-rewrite"
+  },
+  {
+    "source": "React1面试题-实习速背.md",
+    "number": 1,
+    "title": "虚拟 DOM、Diff 和 key 怎么理解，为什么使用它们",
+    "path": "content/aaron/basics/react/virtual-dom-diff-key.md",
+    "category": "react",
+    "sha256": "b7411d1428e36b3a37a07ada19b4bad331d8590db4168bbb09e86d04f0e03793"
+  },
+  {
+    "source": "React1面试题-实习速背.md",
+    "number": 2,
+    "title": "React 类组件的生命周期",
+    "path": "content/aaron/basics/react/class-lifecycle.md",
+    "category": "react",
+    "sha256": "47dad6af92e112da20e19ad459e0a38888671bffcfdd3a7e2380742f5fbb5b1f"
+  },
+  {
+    "source": "React1面试题-实习速背.md",
+    "number": 3,
+    "title": "React 合成事件和原生事件的关系",
+    "path": "content/aaron/basics/react/synthetic-native-events.md",
+    "category": "react",
+    "sha256": "691b8e23816b8dbebf29b1c572cc6dd83c8cd0927ad98801c1f4a8b3eb602c3c"
+  },
+  {
+    "source": "React2面试题-实习速背.md",
+    "number": 1,
+    "title": "JSX 是什么，和 JavaScript、HTML 有什么关系",
+    "path": "content/aaron/basics/react/jsx-syntax.md",
+    "category": "react",
+    "sha256": "b2b904221e9a660faccde165f4d9aa79502d9c418881aafcc1ad661ca1c8d08b"
+  },
+  {
+    "source": "React2面试题-实习速背.md",
+    "number": 2,
+    "title": "Redux 是什么，数据流、React 接入和优缺点",
+    "path": "content/aaron/basics/react/redux-data-flow.md",
+    "category": "react",
+    "sha256": "9910a5249d882d68fc0e425063904336b7798cb75ddab7cc4eb39d96883bffae"
+  },
+  {
+    "source": "React2面试题-实习速背.md",
+    "number": 3,
+    "title": "React 类组件生命周期，以及函数组件如何处理副作用",
+    "path": "content/aaron/basics/react/class-lifecycle-effects.md",
+    "category": "react",
+    "sha256": "fe2a955e4585b5928057a8b9f8f71069fa166de1ba659540912afaae09165fda"
+  },
+  {
+    "source": "React2面试题-实习速背.md",
+    "number": 4,
+    "title": "React 事件机制和原生 DOM 事件流的区别",
+    "path": "content/aaron/basics/react/event-dom-flow.md",
+    "category": "react",
+    "sha256": "691b8e23816b8dbebf29b1c572cc6dd83c8cd0927ad98801c1f4a8b3eb602c3c"
+  },
+  {
+    "source": "React2面试题-实习速背.md",
+    "number": 5,
+    "title": "Hooks 解决什么问题，常用 Hooks 怎么用",
+    "path": "content/aaron/basics/react/hooks-usage.md",
+    "category": "react",
+    "sha256": "e22b5f52a4f0dcdd42c1b8f12bb2e15f85528e035b3e969c64a2e4fd46d2e7f0"
+  },
+  {
+    "source": "React2面试题-实习速背.md",
+    "number": 6,
+    "title": "高阶组件 HOC 是什么，和 Render Props、Hooks 有什么区别",
+    "path": "content/aaron/basics/react/hoc-render-props.md",
+    "category": "react",
+    "sha256": "40fd51a5b9b24a7d44fda05704545f081d547afd1a45b2b2c032a67eaa494baa"
+  },
+  {
+    "source": "React2面试题-实习速背.md",
+    "number": 7,
+    "title": "key 的作用、虚拟 DOM 和真实 DOM 的区别",
+    "path": "content/aaron/basics/react/key-virtual-real-dom.md",
+    "category": "react",
+    "sha256": "b7411d1428e36b3a37a07ada19b4bad331d8590db4168bbb09e86d04f0e03793"
+  },
+  {
+    "source": "React2面试题-实习速背.md",
+    "number": 8,
+    "title": "Redux 中间件、Thunk 和 Saga 怎么处理异步",
+    "path": "content/aaron/basics/react/redux-async-middleware.md",
+    "category": "react",
+    "sha256": "299ae0072c3fc78433e3bbd7e9f54b914978dde4de1926d66ec9d04ad377714f"
+  },
+  {
+    "source": "React2面试题-实习速背.md",
+    "number": 9,
+    "title": "React 组件之间怎么通信",
+    "path": "content/aaron/basics/react/component-communication.md",
+    "category": "react",
+    "sha256": "b0662371c1dc3a18bab40a87bbd84f132d994cb9108cc807873698c35a6424a0"
+  },
+  {
+    "source": "React2面试题-实习速背.md",
+    "number": 10,
+    "title": "HashRouter 和 BrowserRouter 有什么区别",
+    "path": "content/aaron/basics/react/router-modes.md",
+    "category": "react",
+    "sha256": "64091f9ea608cdf84d7e01234c5ae868b1c4862b3a59b36078ede6b57f960e54"
+  },
+  {
+    "source": "React2面试题-实习速背.md",
+    "number": 11,
+    "title": "MobX 的状态管理和几个常用 API",
+    "path": "content/aaron/basics/react/mobx-state.md",
+    "category": "react",
+    "sha256": "2baab5dabe2dd33daa2db87bad4ced7e80f8c96bc2a78beb59a5f15b41e43f02"
+  },
+  {
+    "source": "Vue面试题-实习速背.md",
+    "number": 1,
+    "title": "Vue 和 React 有什么区别",
+    "path": "content/aaron/basics/vue/vue-react.md",
+    "category": "vue",
+    "sha256": "0b07bd08e95d5e02f9d488c52c75b7bd044edfe5cca162bf7c97dabe2b5d524d"
+  },
+  {
+    "source": "Vue面试题-实习速背.md",
+    "number": 2,
+    "title": "组件的 data 为什么写成函数，为什么避免属性和方法重名",
+    "path": "content/aaron/basics/vue/component-data-function.md",
+    "category": "vue",
+    "sha256": "86b284e7499af4506275a2ffaaee0546c0cc307cbd6cf69d3db5554fb66427b2"
+  },
+  {
+    "source": "Vue面试题-实习速背.md",
+    "number": 3,
+    "title": "Vue 生命周期和父子组件执行顺序",
+    "path": "content/aaron/basics/vue/parent-child-lifecycle.md",
+    "category": "vue",
+    "sha256": "e686669686a4154581091921a8d8cd6531a8449d45a590d4c6d31b6ab71f42fc"
+  },
+  {
+    "source": "Vue面试题-实习速背.md",
+    "number": 4,
+    "title": "Vue 2 响应式和渲染流程，为什么新增属性不更新",
+    "path": "content/aaron/basics/vue/vue2-reactivity-rendering.md",
+    "category": "vue",
+    "sha256": "2e6a251d4dd8efecc678ffd5288c2124cebc398ac7cce8d7a5da98844bd35e21"
+  },
+  {
+    "source": "Vue面试题-实习速背.md",
+    "number": 5,
+    "title": "MVVM 和 MVC 有什么区别",
+    "path": "content/aaron/basics/vue/mvvm-mvc.md",
+    "category": "vue",
+    "sha256": "46cea862af5106354763e4aeb7a09635a40dfd8eab78907e3d8a021616757e77"
+  },
+  {
+    "source": "Vue面试题-实习速背.md",
+    "number": 6,
+    "title": "Vue 怎么创建组件，Vue.extend、Vue.component 和 vue-loader 分别做什么",
+    "path": "content/aaron/basics/vue/component-registration.md",
+    "category": "vue",
+    "sha256": "6e3028a0681b1bfb14a1c514a05efe89084d66414619bfc01af9342010f094ad"
+  },
+  {
+    "source": "Vue面试题-实习速背.md",
+    "number": 7,
+    "title": "Vue 组件之间怎么通信",
+    "path": "content/aaron/basics/vue/component-communication.md",
+    "category": "vue",
+    "sha256": "968a9cebf3675485e6bb8a7c567c331cd79d86065d4775cf7648410ebbd2b76e"
+  },
+  {
+    "source": "Vue面试题-实习速背.md",
+    "number": 8,
+    "title": "computed 和 watch 怎么选，deep 和 immediate 有什么作用",
+    "path": "content/aaron/basics/vue/computed-watch.md",
+    "category": "vue",
+    "sha256": "2a4d3bc887de2e3db8d24b2660f833770c7c594c3cdea77a6f77f3773eba8443"
+  },
+  {
+    "source": "Vue面试题-实习速背.md",
+    "number": 9,
+    "title": "Vue 常见指令、v-if 和 v-show，以及修饰符",
+    "path": "content/aaron/basics/vue/directives-modifiers.md",
+    "category": "vue",
+    "sha256": "860dd9e9e4150c29ce1987637cedb141cdef3dd78d02b9987d9654c5f10eea92"
+  },
+  {
+    "source": "Vue面试题-实习速背.md",
+    "number": 10,
+    "title": "Vue Router、两种路由模式、路由守卫和 keep-alive",
+    "path": "content/aaron/basics/vue/router-guards-cache.md",
+    "category": "vue",
+    "sha256": "63cc17a7bc44ec5f12514c4f3d1fc6ec8c51cdeb046cc08f6d0afb9eb6bf65d0"
+  },
+  {
+    "source": "Vue面试题-实习速背.md",
+    "number": 11,
+    "title": "v-model 的原理是什么",
+    "path": "content/aaron/basics/vue/v-model.md",
+    "category": "vue",
+    "sha256": "63d685b0aad88e6ca67bb131c8d68edb95fb740e021c49e6c3d1dd0572f415a5"
+  },
+  {
+    "source": "Vue面试题-实习速背.md",
+    "number": 12,
+    "title": "Vue 怎么操作 DOM，自定义指令什么时候用",
+    "path": "content/aaron/basics/vue/dom-custom-directives.md",
+    "category": "vue",
+    "sha256": "ad906581f6088cee5540bfa8cc0a48c0a9b57cd0a7b6783e2a4427f4c83e4335"
+  },
+  {
+    "source": "Vue面试题-实习速背.md",
+    "number": 13,
+    "title": "Vuex 是什么，数据怎么流转",
+    "path": "content/aaron/basics/vue/vuex-data-flow.md",
+    "category": "vue",
+    "sha256": "104eadda59af3cb46bffe4306fc5d95b7e52253ff167773df2099517a5ca00d8"
+  },
+  {
+    "source": "Vue面试题-实习速背.md",
+    "number": 14,
+    "title": "Vue 的 Diff、key 和性能优化怎么理解",
+    "path": "content/aaron/basics/vue/vue-diff-key-performance.md",
+    "category": "vue",
+    "sha256": "3de2843d5876a606ed04c527cd5a9cbe8f929ab92f3f5e083f8d76451c3b443c"
+  },
+  {
+    "source": "Vue面试题-实习速背.md",
+    "number": 15,
+    "title": "项目出现视图不更新、报错或动态表单校验问题，怎么排查",
+    "path": "content/aaron/basics/vue/view-form-debugging.md",
+    "category": "vue",
+    "sha256": "09f97d866101ea7cac90661ab232b5276fdffed4d476ac63abb652e19f778b1f"
+  },
+  {
+    "source": "Vue面试题-实习速背.md",
+    "number": 16,
+    "title": "练习占位",
+    "path": "content/aaron/basics/vue/practice-placeholder.md",
+    "category": "vue",
+    "sha256": "59c0cdb431ae5d867f1a463d1b88a53d358aa97f75e34543db9d2087b36f045c"
+  },
+  {
+    "source": "Vue3面试题-实习速背.md",
+    "number": 1,
+    "title": "Vue 3 相比 Vue 2 有哪些变化，为什么更新更高效",
+    "path": "content/aaron/basics/vue/vue3-changes.md",
+    "category": "vue",
+    "sha256": "8e3f916e0e86140836c04038ecd53adc53f497b91562776086d01838f40af08b"
+  },
+  {
+    "source": "Vue3面试题-实习速背.md",
+    "number": 2,
+    "title": "Options API、Composition API 和 script setup 有什么关系",
+    "path": "content/aaron/basics/vue/composition-script-setup.md",
+    "category": "vue",
+    "sha256": "69633a7e425fd8dd07e0a496fb25715b8cc28faa4327f4140d11142463867fa1"
+  },
+  {
+    "source": "Vue3面试题-实习速背.md",
+    "number": 3,
+    "title": "Vue 3 响应式怎么实现，ref 和 reactive 有什么区别",
+    "path": "content/aaron/basics/vue/vue3-reactivity-ref-reactive.md",
+    "category": "vue",
+    "sha256": "b653e516de7500e6b32b67271c2798e8838c441290df36a584a27e6fc572fa5a"
+  },
+  {
+    "source": "Vue3面试题-实习速背.md",
+    "number": 4,
+    "title": "watch、watchEffect 和 computed 怎么选择",
+    "path": "content/aaron/basics/vue/watch-effect-computed.md",
+    "category": "vue",
+    "sha256": "41b90c59e9a57b8d6f80d9af1c6ba39e793db67c310180ecaada93538ac8828c"
+  },
+  {
+    "source": "Vue3面试题-实习速背.md",
+    "number": 5,
+    "title": "v-for、v-if 的优先级，以及 Vue 2 和 Vue 3 的 Diff 区别",
+    "path": "content/aaron/basics/vue/vue3-directive-diff.md",
+    "category": "vue",
+    "sha256": "9150b5a7ae6314cc5ecb539426abb2e3621470e2f28c99031d8acfdf5c4a90ab"
+  },
+  {
+    "source": "Vue3面试题-实习速背.md",
+    "number": 6,
+    "title": "Pinia 是什么，和 Vuex 有什么区别",
+    "path": "content/aaron/basics/vue/pinia-vuex.md",
+    "category": "vue",
+    "sha256": "787e09c03f9d2bff6fdfdae6a7a57ef6f92de15788b71cc3d0787f6233f3826d"
+  },
+  {
+    "source": "Vue3面试题-实习速背.md",
+    "number": 7,
+    "title": "Vue 3 生命周期怎么用",
+    "path": "content/aaron/basics/vue/vue3-lifecycle.md",
+    "category": "vue",
+    "sha256": "c1dd8fc6ccc404ac78aec27092af457a629f447c0004aa4626f1bad9c4353c20"
+  },
+  {
+    "source": "浏览器面试题-实习速背.md",
+    "number": 1,
+    "title": "Promise、async 和 await 怎么理解",
+    "path": "content/aaron/basics/browser/promise-async-await.md",
+    "category": "browser",
+    "sha256": "c8f782657f2374cfb56452d6a5466137117a468864faadc1561865eae902bb5c"
+  },
+  {
+    "source": "浏览器面试题-实习速背.md",
+    "number": 2,
+    "title": "浏览器事件循环怎么执行，和 Node.js 有什么区别",
+    "path": "content/aaron/basics/browser/event-loop-node.md",
+    "category": "browser",
+    "sha256": "7f535c83ac61b996ce3e4783a7188514c0693228d6a0c9146899d109ccbdd8de"
+  },
+  {
+    "source": "浏览器面试题-实习速背.md",
+    "number": 3,
+    "title": "从输入 URL 到页面显示，以及浏览器的渲染过程",
+    "path": "content/aaron/basics/browser/url-rendering.md",
+    "category": "browser",
+    "sha256": "803926a43c65bb6b3f36a30a83158e4b43959fa947536bb3cf75db63e0d39ab5"
+  },
+  {
+    "source": "浏览器面试题-实习速背.md",
+    "number": 4,
+    "title": "重绘和回流的区别、触发条件，以及怎么减少",
+    "path": "content/aaron/basics/browser/reflow-repaint.md",
+    "category": "browser",
+    "sha256": "8b7dfed7ebf845b41d6b92938949614fafdb95ccef180e439ac8b06065cbc45c"
+  },
+  {
+    "source": "浏览器面试题-实习速背.md",
+    "number": 5,
+    "title": "HTTP 强缓存和协商缓存怎么工作",
+    "path": "content/aaron/basics/browser/http-cache.md",
+    "category": "browser",
+    "sha256": "643c6efd9a445525be2d641cd86a4fe6d7e7d4c1261c6eb5a146afa987ead9d1"
+  },
+  {
+    "source": "浏览器面试题-实习速背.md",
+    "number": 6,
+    "title": "HTTP 请求方法有哪些，GET 和 POST 有什么区别",
+    "path": "content/aaron/basics/browser/http-methods.md",
+    "category": "browser",
+    "sha256": "886d81a8ebdb0cd314d9fcaebc2e49e80b2a9de95e5a9e8070e0143235936337"
+  },
+  {
+    "source": "浏览器面试题-实习速背.md",
+    "number": 7,
+    "title": "HTTP 和 HTTPS 有什么区别",
+    "path": "content/aaron/basics/browser/http-https.md",
+    "category": "browser",
+    "sha256": "84986c711374bbb1fdfb45234964c5516b8e9d85e8f0e15f03564379e4ace817"
+  },
+  {
+    "source": "浏览器面试题-实习速背.md",
+    "number": 8,
+    "title": "TCP 三次握手、四次挥手，以及为什么次数不同",
+    "path": "content/aaron/basics/browser/tcp-handshake-close.md",
+    "category": "browser",
+    "sha256": "221b3481b2d1131fa49729d6a0c8d81b4262ba555d4e2c131181e9dbb416f3fd"
+  },
+  {
+    "source": "浏览器面试题-实习速背.md",
+    "number": 9,
+    "title": "前端性能优化",
+    "path": "content/aaron/basics/browser/frontend-performance.md",
+    "category": "browser",
+    "sha256": "3f2f02401a9dad9d3cf485cec63bc33565d2c3d7aa6bf07806c9082a89554874"
+  },
+  {
+    "source": "浏览器面试题-实习速背.md",
+    "number": 10,
+    "title": "瀑布流布局怎么实现",
+    "path": "content/aaron/basics/browser/masonry-layout.md",
+    "category": "browser",
+    "sha256": "bce6e26465882c2c1529e994aee1567773bb904d5cfba62170da24c4d0aceb8b"
+  },
+  {
+    "source": "浏览器面试题-实习速背.md",
+    "number": 11,
+    "title": "项目怎么搭建，以及从开发到上线的大致流程",
+    "path": "content/aaron/basics/browser/project-delivery.md",
+    "category": "browser",
+    "sha256": "9126b7dbf2046b98fdbcc592e95166fdb82e8c7227223daea6b08ca4cf4785b3"
+  },
+  {
+    "source": "浏览器面试题-实习速背.md",
+    "number": 12,
+    "title": "Vue 中 key 有什么作用",
+    "path": "content/aaron/basics/browser/vue-key.md",
+    "category": "browser",
+    "sha256": "07e8fd6c70ab106e213afe542b9125287edcb1da29e2272442768f7330538e57"
+  },
+  {
+    "source": "浏览器面试题-实习速背.md",
+    "number": 13,
+    "title": "scoped 的作用和原理，怎么使用 deep",
+    "path": "content/aaron/basics/browser/vue-scoped-deep.md",
+    "category": "browser",
+    "sha256": "20a90603a600c4721b5b9bea41ae78a79dbfbaa91482b89f404fadc5a6d33964"
+  },
+  {
+    "source": "浏览器面试题-实习速背.md",
+    "number": 14,
+    "title": "ref、nextTick 和 $set 分别解决什么问题",
+    "path": "content/aaron/basics/browser/vue-ref-nexttick-set.md",
+    "category": "browser",
+    "sha256": "cc4d65c6d5917ceff050f6b3f9caa4df5142d7eda8b8eefcf8860c6e7971dfc4"
+  },
+  {
+    "source": "浏览器面试题-实习速背.md",
+    "number": 15,
+    "title": "XSS 和 CSRF 有什么区别，怎么防范",
+    "path": "content/aaron/basics/browser/xss-csrf.md",
+    "category": "browser",
+    "sha256": "6ddcb62453d016d80005c55d1bcdf7feceb7aa0fa0d538dfbe331973050fdf64"
+  },
+  {
+    "source": "浏览器面试题-实习速背.md",
+    "number": 16,
+    "title": "事件捕获、冒泡和委托是什么，怎么阻止",
+    "path": "content/aaron/basics/browser/event-propagation.md",
+    "category": "browser",
+    "sha256": "9dc6bf8ade288dcb6e6ca6b56d30e9252f20d12a7dbd98c39b7bc274047a2958"
+  },
+  {
+    "source": "浏览器面试题-实习速背.md",
+    "number": 17,
+    "title": "防抖和节流有什么区别，适合哪些场景",
+    "path": "content/aaron/basics/browser/debounce-throttle.md",
+    "category": "browser",
+    "sha256": "b06aebfcadcfac8b4e08d8301984dc9bf7fb1b7f1f357b7d7fc9b4a2dcc79d4c"
+  },
+  {
+    "source": "浏览器面试题-实习速背.md",
+    "number": 18,
+    "title": "Generator 怎么暂停和恢复执行",
+    "path": "content/aaron/basics/browser/generator-execution.md",
+    "category": "browser",
+    "sha256": "ad48431013275b57dca45f54f74c0b858059ed9802bcd7a3b235c701120f6160"
+  },
+  {
+    "source": "Webpack面试题-实习速背.md",
+    "number": 1,
+    "title": "Webpack 是什么，和 Grunt、Gulp、Rollup、Parcel 怎么比较",
+    "path": "content/aaron/basics/webpack/bundler-comparison.md",
+    "category": "webpack",
+    "sha256": "d277ceb947e7a32851db1c01b6e3fe7d88cf2624909ca2edf4ab7a221bac1abb"
+  },
+  {
+    "source": "Webpack面试题-实习速背.md",
+    "number": 2,
+    "title": "Loader 和 Plugin 有什么区别，常见的有哪些",
+    "path": "content/aaron/basics/webpack/loader-plugin.md",
+    "category": "webpack",
+    "sha256": "b23ee41b10e4414af7f5f10b8a8dc338930bf782c58cb023e78957f1eabdd8f5"
+  },
+  {
+    "source": "Webpack面试题-实习速背.md",
+    "number": 3,
+    "title": "Webpack 构建流程是什么，编写 Loader 或 Plugin 的思路",
+    "path": "content/aaron/basics/webpack/build-pipeline.md",
+    "category": "webpack",
+    "sha256": "ec8ec6c069d2c92296fbd5c0154e00c9f729575994c4bf66712f52dee8d47086"
+  },
+  {
+    "source": "Webpack面试题-实习速背.md",
+    "number": 4,
+    "title": "Webpack 热更新 HMR 怎么实现",
+    "path": "content/aaron/basics/webpack/hot-module-replacement.md",
+    "category": "webpack",
+    "sha256": "06358074a926ae55e8c8b89a108b113631a00790c0c97ed66c5779c843c7d6d5"
+  },
+  {
+    "source": "Webpack面试题-实习速背.md",
+    "number": 5,
+    "title": "怎么优化 Webpack 的产物和构建速度",
+    "path": "content/aaron/basics/webpack/build-optimization.md",
+    "category": "webpack",
+    "sha256": "abc3f38ade02af7841e6511fefff293cb3b908c827741c4f2a3411eefbeb390c"
+  },
+  {
+    "source": "Webpack面试题-实习速背.md",
+    "number": 6,
+    "title": "单页应用和多页应用怎么配置",
+    "path": "content/aaron/basics/webpack/spa-mpa.md",
+    "category": "webpack",
+    "sha256": "c6bae877cf26f6e862063bb65b0ae73fa2261e0ef6cd7450dd83189585010d2d"
+  },
+  {
+    "source": "Webpack面试题-实习速背.md",
+    "number": 7,
+    "title": "发布 npm 包时要注意什么，Webpack 怎么配合",
+    "path": "content/aaron/basics/webpack/npm-library-publishing.md",
+    "category": "webpack",
+    "sha256": "1d60a3ebb5850849f327cd738e77cf3e19fb26f9e1ff56dec5afcdd0d45a1a04"
+  },
+  {
+    "source": "Webpack面试题-实习速背.md",
+    "number": 8,
+    "title": "Vue 的按需加载，以及 Webpack 怎么解析 .vue",
+    "path": "content/aaron/basics/webpack/vue-lazy-loading.md",
+    "category": "webpack",
+    "sha256": "36dc49907c6c3ab05e9d227b94396c2098add85607ee4f01c112c78233d44535"
+  },
+  {
+    "source": "Webpack面试题-实习速背.md",
+    "number": 9,
+    "title": "Fetch 和 Axios 有什么区别",
+    "path": "content/aaron/basics/webpack/fetch-axios.md",
+    "category": "webpack",
+    "sha256": "b8c7bc5d18564f446df6ebd5cfd6c8e0522ec4e15b69890b74a3dbe049d576c5"
+  },
+  {
+    "source": "Webpack面试题-实习速背.md",
+    "number": 10,
+    "title": "Redux 怎么处理异步请求",
+    "path": "content/aaron/basics/webpack/redux-async.md",
+    "category": "webpack",
+    "sha256": "299ae0072c3fc78433e3bbd7e9f54b914978dde4de1926d66ec9d04ad377714f"
+  },
+  {
+    "source": "Webpack面试题-实习速背.md",
+    "number": 11,
+    "title": "class 和构造函数有什么区别，静态方法是什么",
+    "path": "content/aaron/basics/webpack/class-constructors.md",
+    "category": "webpack",
+    "sha256": "ef467e20af3bec69f8ebf4f14e8749dde96a92ddf0ac4d57c7add28b523fe933"
+  },
+  {
+    "source": "Webpack面试题-实习速背.md",
+    "number": 12,
+    "title": "Canvas 和 SVG 有什么区别",
+    "path": "content/aaron/basics/webpack/canvas-svg.md",
+    "category": "webpack",
+    "sha256": "5b797619e3c0e1ef3aa77a35bf9dfce51c353fff0a1c0f048b3a8c6acaaca18f"
+  },
+  {
+    "source": "Webpack面试题-实习速背.md",
+    "number": 13,
+    "title": "Promise 的状态、链式调用和组合方法",
+    "path": "content/aaron/basics/webpack/promise-combinators.md",
+    "category": "webpack",
+    "sha256": "8129075c927539ece344ac3db7bef684be8c8d6a178c588422e9f49f35a21059"
+  },
+  {
+    "source": "Webpack面试题-实习速背.md",
+    "number": 14,
+    "title": "Generator 和 yield、next 怎么理解",
+    "path": "content/aaron/basics/webpack/generator-yield-next.md",
+    "category": "webpack",
+    "sha256": "ad48431013275b57dca45f54f74c0b858059ed9802bcd7a3b235c701120f6160"
+  },
+  {
+    "source": "Webpack面试题-实习速背.md",
+    "number": 15,
+    "title": "Babel 的作用、原理和常见配置",
+    "path": "content/aaron/basics/webpack/babel-pipeline.md",
+    "category": "webpack",
+    "sha256": "e17d5d18e073b99d1888fa86b89a48334ef22b5265d0eec79f976e9b8b63f847"
+  },
+  {
+    "source": "content/default/10-lidi-interview/import-01-html-css-accessibility-form.md",
+    "number": 1,
+    "title": "前端表单怎么做得更容易使用？",
+    "path": "content/aaron/basics/html/accessible-form.md",
+    "category": "html",
+    "sha256": "2c8cb47c32b912d8ff2cfb62a5c7a8bde90b7e9d8fd54ea5c69d7c58d52dd0b3",
+    "provenance": "user-approved-topic-adaptation",
+    "sourceTitle": "前端表单怎么做得更容易使用？"
+  },
+  {
+    "source": "content/default/10-lidi-interview/import-01-html-css-modern-layout.md",
+    "number": 1,
+    "title": "Flex 和 Grid 怎么根据场景选择？",
+    "path": "content/aaron/basics/css/flex-grid.md",
+    "category": "css",
+    "sha256": "32028fe24a5808f644ae6ffdc658a03600c12586e1a4e175219eca59a67caf30",
+    "provenance": "user-approved-topic-adaptation",
+    "sourceTitle": "Flex 和 Grid 怎么根据场景选择？"
+  },
+  {
+    "source": "content/default/10-lidi-interview/import-01-html-css-responsive-layout.md",
+    "number": 1,
+    "title": "移动端适配是怎么做的？",
+    "path": "content/aaron/basics/css/responsive-layout.md",
+    "category": "css",
+    "sha256": "84d119f2f7d28662364d581f095fc40fe87e2be186784273f1f5d791aa4b7236",
+    "provenance": "user-approved-topic-adaptation",
+    "sourceTitle": "移动端适配是怎么做的？"
+  },
+  {
+    "source": "content/default/10-lidi-interview/import-01-html-css-stacking-context.md",
+    "number": 1,
+    "title": "z-index 为什么有时候不生效？",
+    "path": "content/aaron/basics/css/stacking-context.md",
+    "category": "css",
+    "sha256": "0484d0aaa574fe9185a7dae3905e1695b6237969bd4bebbfe85e1af9a49f6bd8",
+    "provenance": "user-approved-topic-adaptation",
+    "sourceTitle": "z-index 为什么有时候不生效？"
+  },
+  {
+    "source": "content/default/10-lidi-interview/import-02-javascript-esm-cjs.md",
+    "number": 1,
+    "title": "ESM 和 CommonJS 有什么区别？",
+    "path": "content/aaron/basics/javascript/esm-commonjs.md",
+    "category": "javascript",
+    "sha256": "d84d5ff86171350e74863f2204ef25211d6621634c44938ddc54fde23b2fdd35",
+    "provenance": "user-approved-topic-adaptation",
+    "sourceTitle": "ESM 和 CommonJS 有什么区别？"
+  },
+  {
+    "source": "content/default/10-lidi-interview/import-02-javascript-new-operator.md",
+    "number": 1,
+    "title": "new 一个对象时底层发生了什么？",
+    "path": "content/aaron/basics/javascript/new-operator.md",
+    "category": "javascript",
+    "sha256": "f1e6fba369d60cbbe31180e48e8a87164e41c8f7e08570392f77d921b71885c2",
+    "provenance": "user-approved-topic-adaptation",
+    "sourceTitle": "new 一个对象时底层发生了什么？"
+  },
+  {
+    "source": "content/default/10-lidi-interview/import-02-javascript-map-set-weak.md",
+    "number": 1,
+    "title": "Map、Set、WeakMap 和 WeakSet 怎么选？",
+    "path": "content/aaron/basics/javascript/map-set-weak.md",
+    "category": "javascript",
+    "sha256": "cc40c53afb0574009fd8ae60b2e36d554710cc9cfa3b133d5a83d2de90274352",
+    "provenance": "user-approved-topic-adaptation",
+    "sourceTitle": "Map、Set、WeakMap 和 WeakSet 怎么选？"
+  },
+  {
+    "source": "content/default/10-lidi-interview/import-02-javascript-promise-concurrency.md",
+    "number": 1,
+    "title": "前端请求并发太多时怎么控制？",
+    "path": "content/aaron/basics/javascript/request-concurrency.md",
+    "category": "javascript",
+    "sha256": "20a64c6e5c6a42db90b8197780c93bcbc188d1f989e8942abdb7993ff7ed576a",
+    "provenance": "user-approved-topic-adaptation",
+    "sourceTitle": "前端请求并发太多时怎么控制？"
+  },
+  {
+    "source": "content/default/10-lidi-interview/import-02-javascript-abort-controller.md",
+    "number": 1,
+    "title": "AbortController 取消 fetch 后 Promise 会怎样？",
+    "path": "content/aaron/basics/javascript/abort-fetch.md",
+    "category": "javascript",
+    "sha256": "1a6a40b7926cac1afb22e465a7de308d753bc8ef8688f2566716db712233df4a",
+    "provenance": "user-approved-topic-adaptation",
+    "sourceTitle": "AbortController 取消 fetch 后 Promise 会怎样？"
+  },
+  {
+    "source": "content/default/10-lidi-interview/import-02-javascript-typescript-daily.md",
+    "number": 1,
+    "title": "TypeScript 能帮前端解决什么问题？",
+    "path": "content/aaron/basics/typescript/typescript-purpose.md",
+    "category": "typescript",
+    "sha256": "0d326be368225b92a0e6a655da5b269f8a2b2d88a5983fc3dc746461477444b3",
+    "provenance": "user-approved-topic-adaptation",
+    "sourceTitle": "TypeScript 在项目里是怎么用的？"
+  },
+  {
+    "source": "content/default/10-lidi-interview/import-02-javascript-interface-type.md",
+    "number": 1,
+    "title": "interface 和 type 有什么区别，怎么选？",
+    "path": "content/aaron/basics/typescript/interface-type.md",
+    "category": "typescript",
+    "sha256": "64cc60cf689c6d473fea306ac39cab53d4e0895cd04606a221fd3112314a1c9c",
+    "provenance": "user-approved-topic-adaptation",
+    "sourceTitle": "interface 和 type 在项目里怎么取舍？"
+  },
+  {
+    "source": "content/default/10-lidi-interview/import-02-javascript-unknown-never.md",
+    "number": 1,
+    "title": "any、unknown 和 never 有什么区别？",
+    "path": "content/aaron/basics/typescript/any-unknown-never.md",
+    "category": "typescript",
+    "sha256": "0e64aa2f059cff81780a782e1df988d7cf03f935e317be352a1cd94f8e92bd23",
+    "provenance": "user-approved-topic-adaptation",
+    "sourceTitle": "unknown、any 和 never 应该怎么选？"
+  },
+  {
+    "source": "content/default/10-lidi-interview/import-02-javascript-generic-api.md",
+    "number": 1,
+    "title": "泛型在接口数据类型里怎么用？",
+    "path": "content/aaron/basics/typescript/generic-response.md",
+    "category": "typescript",
+    "sha256": "81f6372c5f1988674a6b02d3b22ed7cc14b7e8e8340ac13feb41f3449237f0e6",
+    "provenance": "user-approved-topic-adaptation",
+    "sourceTitle": "泛型在前端 API 封装里怎么用？"
+  },
+  {
+    "source": "content/default/10-lidi-interview/import-02-javascript-runtime-validation.md",
+    "number": 1,
+    "title": "用了 TypeScript，为什么还要校验接口数据？",
+    "path": "content/aaron/basics/typescript/runtime-validation.md",
+    "category": "typescript",
+    "sha256": "436685e46bbb2aa70ed6812b014cf53125638ac0666218fc3a606629370578a6",
+    "provenance": "user-approved-topic-adaptation",
+    "sourceTitle": "TypeScript 项目为什么还需要运行时校验？"
+  },
+  {
+    "source": "content/default/10-lidi-interview/import-02-javascript-discriminated-union.md",
+    "number": 1,
+    "title": "怎么用 TypeScript 联合类型表示请求状态？",
+    "path": "content/aaron/basics/typescript/request-state-union.md",
+    "category": "typescript",
+    "sha256": "5c48ebf2a165a1f7772b4469eb6bf3ba04984243da6c5163693635837dc9ed19",
+    "provenance": "user-approved-topic-adaptation",
+    "sourceTitle": "如何用可辨识联合描述请求状态？"
+  },
+  {
+    "source": "content/default/10-lidi-interview/import-03-frameworks-react-forms.md",
+    "number": 1,
+    "title": "React 表单的受控和非受控有什么区别？",
+    "path": "content/aaron/basics/react/controlled-input.md",
+    "category": "react",
+    "sha256": "d5936017a64ce281c79989d68ae10babc2213159e8062bd6b496a023f1bbd09c",
+    "provenance": "user-approved-topic-adaptation",
+    "sourceTitle": "React 表单应该用受控还是非受控？"
+  },
+  {
+    "source": "content/default/10-lidi-interview/import-03-frameworks-react-state-snapshot.md",
+    "number": 1,
+    "title": "React 为什么说 state 是一次渲染的快照？",
+    "path": "content/aaron/basics/react/state-snapshot.md",
+    "category": "react",
+    "sha256": "0d720e206d8749b15363ac92df831ae1e336af096eafc1a8b0a5e967516897b6",
+    "provenance": "user-approved-topic-adaptation",
+    "sourceTitle": "React 为什么说 state 是一次 render 的快照？"
+  },
+  {
+    "source": "content/default/10-lidi-interview/import-03-frameworks-react-stale-closure.md",
+    "number": 1,
+    "title": "React 回调里读到旧状态，怎么处理？",
+    "path": "content/aaron/basics/react/stale-closure.md",
+    "category": "react",
+    "sha256": "115f9df3d74e5ff21af5e6d7619dc7b96149018dde0e1468988071399d0703a4",
+    "provenance": "user-approved-topic-adaptation",
+    "sourceTitle": "React 的 stale closure 是什么，怎么处理？"
+  },
+  {
+    "source": "content/default/10-lidi-interview/import-03-frameworks-vue-composable-design.md",
+    "number": 1,
+    "title": "Vue 的 composable 应该怎么设计？",
+    "path": "content/aaron/basics/vue/composable-design.md",
+    "category": "vue",
+    "sha256": "865e2c0f1d3aa9fa107a8d610f979c057621d7bff92b9219e06ff12d99491088",
+    "provenance": "user-approved-topic-adaptation",
+    "sourceTitle": "Vue 的 composable 应该怎么设计？"
+  },
+  {
+    "source": "content/default/10-lidi-interview/import-03-frameworks-vue-rendering-list.md",
+    "number": 1,
+    "title": "Vue 大列表渲染慢时怎么排查？",
+    "path": "content/aaron/basics/vue/large-list-rendering.md",
+    "category": "vue",
+    "sha256": "db7596388d672f53e4630df36c6f59d1627b9108b906e00068cb6fc3ace30968",
+    "provenance": "user-approved-topic-adaptation",
+    "sourceTitle": "Vue 大列表和 v-for 渲染慢时怎么排查？"
+  },
+  {
+    "source": "content/default/10-lidi-interview/import-04-browser-network-engineering-resource-loading.md",
+    "number": 1,
+    "title": "defer、async、preload 和 prefetch 怎么选？",
+    "path": "content/aaron/basics/browser/resource-loading.md",
+    "category": "browser",
+    "sha256": "646fdab8ab80ee24053d9bf63cb97d5e978aaf35536714e2faeb195f4e18b7c9",
+    "provenance": "user-approved-topic-adaptation",
+    "sourceTitle": "defer、async、preload 和 prefetch 怎么选？"
+  },
+  {
+    "source": "content/default/10-lidi-interview/import-04-browser-network-engineering-web-worker.md",
+    "number": 1,
+    "title": "Web Worker 适合解决什么问题？",
+    "path": "content/aaron/basics/browser/web-worker.md",
+    "category": "browser",
+    "sha256": "52e5bca5660c52a84835e44a413659d7ac899560a676aa11b20550314054a4d4",
+    "provenance": "user-approved-topic-adaptation",
+    "sourceTitle": "Web Worker 适合解决什么问题？"
+  },
+  {
+    "source": "content/default/10-lidi-interview/import-04-browser-network-engineering-web-vitals.md",
+    "number": 1,
+    "title": "LCP、INP、CLS 分别反映什么问题？",
+    "path": "content/aaron/basics/browser/web-vitals.md",
+    "category": "browser",
+    "sha256": "2062a57d0de42e9e12e6cd809070c7ade9ba54698629953ec07259c6cbd78777",
+    "provenance": "user-approved-topic-adaptation",
+    "sourceTitle": "LCP、INP、CLS 分别怎么理解和优化？"
+  },
+  {
+    "source": "content/default/10-lidi-interview/import-04-browser-network-engineering-http2-http3.md",
+    "number": 1,
+    "title": "HTTP/1.1、HTTP/2 和 HTTP/3 有什么差别？",
+    "path": "content/aaron/basics/network/http-versions.md",
+    "category": "network",
+    "sha256": "93049b72b1023c7e9c4bd9dc034cad737f69c99a291a04f13ee3c2ea67e44b1a",
+    "provenance": "user-approved-topic-adaptation",
+    "sourceTitle": "HTTP/1.1、HTTP/2 和 HTTP/3 有什么差别？"
+  },
+  {
+    "source": "content/default/10-lidi-interview/import-04-browser-network-engineering-websocket-sse.md",
+    "number": 1,
+    "title": "WebSocket 和 SSE 怎么选择？",
+    "path": "content/aaron/basics/network/websocket-sse.md",
+    "category": "network",
+    "sha256": "db5735e1daf86ea2cfc8abb624195f9c8e5cecab128c9b71eedd057ba8a5a4a9",
+    "provenance": "user-approved-topic-adaptation",
+    "sourceTitle": "WebSocket 和 SSE 怎么选择？"
+  },
+  {
+    "source": "content/default/10-lidi-interview/import-04-browser-network-engineering-vite-webpack.md",
+    "number": 1,
+    "title": "Vite 和 Webpack 有什么区别？",
+    "path": "content/aaron/basics/webpack/vite-webpack.md",
+    "category": "webpack",
+    "sha256": "ad953afbe7a92ec7ff9a34025727718755677a34133b9e9760ee416cc8a49097",
+    "provenance": "user-approved-topic-adaptation",
+    "sourceTitle": "Vite 和 Webpack 有什么区别？"
+  },
+  {
+    "source": "content/default/10-lidi-interview/import-04-browser-network-engineering-source-map-build.md",
+    "number": 1,
+    "title": "source map、构建缓存和可复现构建怎么理解？",
+    "path": "content/aaron/basics/webpack/source-map-build.md",
+    "category": "webpack",
+    "sha256": "a514cf978bcb41667178618d514218dae220aaea3858c8282d002513ff0c0043",
+    "provenance": "user-approved-topic-adaptation",
+    "sourceTitle": "source map、构建缓存和可复现构建怎么做？"
+  },
+  {
+    "source": "content/default/10-lidi-interview/import-07-testing-test-strategy.md",
+    "number": 1,
+    "title": "单元、组件、集成和 E2E 测试分别测什么？",
+    "path": "content/aaron/basics/testing/test-levels.md",
+    "category": "testing",
+    "sha256": "90ff692412853d29a0d61461eebd755e94e1c9eef5e198af765a8a6cc2e1cbdb",
+    "provenance": "user-approved-topic-adaptation",
+    "sourceTitle": "单元、组件、集成和 E2E 测试分别测什么？"
+  }
+]

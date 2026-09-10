@@ -17,7 +17,7 @@ const docs = [
   { ...document('same', '独有测试题'), name: 'guest/react/same.md' },
 ]
 
-test('repository content only publishes the default bank', () => {
+test('repository publishes isolated default and Aaron banks', () => {
   const root = new URL('../content/', import.meta.url)
   const registry = JSON.parse(readFileSync(new URL('users.json', root), 'utf8'))
   const documents = readdirSync(root, { recursive: true }).filter((name) => name.endsWith('.md'))
@@ -26,7 +26,13 @@ test('repository content only publishes the default bank', () => {
   const defaultQuestions = banks.find((user) => user.id === 'default').questions
   assert.ok(defaultQuestions.length >= 500)
   assert.ok(defaultQuestions.every((question) => question.category === 'current-interview'))
-  assert.deepEqual(banks.map((user) => user.id), ['default'])
+  assert.deepEqual(banks.map((user) => user.id), ['default', 'aaron'])
+  const aaron = banks.find((user) => user.id === 'aaron')
+  assert.equal(aaron.name, 'Aaron')
+  assert.equal(aaron.questions.length, 348)
+  assert.equal(aaron.questions.filter((question) => question.projects.length === 0).length, 154)
+  assert.equal(aaron.questions.filter((question) => question.projects.length === 1).length, 194)
+  assert.ok(aaron.questions.every((question) => question.category !== 'current-interview'))
 })
 
 test('two clean browser stores resolve identical users and banks without importing', () => {

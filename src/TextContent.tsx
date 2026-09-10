@@ -1,4 +1,16 @@
+import { Fragment } from 'react'
+
 export function renderText(text = '') {
+  const blocks = text.split(/(^```[^\n]*\n[\s\S]*?^```\s*$)/gm)
+  return blocks.map((block, index) => {
+    const fenced = block.match(/^```([^\n]*)\n([\s\S]*?)\n```\s*$/)
+    return fenced
+      ? <pre key={index} style={{ whiteSpace: 'pre', overflowX: 'auto' }}><code className={fenced[1].trim() ? `language-${fenced[1].trim()}` : undefined}>{fenced[2]}</code></pre>
+      : <Fragment key={index}>{renderLines(block)}</Fragment>
+  })
+}
+
+function renderLines(text: string) {
   return text.split('\n').map((line, index) => {
     const heading = line.match(/^#{1,6} (.+)$/)
     const content = line
