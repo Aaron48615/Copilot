@@ -81,6 +81,7 @@ export function buildQuestionBank(base: InterviewQuestion[], documents: { name: 
 const categoryLabels: Record<string, string> = {
   'current-interview': '本次面试',
   profile: '个人与求职',
+  personal: '个人情况',
   'html-css': 'HTML / CSS',
   shiguang: '拾光集移动商城系统',
   yingke: '映刻影视',

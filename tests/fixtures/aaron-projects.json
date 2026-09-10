@@ -2335,6 +2335,42 @@
       "type": null,
       "answerSha256": "6c27e29be5233eee617b52e7eb64545a837a86bbd5dfb2ea578eacb27b2cc4a3",
       "evidenceSha256": "209302993151f7b6090e11f5e8dcc92f2754e95a316151dbe03a6d7972c17c1b"
+    },
+    {
+      "source": "用户当前会话补充：项目动机与团队分工",
+      "heading": "你为什么做这个项目，这个项目是几个人做的",
+      "originalTitle": "你为什么做这个项目，这个项目是几个人做的",
+      "title": "你为什么做这个项目，这个项目是几个人做的",
+      "path": "shiguang/normal/motivation-team.md",
+      "id": "shiguang-normal-motivation-team",
+      "type": null,
+      "provenance": "user-requested-draft",
+      "answerSha256": "1c7e855b317d89b6d43440fc8bb5cb574f995bce2c2d77825b4ccc145b5ede2e",
+      "evidenceSha256": "bd13313606d6374556233a8c729ed44d81a09de59efe6a82a896209762eaf7e4"
+    },
+    {
+      "source": "用户当前会话补充：项目动机与团队分工",
+      "heading": "你为什么做这个项目，这个项目是几个人做的",
+      "originalTitle": "你为什么做这个项目，这个项目是几个人做的",
+      "title": "你为什么做这个项目，这个项目是几个人做的",
+      "path": "yingke/normal/motivation-team.md",
+      "id": "yingke-normal-motivation-team",
+      "type": null,
+      "provenance": "user-requested-draft",
+      "answerSha256": "ffd8c4fa61d304b9d0d3859aeaae7be82290874b026eccb78a33133524c75143",
+      "evidenceSha256": "bd13313606d6374556233a8c729ed44d81a09de59efe6a82a896209762eaf7e4"
+    },
+    {
+      "source": "用户当前会话补充：项目动机与团队分工",
+      "heading": "你为什么做这个项目，这个项目是几个人做的",
+      "originalTitle": "你为什么做这个项目，这个项目是几个人做的",
+      "title": "你为什么做这个项目，这个项目是几个人做的",
+      "path": "yunshu/normal/motivation-team.md",
+      "id": "yunshu-normal-motivation-team",
+      "type": null,
+      "provenance": "user-requested-draft",
+      "answerSha256": "f63e13e29c7692169d6b9ed531ef1427fb8c66a71f7d42ad5bd7d19fdb312cef",
+      "evidenceSha256": "bd13313606d6374556233a8c729ed44d81a09de59efe6a82a896209762eaf7e4"
     }
   ]
 }

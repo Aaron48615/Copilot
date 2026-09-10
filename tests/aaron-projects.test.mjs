@@ -7,14 +7,14 @@ import { buildRepositoryBanks, parseMarkdown, getSidebarSections, matchesSidebar
 const root = new URL('../', import.meta.url)
 const manifest = JSON.parse(readFileSync(new URL('tests/fixtures/aaron-projects.json', root), 'utf8')).questions
 const projects = {
-  shiguang: ['拾光集移动商城系统', 27, 32],
-  yingke: ['映刻影视', 29, 46],
-  yunshu: ['云枢智慧城市数据平台', 32, 28],
+  shiguang: ['拾光集移动商城系统', 28, 32],
+  yingke: ['映刻影视', 30, 46],
+  yunshu: ['云枢智慧城市数据平台', 33, 28],
 }
 const hash = text => createHash('sha256').update(text).digest('hex')
 
-test('194 project questions preserve source answers, evidence, titles and type labels', () => {
-  assert.equal(manifest.length, 194)
+test('197 project questions preserve source answers, evidence, titles and type labels', () => {
+  assert.equal(manifest.length, 197)
   for (const [category, [name, normal, followups]] of Object.entries(projects)) {
     const files = readdirSync(new URL(`content/aaron/${category}/`, root), { recursive: true }).filter(file => file.endsWith('.md'))
     const records = manifest.filter(item => item.path.startsWith(`${category}/`))
@@ -57,8 +57,8 @@ test('Aaron project ownership, category counts, filtering and search work alongs
   const docs = readdirSync(content, { recursive: true }).filter(name => name.endsWith('.md')).map(name => ({ name, raw: readFileSync(new URL(name, content), 'utf8') }))
   const banks = buildRepositoryBanks(registry, docs)
   const questions = banks.find(user => user.id === 'aaron').questions
-  assert.equal(questions.length, 348)
-  assert.equal(new Set(questions.map(q => q.id)).size, 348)
+  assert.equal(questions.length, 353)
+  assert.equal(new Set(questions.map(q => q.id)).size, 353)
   assert.equal(banks.find(user => user.id === 'default').questions.length, 537)
   const categories = getSidebarSections(questions).flatMap(section => section.categories)
   for (const [category, [label, normal, followups]] of Object.entries(projects)) {

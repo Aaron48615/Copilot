@@ -29,9 +29,9 @@ test('repository publishes isolated default and Aaron banks', () => {
   assert.deepEqual(banks.map((user) => user.id), ['default', 'aaron'])
   const aaron = banks.find((user) => user.id === 'aaron')
   assert.equal(aaron.name, 'Aaron')
-  assert.equal(aaron.questions.length, 348)
-  assert.equal(aaron.questions.filter((question) => question.projects.length === 0).length, 154)
-  assert.equal(aaron.questions.filter((question) => question.projects.length === 1).length, 194)
+  assert.equal(aaron.questions.length, 353)
+  assert.equal(aaron.questions.filter((question) => question.projects.length === 0).length, 156)
+  assert.equal(aaron.questions.filter((question) => question.projects.length === 1).length, 197)
   assert.ok(aaron.questions.every((question) => question.category !== 'current-interview'))
 })
 
