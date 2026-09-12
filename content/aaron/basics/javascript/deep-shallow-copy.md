@@ -24,3 +24,14 @@ const next = { ...user, address: { ...user.address, city: '哈尔滨' } };
 ```
 
 【如果自己写递归深拷贝，要区分数组和对象，用 WeakMap 记录已经复制过的对象来处理循环引用，并明确 Date、Map、Set 等类型是否支持。】
+
+### 嵌套对象的浅拷贝示例
+
+展开语法和 `Object.assign()` 只复制一层；嵌套对象仍可能共享引用。
+
+```js
+const source = { profile: { age: 18 } };
+const copy = { ...source };
+copy.profile.age = 20;
+console.log(source.profile.age); // 20
+```

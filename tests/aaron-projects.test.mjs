@@ -57,8 +57,8 @@ test('Aaron project ownership, category counts, filtering and search work alongs
   const docs = readdirSync(content, { recursive: true }).filter(name => name.endsWith('.md')).map(name => ({ name, raw: readFileSync(new URL(name, content), 'utf8') }))
   const banks = buildRepositoryBanks(registry, docs)
   const questions = banks.find(user => user.id === 'aaron').questions
-  assert.equal(questions.length, 353)
-  assert.equal(new Set(questions.map(q => q.id)).size, 353)
+  assert.equal(questions.length, 401)
+  assert.equal(new Set(questions.map(q => q.id)).size, 401)
   assert.equal(banks.find(user => user.id === 'default').questions.length, 537)
   const categories = getSidebarSections(questions).flatMap(section => section.categories)
   for (const [category, [label, normal, followups]] of Object.entries(projects)) {

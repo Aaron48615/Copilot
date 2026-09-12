@@ -7,14 +7,33 @@ import { getAnswerContent } from '../src/answers.ts'
 
 const manifest = JSON.parse(readFileSync(new URL('./fixtures/aaron-basics.json', import.meta.url), 'utf8'))
 const root = new URL('../', import.meta.url)
-const counts = { html: 12, css: 21, javascript: 20, vue: 25, react: 17, browser: 21, git: 12, webpack: 17, typescript: 6, network: 2, testing: 1 }
-const labels = { html: 'HTML', css: 'CSS', javascript: 'JavaScript', vue: 'Vue', react: 'React', browser: '浏览器', git: 'Git', webpack: 'Webpack', typescript: 'TypeScript', network: '网络', testing: '测试与质量' }
+const counts = {"html": 14, "css": 22, "javascript": 28, "git": 12, "react": 17, "vue": 25, "browser": 23, "webpack": 17, "typescript": 6, "network": 19, "testing": 1, "ai-agent": 10, "engineering": 8}
+const labels = { html: 'HTML', css: 'CSS', javascript: 'JavaScript', vue: 'Vue', react: 'React', browser: '浏览器', git: 'Git', webpack: 'Webpack', typescript: 'TypeScript', network: '网络', testing: '测试与质量', 'ai-agent': 'AI 与 Agent', engineering: '网络与工程化' }
 const questions = manifest.map(item => parseMarkdown(item.path, readFileSync(new URL(item.path, root), 'utf8')))
 
-test('all 154 entries retain imported or approved revised answers with eight ordered fields', () => {
+// Example code may contain HTTP or shell comments beginning with #.
+// Only headings outside fenced code identify Markdown questions.
+function proseHeadings(raw) {
+  let fence = null
+  const headings = []
+  for (const line of raw.split('\n')) {
+    const marker = line.match(/^\s{0,3}(`{3,}|~{3,})(.*)$/)
+    if (marker && !fence) {
+      fence = marker[1]
+    } else if (marker && marker[1][0] === fence?.[0] && marker[1].length >= fence.length && !marker[2].trim()) {
+      fence = null
+    } else if (!fence && line.startsWith('# ')) {
+      headings.push(line.slice(2))
+    }
+  }
+  assert.equal(fence, null, '代码围栏必须闭合')
+  return headings
+}
+
+test('all 202 entries retain imported or approved revised answers with eight ordered fields', () => {
   const files = readdirSync(new URL('content/aaron/basics/', root), { recursive: true }).filter(name => name.endsWith('.md'))
   assert.deepEqual(files.sort(), manifest.map(item => item.path.replace('content/aaron/basics/', '')).sort())
-  assert.equal(new Set(manifest.map(item => `${item.source}:${item.number}`)).size, 154)
+  assert.equal(new Set(manifest.map(item => `${item.source}:${item.number}`)).size, 202)
   for (const [index, item] of manifest.entries()) {
     const raw = readFileSync(new URL(item.path, root), 'utf8')
     const frontmatter = raw.match(/^---\n([\s\S]*?)\n---\n/)
@@ -27,7 +46,7 @@ test('all 154 entries retain imported or approved revised answers with eight ord
     assert.match(item.path, new RegExp(`/basics/${q.category}/[a-z0-9-]+\\.md$`))
     assert.ok(q.id.startsWith(`aaron-basic-${q.category}-`))
     assert.deepEqual(Object.keys(q.sections), ['核心回答'])
-    assert.deepEqual([...raw.matchAll(/^# (.+)$/gm)].map(m => m[1]), [item.title])
+    assert.deepEqual(proseHeadings(raw), [item.title])
     assert.ok(q.aliases.length >= 2 && q.aliases.length <= 4)
     assert.ok(q.keywords.length >= 3 && q.keywords.length <= 6)
     assert.ok(['基础', '进阶', '深入'].includes(q.difficulty))

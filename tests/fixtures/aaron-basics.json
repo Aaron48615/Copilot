@@ -165,7 +165,19 @@
     "title": "px、em 和 rem 有什么区别",
     "path": "content/aaron/basics/css/length-units.md",
     "category": "css",
-    "sha256": "c75c1eed215f1548fb1f316d8a6c95d8af0b0aeab5fa1ed8f481dead093b6bc9"
+    "sha256": "6de366659f0b6fcf5949ff6f69e0f0b5e84da19c8378f0964f00c3b6ed2337d9",
+    "revisions": [
+      {
+        "reason": "2026-09-10 学习笔记补充；保留已有有效答案",
+        "previousSha256": "c75c1eed215f1548fb1f316d8a6c95d8af0b0aeab5fa1ed8f481dead093b6bc9",
+        "sources": [
+          {
+            "source": "为什么1px在不同的设备上有粗有细.md",
+            "section": "`1px` 是绝对长度吗"
+          }
+        ]
+      }
+    ]
   },
   {
     "source": "CSS面试题-实习速背.md",
@@ -237,7 +249,19 @@
     "title": "深拷贝和浅拷贝有什么区别，怎么选择",
     "path": "content/aaron/basics/javascript/deep-shallow-copy.md",
     "category": "javascript",
-    "sha256": "84a7b32c371dc391890e533ba144701d48e0a359d79e2c43857090a72c5a78ce"
+    "sha256": "6b490f25b36052df835ac2bb3fe822bf1b94a9ea5a19479c04a14c4049fe970d",
+    "revisions": [
+      {
+        "reason": "2026-09-10 学习笔记补充；保留已有有效答案",
+        "previousSha256": "84a7b32c371dc391890e533ba144701d48e0a359d79e2c43857090a72c5a78ce",
+        "sources": [
+          {
+            "source": "堆和栈.md",
+            "section": "嵌套对象的浅拷贝示例"
+          }
+        ]
+      }
+    ]
   },
   {
     "source": "JavaScript面试题-实习速背.md",
@@ -245,7 +269,27 @@
     "title": "ES6 有哪些新特性，var、let、const 和作用域怎么理解",
     "path": "content/aaron/basics/javascript/es6-scope.md",
     "category": "javascript",
-    "sha256": "3afb5612a785625f20968125d12e175bdf6997bac2e674c2e305ae6b76ac3f4c"
+    "sha256": "93c09fba1d601b01a21d7f67e87434e893b368691a48c766b2230494d2a2b912",
+    "revisions": [
+      {
+        "reason": "2026-09-10 学习笔记补充；保留已有有效答案",
+        "previousSha256": "3afb5612a785625f20968125d12e175bdf6997bac2e674c2e305ae6b76ac3f4c",
+        "sources": [
+          {
+            "source": "对象、数组、函数统称object.md",
+            "section": "四种常见作用域"
+          },
+          {
+            "source": "对象、数组、函数统称object.md",
+            "section": "什么是作用域链"
+          },
+          {
+            "source": "对象、数组、函数统称object.md",
+            "section": "变量提升、暂时性死区与遮蔽"
+          }
+        ]
+      }
+    ]
   },
   {
     "source": "JavaScript面试题-实习速背.md",
@@ -261,7 +305,19 @@
     "title": "== 和 === 有什么区别",
     "path": "content/aaron/basics/javascript/equality-operators.md",
     "category": "javascript",
-    "sha256": "2443877c1b72056c115aad16a83b2cb19f91fcd04dbff403d5d8970e1cb050cd"
+    "sha256": "ae5a0ba89fb700f7ed95e3f86f3a85dec9066be7550adc1b12bfa256297beada",
+    "revisions": [
+      {
+        "reason": "2026-09-10 学习笔记补充；保留已有有效答案",
+        "previousSha256": "2443877c1b72056c115aad16a83b2cb19f91fcd04dbff403d5d8970e1cb050cd",
+        "sources": [
+          {
+            "source": "对象、数组、函数统称object.md",
+            "section": "值相等和引用相等"
+          }
+        ]
+      }
+    ]
   },
   {
     "source": "JavaScript面试题-实习速背.md",
@@ -277,7 +333,23 @@
     "title": "闭包是什么，和垃圾回收、内存泄漏有什么关系",
     "path": "content/aaron/basics/javascript/closures-memory.md",
     "category": "javascript",
-    "sha256": "977b7dfe6ba62976e22e7ed027d5d4fd26aa81e2642838de90d23e9e4126f4c0"
+    "sha256": "21b68ceca61101be50ddfccd5d5996fd906e7333ef2cc4b04f423a35ce8d0963",
+    "revisions": [
+      {
+        "reason": "2026-09-10 学习笔记补充；保留已有有效答案",
+        "previousSha256": "977b7dfe6ba62976e22e7ed027d5d4fd26aa81e2642838de90d23e9e4126f4c0",
+        "sources": [
+          {
+            "source": "堆和栈.md",
+            "section": "闭包与调用栈的关系"
+          },
+          {
+            "source": "堆和栈.md",
+            "section": "常见内存泄漏来源"
+          }
+        ]
+      }
+    ]
   },
   {
     "source": "JavaScript面试题-实习速背.md",
@@ -285,7 +357,27 @@
     "title": "JS 有哪些数据类型，怎么判断，null 和 undefined 有什么区别",
     "path": "content/aaron/basics/javascript/data-types.md",
     "category": "javascript",
-    "sha256": "a1f2bf285b1fd45245422303151a9aac9757b7d21458f2b7e0d529de525731d2"
+    "sha256": "9cc4400dc0a4ec830d361c3374b78b7eb8cc42042ac1076a69e74caa5bbaebb2",
+    "revisions": [
+      {
+        "reason": "2026-09-10 学习笔记补充；保留已有有效答案",
+        "previousSha256": "a1f2bf285b1fd45245422303151a9aac9757b7d21458f2b7e0d529de525731d2",
+        "sources": [
+          {
+            "source": "对象、数组、函数统称object.md",
+            "section": "JavaScript 有哪些数据类型"
+          },
+          {
+            "source": "对象、数组、函数统称object.md",
+            "section": "如何准确判断类型"
+          },
+          {
+            "source": "对象、数组、函数统称object.md",
+            "section": "数组和函数为什么也是对象"
+          }
+        ]
+      }
+    ]
   },
   {
     "source": "JavaScript面试题-实习速背.md",
@@ -309,7 +401,23 @@
     "title": "跨域为什么发生，有哪些解决方式",
     "path": "content/aaron/basics/javascript/cross-origin.md",
     "category": "javascript",
-    "sha256": "bc1080024f58aea4c5b5df2934c8bb9917ffc32dc023343374f0fe61f8cfdba0"
+    "sha256": "e159dd3ac4122ef37865916c28ef9f79fb170e3a6f45f594d4ff94265ded3c64",
+    "revisions": [
+      {
+        "reason": "2026-09-10 学习笔记补充；保留已有有效答案",
+        "previousSha256": "bc1080024f58aea4c5b5df2934c8bb9917ffc32dc023343374f0fe61f8cfdba0",
+        "sources": [
+          {
+            "source": "鉴权和轮询.md",
+            "section": "跨域携带 Cookie"
+          },
+          {
+            "source": "鉴权和轮询.md",
+            "section": "CORS 配好了是否就安全？"
+          }
+        ]
+      }
+    ]
   },
   {
     "source": "JavaScript面试题-实习速背.md",
@@ -325,7 +433,23 @@
     "title": "Ajax 怎么发请求，readyState 和 HTTP 状态码有什么区别",
     "path": "content/aaron/basics/javascript/ajax-status.md",
     "category": "javascript",
-    "sha256": "a4530a1406ae67574030e996345acf5b58f00855eaef4a2ec79239813080adc6"
+    "sha256": "05d644c0373bb36907ff7fe9d67de5f871be15f6febf6707a8de34aabbfe95b5",
+    "revisions": [
+      {
+        "reason": "2026-09-10 学习笔记补充；保留已有有效答案",
+        "previousSha256": "a4530a1406ae67574030e996345acf5b58f00855eaef4a2ec79239813080adc6",
+        "sources": [
+          {
+            "source": "HTTP、TCP、GETPOST、状态码.md",
+            "section": "HTTP 常见状态码"
+          },
+          {
+            "source": "HTTP、TCP、GETPOST、状态码.md",
+            "section": "状态码高频对比"
+          }
+        ]
+      }
+    ]
   },
   {
     "source": "JavaScript面试题-实习速背.md",
@@ -609,7 +733,19 @@
     "title": "MVVM 和 MVC 有什么区别",
     "path": "content/aaron/basics/vue/mvvm-mvc.md",
     "category": "vue",
-    "sha256": "46cea862af5106354763e4aeb7a09635a40dfd8eab78907e3d8a021616757e77"
+    "sha256": "24191e35a7450c8b8b17c2bec72a4362598153cdafbb2feae1f7989bb26e2946",
+    "revisions": [
+      {
+        "reason": "2026-09-10 学习笔记补充；保留已有有效答案",
+        "previousSha256": "46cea862af5106354763e4aeb7a09635a40dfd8eab78907e3d8a021616757e77",
+        "sources": [
+          {
+            "source": "性能优化.md",
+            "section": "MVC 和 MVVM（架构补充）"
+          }
+        ]
+      }
+    ]
   },
   {
     "source": "Vue面试题-实习速背.md",
@@ -793,7 +929,19 @@
     "title": "HTTP 强缓存和协商缓存怎么工作",
     "path": "content/aaron/basics/browser/http-cache.md",
     "category": "browser",
-    "sha256": "643c6efd9a445525be2d641cd86a4fe6d7e7d4c1261c6eb5a146afa987ead9d1"
+    "sha256": "b5a8d7ba222430d5f5bc3f68502d6be3f9aca774b21acc555e2faabbfdd07f29",
+    "revisions": [
+      {
+        "reason": "2026-09-10 学习笔记补充；保留已有有效答案",
+        "previousSha256": "643c6efd9a445525be2d641cd86a4fe6d7e7d4c1261c6eb5a146afa987ead9d1",
+        "sources": [
+          {
+            "source": "性能优化.md",
+            "section": "HTTP 缓存和长缓存"
+          }
+        ]
+      }
+    ]
   },
   {
     "source": "浏览器面试题-实习速背.md",
@@ -801,7 +949,23 @@
     "title": "HTTP 请求方法有哪些，GET 和 POST 有什么区别",
     "path": "content/aaron/basics/browser/http-methods.md",
     "category": "browser",
-    "sha256": "886d81a8ebdb0cd314d9fcaebc2e49e80b2a9de95e5a9e8070e0143235936337"
+    "sha256": "0586adfa7eaf68802f1d25cb6260e377ad1285332cbbcc5db940b8c59a05e0d2",
+    "revisions": [
+      {
+        "reason": "2026-09-10 学习笔记补充；保留已有有效答案",
+        "previousSha256": "886d81a8ebdb0cd314d9fcaebc2e49e80b2a9de95e5a9e8070e0143235936337",
+        "sources": [
+          {
+            "source": "HTTP、TCP、GETPOST、状态码.md",
+            "section": "GET 和 POST 的区别"
+          },
+          {
+            "source": "HTTP、TCP、GETPOST、状态码.md",
+            "section": "幂等性怎么理解"
+          }
+        ]
+      }
+    ]
   },
   {
     "source": "浏览器面试题-实习速背.md",
@@ -817,7 +981,23 @@
     "title": "TCP 三次握手、四次挥手，以及为什么次数不同",
     "path": "content/aaron/basics/browser/tcp-handshake-close.md",
     "category": "browser",
-    "sha256": "221b3481b2d1131fa49729d6a0c8d81b4262ba555d4e2c131181e9dbb416f3fd"
+    "sha256": "570f26dfc43ba667e12ac1f013eec03150b6555f015e9c6f984a509e87f5fcae",
+    "revisions": [
+      {
+        "reason": "2026-09-10 学习笔记补充；保留已有有效答案",
+        "previousSha256": "221b3481b2d1131fa49729d6a0c8d81b4262ba555d4e2c131181e9dbb416f3fd",
+        "sources": [
+          {
+            "source": "HTTP、TCP、GETPOST、状态码.md",
+            "section": "TCP 三次握手"
+          },
+          {
+            "source": "HTTP、TCP、GETPOST、状态码.md",
+            "section": "TCP 四次挥手"
+          }
+        ]
+      }
+    ]
   },
   {
     "source": "浏览器面试题-实习速背.md",
@@ -825,7 +1005,31 @@
     "title": "前端性能优化",
     "path": "content/aaron/basics/browser/frontend-performance.md",
     "category": "browser",
-    "sha256": "3f2f02401a9dad9d3cf485cec63bc33565d2c3d7aa6bf07806c9082a89554874"
+    "sha256": "4cd8ddc24233878453c465083bab306fef15d93a9b3a3068942de74073af1509",
+    "revisions": [
+      {
+        "reason": "2026-09-10 学习笔记补充；保留已有有效答案",
+        "previousSha256": "3f2f02401a9dad9d3cf485cec63bc33565d2c3d7aa6bf07806c9082a89554874",
+        "sources": [
+          {
+            "source": "性能优化.md",
+            "section": "标准优化流程"
+          },
+          {
+            "source": "性能优化.md",
+            "section": "字体优化"
+          },
+          {
+            "source": "性能优化.md",
+            "section": "渲染和主线程优化"
+          },
+          {
+            "source": "性能优化.md",
+            "section": "框架层优化"
+          }
+        ]
+      }
+    ]
   },
   {
     "source": "浏览器面试题-实习速背.md",
@@ -1215,9 +1419,21 @@
     "title": "Vue 大列表渲染慢时怎么排查？",
     "path": "content/aaron/basics/vue/large-list-rendering.md",
     "category": "vue",
-    "sha256": "db7596388d672f53e4630df36c6f59d1627b9108b906e00068cb6fc3ace30968",
+    "sha256": "8918070299c50ca4909fb03600f54c2853837a0e938afec5f8b394d87deccc09",
     "provenance": "user-approved-topic-adaptation",
-    "sourceTitle": "Vue 大列表和 v-for 渲染慢时怎么排查？"
+    "sourceTitle": "Vue 大列表和 v-for 渲染慢时怎么排查？",
+    "revisions": [
+      {
+        "reason": "2026-09-10 学习笔记补充；保留已有有效答案",
+        "previousSha256": "db7596388d672f53e4630df36c6f59d1627b9108b906e00068cb6fc3ace30968",
+        "sources": [
+          {
+            "source": "性能优化.md",
+            "section": "无限列表和长列表"
+          }
+        ]
+      }
+    ]
   },
   {
     "source": "content/default/10-lidi-interview/import-04-browser-network-engineering-resource-loading.md",
@@ -1225,9 +1441,25 @@
     "title": "defer、async、preload 和 prefetch 怎么选？",
     "path": "content/aaron/basics/browser/resource-loading.md",
     "category": "browser",
-    "sha256": "646fdab8ab80ee24053d9bf63cb97d5e978aaf35536714e2faeb195f4e18b7c9",
+    "sha256": "ef9172e35a11e3d294ff1837a47147a043f0fc064c78dce11c45175fa22c4d5c",
     "provenance": "user-approved-topic-adaptation",
-    "sourceTitle": "defer、async、preload 和 prefetch 怎么选？"
+    "sourceTitle": "defer、async、preload 和 prefetch 怎么选？",
+    "revisions": [
+      {
+        "reason": "2026-09-10 学习笔记补充；保留已有有效答案",
+        "previousSha256": "646fdab8ab80ee24053d9bf63cb97d5e978aaf35536714e2faeb195f4e18b7c9",
+        "sources": [
+          {
+            "source": "性能优化.md",
+            "section": "网络与加载优化"
+          },
+          {
+            "source": "性能优化.md",
+            "section": "延迟加载、懒加载、预加载和预取"
+          }
+        ]
+      }
+    ]
   },
   {
     "source": "content/default/10-lidi-interview/import-04-browser-network-engineering-web-worker.md",
@@ -1235,9 +1467,21 @@
     "title": "Web Worker 适合解决什么问题？",
     "path": "content/aaron/basics/browser/web-worker.md",
     "category": "browser",
-    "sha256": "52e5bca5660c52a84835e44a413659d7ac899560a676aa11b20550314054a4d4",
+    "sha256": "171b3d2b0b64c7fd24bbba216106461d083d1bdc5f9dcd1f068cd9c3fb9d7128",
     "provenance": "user-approved-topic-adaptation",
-    "sourceTitle": "Web Worker 适合解决什么问题？"
+    "sourceTitle": "Web Worker 适合解决什么问题？",
+    "revisions": [
+      {
+        "reason": "2026-09-10 学习笔记补充；保留已有有效答案",
+        "previousSha256": "52e5bca5660c52a84835e44a413659d7ac899560a676aa11b20550314054a4d4",
+        "sources": [
+          {
+            "source": "线程和进程.md",
+            "section": "JavaScript 是单线程吗"
+          }
+        ]
+      }
+    ]
   },
   {
     "source": "content/default/10-lidi-interview/import-04-browser-network-engineering-web-vitals.md",
@@ -1245,9 +1489,29 @@
     "title": "LCP、INP、CLS 分别反映什么问题？",
     "path": "content/aaron/basics/browser/web-vitals.md",
     "category": "browser",
-    "sha256": "2062a57d0de42e9e12e6cd809070c7ade9ba54698629953ec07259c6cbd78777",
+    "sha256": "03866c5855d1557ef0cfe457c4baec0ce7efd104b7f0234e2f215e78996bc54a",
     "provenance": "user-approved-topic-adaptation",
-    "sourceTitle": "LCP、INP、CLS 分别怎么理解和优化？"
+    "sourceTitle": "LCP、INP、CLS 分别怎么理解和优化？",
+    "revisions": [
+      {
+        "reason": "2026-09-10 学习笔记补充；保留已有有效答案",
+        "previousSha256": "2062a57d0de42e9e12e6cd809070c7ade9ba54698629953ec07259c6cbd78777",
+        "sources": [
+          {
+            "source": "性能优化.md",
+            "section": "性能指标"
+          },
+          {
+            "source": "性能优化.md",
+            "section": "怎么优化 LCP"
+          },
+          {
+            "source": "性能优化.md",
+            "section": "怎么优化 CLS"
+          }
+        ]
+      }
+    ]
   },
   {
     "source": "content/default/10-lidi-interview/import-04-browser-network-engineering-http2-http3.md",
@@ -1255,9 +1519,21 @@
     "title": "HTTP/1.1、HTTP/2 和 HTTP/3 有什么差别？",
     "path": "content/aaron/basics/network/http-versions.md",
     "category": "network",
-    "sha256": "93049b72b1023c7e9c4bd9dc034cad737f69c99a291a04f13ee3c2ea67e44b1a",
+    "sha256": "f554f823b71e6f71ef10750e4d309f1848e1bb18fc2be81b4d1eaadf81e6bb61",
     "provenance": "user-approved-topic-adaptation",
-    "sourceTitle": "HTTP/1.1、HTTP/2 和 HTTP/3 有什么差别？"
+    "sourceTitle": "HTTP/1.1、HTTP/2 和 HTTP/3 有什么差别？",
+    "revisions": [
+      {
+        "reason": "2026-09-10 学习笔记补充；保留已有有效答案",
+        "previousSha256": "93049b72b1023c7e9c4bd9dc034cad737f69c99a291a04f13ee3c2ea67e44b1a",
+        "sources": [
+          {
+            "source": "HTTP、TCP、GETPOST、状态码.md",
+            "section": "HTTP 版本的核心区别"
+          }
+        ]
+      }
+    ]
   },
   {
     "source": "content/default/10-lidi-interview/import-04-browser-network-engineering-websocket-sse.md",
@@ -1265,9 +1541,21 @@
     "title": "WebSocket 和 SSE 怎么选择？",
     "path": "content/aaron/basics/network/websocket-sse.md",
     "category": "network",
-    "sha256": "db5735e1daf86ea2cfc8abb624195f9c8e5cecab128c9b71eedd057ba8a5a4a9",
+    "sha256": "a30aff38d2c1895a17ee1fd6a5ab9180abd7f94bc0973fdaaa7ce95301c51369",
     "provenance": "user-approved-topic-adaptation",
-    "sourceTitle": "WebSocket 和 SSE 怎么选择？"
+    "sourceTitle": "WebSocket 和 SSE 怎么选择？",
+    "revisions": [
+      {
+        "reason": "2026-09-10 学习笔记补充；保留已有有效答案",
+        "previousSha256": "db5735e1daf86ea2cfc8abb624195f9c8e5cecab128c9b71eedd057ba8a5a4a9",
+        "sources": [
+          {
+            "source": "鉴权和轮询.md",
+            "section": "短轮询、长轮询、SSE、WebSocket"
+          }
+        ]
+      }
+    ]
   },
   {
     "source": "content/default/10-lidi-interview/import-04-browser-network-engineering-vite-webpack.md",
@@ -1298,5 +1586,1200 @@
     "sha256": "90ff692412853d29a0d61461eebd755e94e1c9eef5e198af765a8a6cc2e1cbdb",
     "provenance": "user-approved-topic-adaptation",
     "sourceTitle": "单元、组件、集成和 E2E 测试分别测什么？"
+  },
+  {
+    "source": "堆和栈.md",
+    "number": 1,
+    "title": "JavaScript 中的堆和栈有什么区别，分别保存什么？",
+    "path": "content/aaron/basics/javascript/heap-stack.md",
+    "category": "javascript",
+    "sha256": "2dec2aa11a05daf4deb6234ff789e4d307203ed88d08d1d2e5d016a3dbd07aae",
+    "provenance": "用户提供学习笔记；按知识边界整理，不代表项目实现",
+    "sourceSections": [
+      {
+        "source": "堆和栈.md",
+        "section": "先分清两组概念",
+        "lines": [
+          11,
+          19
+        ]
+      },
+      {
+        "source": "堆和栈.md",
+        "section": "面试直接回答",
+        "lines": [
+          20,
+          32
+        ]
+      },
+      {
+        "source": "堆和栈.md",
+        "section": "调用栈示例",
+        "lines": [
+          33,
+          56
+        ]
+      },
+      {
+        "source": "堆和栈.md",
+        "section": "基本类型一定在栈、对象一定在堆吗？",
+        "lines": [
+          57,
+          90
+        ]
+      }
+    ]
+  },
+  {
+    "source": "鉴权和轮询.md",
+    "number": 1,
+    "title": "前端隐藏按钮能防止越权吗？",
+    "path": "content/aaron/basics/network/authentication-authorization.md",
+    "category": "network",
+    "sha256": "fa13890475dd09577e9afad5583bbbe56d19b394709941a04641f8c7d217ed45",
+    "provenance": "用户提供学习笔记；按知识边界整理，不代表项目实现",
+    "sourceSections": [
+      {
+        "source": "鉴权和轮询.md",
+        "section": "前端隐藏按钮能防止越权吗？",
+        "lines": [
+          208,
+          211
+        ]
+      },
+      {
+        "source": "鉴权和轮询.md",
+        "section": "先分清认证和授权",
+        "lines": [
+          5,
+          11
+        ]
+      }
+    ]
+  },
+  {
+    "source": "鉴权和轮询.md",
+    "number": 2,
+    "title": "Session Cookie 与 Token 怎么选择，浏览器凭证应该放在哪里？",
+    "path": "content/aaron/basics/network/session-token.md",
+    "category": "network",
+    "sha256": "58bafdf48e2c582ddcf4843183bb88d84241be67908c2e1bf1084024e9d8234f",
+    "provenance": "用户提供学习笔记；按知识边界整理，不代表项目实现",
+    "sourceSections": [
+      {
+        "source": "鉴权和轮询.md",
+        "section": "Session Cookie 与 Token",
+        "lines": [
+          12,
+          20
+        ]
+      },
+      {
+        "source": "鉴权和轮询.md",
+        "section": "浏览器中 Token 放在哪里",
+        "lines": [
+          21,
+          35
+        ]
+      },
+      {
+        "source": "鉴权和轮询.md",
+        "section": "Cookie 为什么还要防 CSRF",
+        "lines": [
+          36,
+          45
+        ]
+      }
+    ]
+  },
+  {
+    "source": "鉴权和轮询.md",
+    "number": 3,
+    "title": "轮询过程中 Token 过期怎么办？",
+    "path": "content/aaron/basics/network/token-refresh.md",
+    "category": "network",
+    "sha256": "2e3cfe4f746157e8246cc6521ae5e89b7c5c3b34959fd88fd4e6398b8586ecac",
+    "provenance": "用户提供学习笔记；按知识边界整理，不代表项目实现",
+    "sourceSections": [
+      {
+        "source": "鉴权和轮询.md",
+        "section": "轮询过程中 Token 过期怎么办？",
+        "lines": [
+          204,
+          207
+        ]
+      },
+      {
+        "source": "鉴权和轮询.md",
+        "section": "Access Token 与 Refresh Token 的流程",
+        "lines": [
+          46,
+          72
+        ]
+      },
+      {
+        "source": "鉴权和轮询.md",
+        "section": "401 和 403 的区别",
+        "lines": [
+          73,
+          79
+        ]
+      }
+    ]
+  },
+  {
+    "source": "鉴权和轮询.md",
+    "number": 4,
+    "title": "轮询怎样避免请求重叠，并在失败或离开页面时停止？",
+    "path": "content/aaron/basics/network/polling-control.md",
+    "category": "network",
+    "sha256": "cbcdc3377033da850166002eac8f798adc3e560632b5e15e755c10590991f04a",
+    "provenance": "用户提供学习笔记；按知识边界整理，不代表项目实现",
+    "sourceSections": [
+      {
+        "source": "鉴权和轮询.md",
+        "section": "什么是轮询",
+        "lines": [
+          94,
+          97
+        ]
+      },
+      {
+        "source": "鉴权和轮询.md",
+        "section": "为什么不建议直接用 setInterval",
+        "lines": [
+          98,
+          180
+        ]
+      },
+      {
+        "source": "鉴权和轮询.md",
+        "section": "轮询优化清单",
+        "lines": [
+          181,
+          190
+        ]
+      }
+    ]
+  },
+  {
+    "source": "七层网络.md",
+    "number": 1,
+    "title": "OSI 七层网络模型各层负责什么，和 TCP/IP 有什么关系？",
+    "path": "content/aaron/basics/network/osi-model.md",
+    "category": "network",
+    "sha256": "33a8492009e44572925e8cc0c4d01ea82e2a206ebea3887b6b18e5bdcefe01b1",
+    "provenance": "用户提供学习笔记；按知识边界整理，不代表项目实现",
+    "sourceSections": [
+      {
+        "source": "七层网络.md",
+        "section": "面试直接回答",
+        "lines": [
+          68,
+          73
+        ]
+      },
+      {
+        "source": "七层网络.md",
+        "section": "七层职责与常见例子",
+        "lines": [
+          74,
+          87
+        ]
+      },
+      {
+        "source": "七层网络.md",
+        "section": "OSI 与 TCP/IP 模型的对应关系",
+        "lines": [
+          88,
+          98
+        ]
+      },
+      {
+        "source": "七层网络.md",
+        "section": "封装与解封装",
+        "lines": [
+          99,
+          116
+        ]
+      },
+      {
+        "source": "七层网络.md",
+        "section": "IP 地址、MAC 地址、端口号",
+        "lines": [
+          117,
+          128
+        ]
+      },
+      {
+        "source": "七层网络.md",
+        "section": "为什么需要分层？",
+        "lines": [
+          164,
+          167
+        ]
+      }
+    ]
+  },
+  {
+    "source": "七层网络.md",
+    "number": 2,
+    "title": "TCP 和 UDP 有什么区别？",
+    "path": "content/aaron/basics/network/tcp-udp.md",
+    "category": "network",
+    "sha256": "7927b3afb0fe952a752a2e43c7d7a09a22ee081acbb4bb7815f431d28f338326",
+    "provenance": "用户提供学习笔记；按知识边界整理，不代表项目实现",
+    "sourceSections": [
+      {
+        "source": "七层网络.md",
+        "section": "TCP 和 UDP",
+        "lines": [
+          129,
+          140
+        ]
+      }
+    ]
+  },
+  {
+    "source": "七层网络.md",
+    "number": 3,
+    "title": "交换机和路由器有什么区别？",
+    "path": "content/aaron/basics/network/switch-router.md",
+    "category": "network",
+    "sha256": "8caa9032282322eb5706cdf1e3954b7a74364fcaa20b94d70e5eae66882c9c81",
+    "provenance": "用户提供学习笔记；按知识边界整理，不代表项目实现",
+    "sourceSections": [
+      {
+        "source": "七层网络.md",
+        "section": "交换机和路由器有什么区别？",
+        "lines": [
+          160,
+          163
+        ]
+      }
+    ]
+  },
+  {
+    "source": "七层网络.md",
+    "number": 4,
+    "title": "排查网络问题怎么用分层思路？",
+    "path": "content/aaron/basics/network/layered-troubleshooting.md",
+    "category": "network",
+    "sha256": "d1a3001afa141b0ce952a099254e61c4967c0cd939ded4a7b9aee5f427cfde08",
+    "provenance": "用户提供学习笔记；按知识边界整理，不代表项目实现",
+    "sourceSections": [
+      {
+        "source": "七层网络.md",
+        "section": "排查网络问题怎么用分层思路？",
+        "lines": [
+          168,
+          171
+        ]
+      }
+    ]
+  },
+  {
+    "source": "为什么0.1+0.2!=0.3.md",
+    "number": 1,
+    "title": "为什么 0.1 + 0.2 !== 0.3",
+    "path": "content/aaron/basics/javascript/floating-point.md",
+    "category": "javascript",
+    "sha256": "37f754553005f073b928dfc9c13459e6615c5d094607a969590b0d0d60566393",
+    "provenance": "用户提供学习笔记；按知识边界整理，不代表项目实现",
+    "sourceSections": [
+      {
+        "source": "为什么0.1+0.2!=0.3.md",
+        "section": "面试直接回答",
+        "lines": [
+          3,
+          13
+        ]
+      },
+      {
+        "source": "为什么0.1+0.2!=0.3.md",
+        "section": "为什么十进制小数无法精确表示",
+        "lines": [
+          14,
+          24
+        ]
+      },
+      {
+        "source": "为什么0.1+0.2!=0.3.md",
+        "section": "IEEE 754 双精度如何存储",
+        "lines": [
+          25,
+          39
+        ]
+      },
+      {
+        "source": "为什么0.1+0.2!=0.3.md",
+        "section": "正确比较浮点数",
+        "lines": [
+          40,
+          66
+        ]
+      },
+      {
+        "source": "为什么0.1+0.2!=0.3.md",
+        "section": "金额和高精度计算怎么做",
+        "lines": [
+          67,
+          93
+        ]
+      },
+      {
+        "source": "为什么0.1+0.2!=0.3.md",
+        "section": "常见误区",
+        "lines": [
+          94,
+          99
+        ]
+      }
+    ]
+  },
+  {
+    "source": "为什么0.1+0.2!=0.3.md",
+    "number": 2,
+    "title": "为什么 0.1 + 0.1 === 0.2",
+    "path": "content/aaron/basics/javascript/floating-point-double.md",
+    "category": "javascript",
+    "sha256": "eda62df3a0ffb11a2e77c6aa000ad8974ec21a00728126142407ac3d8702e329",
+    "provenance": "用户提供学习笔记；按知识边界整理，不代表项目实现",
+    "sourceSections": [
+      {
+        "source": "为什么0.1+0.2!=0.3.md",
+        "section": "追问：为什么 0.1 + 0.1 === 0.2",
+        "lines": [
+          100,
+          103
+        ]
+      }
+    ]
+  },
+  {
+    "source": "为什么1px在不同的设备上有粗有细.md",
+    "number": 1,
+    "title": "1px 在不同设备上为什么有粗有细",
+    "path": "content/aaron/basics/css/hairline-dpr.md",
+    "category": "css",
+    "sha256": "889af2be6eb05eab7a0ded3a629ab117dec79d76902c1342dd6c5cdf7afc0750",
+    "provenance": "用户提供学习笔记；按知识边界整理，不代表项目实现",
+    "sourceSections": [
+      {
+        "source": "为什么1px在不同的设备上有粗有细.md",
+        "section": "面试直接回答",
+        "lines": [
+          3,
+          8
+        ]
+      },
+      {
+        "source": "为什么1px在不同的设备上有粗有细.md",
+        "section": "CSS 像素、物理像素和 DPR",
+        "lines": [
+          9,
+          25
+        ]
+      },
+      {
+        "source": "为什么1px在不同的设备上有粗有细.md",
+        "section": "为什么看起来不一样",
+        "lines": [
+          26,
+          34
+        ]
+      },
+      {
+        "source": "为什么1px在不同的设备上有粗有细.md",
+        "section": "解决 1px 发丝线",
+        "lines": [
+          35,
+          86
+        ]
+      }
+    ]
+  },
+  {
+    "source": "线程和进程.md",
+    "number": 1,
+    "title": "进程和线程有什么区别？",
+    "path": "content/aaron/basics/browser/process-thread.md",
+    "category": "browser",
+    "sha256": "d859f8da81ebe303bf75d262d689360ca26ebaf6537362af1a5efb781c70d37e",
+    "provenance": "用户提供学习笔记；按知识边界整理，不代表项目实现",
+    "sourceSections": [
+      {
+        "source": "线程和进程.md",
+        "section": "面试直接回答",
+        "lines": [
+          3,
+          8
+        ]
+      },
+      {
+        "source": "线程和进程.md",
+        "section": "核心区别",
+        "lines": [
+          9,
+          23
+        ]
+      },
+      {
+        "source": "线程和进程.md",
+        "section": "为什么需要多进程和多线程",
+        "lines": [
+          24,
+          41
+        ]
+      },
+      {
+        "source": "线程和进程.md",
+        "section": "并发和并行的区别",
+        "lines": [
+          42,
+          48
+        ]
+      },
+      {
+        "source": "线程和进程.md",
+        "section": "进程间为什么不能直接读取对方内存",
+        "lines": [
+          94,
+          97
+        ]
+      },
+      {
+        "source": "线程和进程.md",
+        "section": "线程为什么会有死锁",
+        "lines": [
+          98,
+          101
+        ]
+      },
+      {
+        "source": "线程和进程.md",
+        "section": "多线程一定更快吗",
+        "lines": [
+          102,
+          105
+        ]
+      }
+    ]
+  },
+  {
+    "source": "线程和进程.md",
+    "number": 2,
+    "title": "浏览器中有哪些进程和线程，一个标签页一定对应一个进程吗？",
+    "path": "content/aaron/basics/browser/browser-processes.md",
+    "category": "browser",
+    "sha256": "95e8007f7e2f279aa0629bb2a5dc22b9ae7a6fae958d78112fbec766e4e3cdb7",
+    "provenance": "用户提供学习笔记；按知识边界整理，不代表项目实现",
+    "sourceSections": [
+      {
+        "source": "线程和进程.md",
+        "section": "浏览器中的进程和线程",
+        "lines": [
+          49,
+          67
+        ]
+      }
+    ]
+  },
+  {
+    "source": "性能优化.md",
+    "number": 1,
+    "title": "CDN 为什么能加速",
+    "path": "content/aaron/basics/network/cdn-acceleration.md",
+    "category": "network",
+    "sha256": "5bf66fe0e36668f1f940b8d5c310a1d36e27a6127851779ebf56b7bdb5590ab4",
+    "provenance": "用户提供学习笔记；按知识边界整理，不代表项目实现",
+    "sourceSections": [
+      {
+        "source": "性能优化.md",
+        "section": "CDN 为什么能加速",
+        "lines": [
+          412,
+          422
+        ]
+      }
+    ]
+  },
+  {
+    "source": "AI常问.md",
+    "number": 1,
+    "title": "LLM 是什么",
+    "path": "content/aaron/basics/ai-agent/llm-basics.md",
+    "category": "ai-agent",
+    "sha256": "875fcc66019d9cfad5eca435cdadeaeb1c972b5597d73516d9125939f77c4dc0",
+    "provenance": "用户提供学习笔记；按知识边界整理，不代表项目实现",
+    "sourceSections": [
+      {
+        "source": "AI常问.md",
+        "section": "1. LLM 是什么",
+        "lines": [
+          18,
+          33
+        ]
+      }
+    ]
+  },
+  {
+    "source": "AI常问.md",
+    "number": 2,
+    "title": "Prompt（提示词）是什么",
+    "path": "content/aaron/basics/ai-agent/prompt-design.md",
+    "category": "ai-agent",
+    "sha256": "90ac562b6748e6d93da5159becd3b49d9efe2e767cb750679269e9ed8ea7a551",
+    "provenance": "用户提供学习笔记；按知识边界整理，不代表项目实现",
+    "sourceSections": [
+      {
+        "source": "AI常问.md",
+        "section": "4. Prompt（提示词）是什么",
+        "lines": [
+          65,
+          86
+        ]
+      }
+    ]
+  },
+  {
+    "source": "AI常问.md",
+    "number": 3,
+    "title": "RAG 是什么",
+    "path": "content/aaron/basics/ai-agent/rag-basics.md",
+    "category": "ai-agent",
+    "sha256": "c5f23e09f8f2ec47656fdefb675c7ca1a17452146d9d6df228be5d11213c1c7e",
+    "provenance": "用户提供学习笔记；按知识边界整理，不代表项目实现",
+    "sourceSections": [
+      {
+        "source": "AI常问.md",
+        "section": "5. RAG 是什么",
+        "lines": [
+          87,
+          102
+        ]
+      }
+    ]
+  },
+  {
+    "source": "AI常问.md",
+    "number": 4,
+    "title": "Fine-tuning（微调）是什么",
+    "path": "content/aaron/basics/ai-agent/fine-tuning.md",
+    "category": "ai-agent",
+    "sha256": "a60b334222db989f8c81b8e9d4451ac1fe5be41443b45a5bc2ec3a433324cd91",
+    "provenance": "用户提供学习笔记；按知识边界整理，不代表项目实现",
+    "sourceSections": [
+      {
+        "source": "AI常问.md",
+        "section": "6. Fine-tuning（微调）是什么",
+        "lines": [
+          103,
+          116
+        ]
+      }
+    ]
+  },
+  {
+    "source": "AI常问.md",
+    "number": 5,
+    "title": "Harness 是什么",
+    "path": "content/aaron/basics/ai-agent/harness-basics.md",
+    "category": "ai-agent",
+    "sha256": "c72b531ebdb31d612370f312da4b8506aac5e2a711f054c3fbe06a8d513067d1",
+    "provenance": "用户提供学习笔记；按知识边界整理，不代表项目实现",
+    "sourceSections": [
+      {
+        "source": "AI常问.md",
+        "section": "7. Harness 是什么",
+        "lines": [
+          117,
+          131
+        ]
+      }
+    ]
+  },
+  {
+    "source": "AI常问.md",
+    "number": 6,
+    "title": "Agent（智能体）是什么",
+    "path": "content/aaron/basics/ai-agent/agent-basics.md",
+    "category": "ai-agent",
+    "sha256": "1815f80a67a462c9326ed1e284b30c55fd9ec5d2941c4a21efdfa263d7343842",
+    "provenance": "用户提供学习笔记；按知识边界整理，不代表项目实现",
+    "sourceSections": [
+      {
+        "source": "AI常问.md",
+        "section": "8. Agent（智能体）是什么",
+        "lines": [
+          132,
+          141
+        ]
+      }
+    ]
+  },
+  {
+    "source": "AI常问.md",
+    "number": 7,
+    "title": "Skill、Plugin 和 Tool 有什么区别",
+    "path": "content/aaron/basics/ai-agent/skill-plugin-tool.md",
+    "category": "ai-agent",
+    "sha256": "97a1348edb9bdc86128dd31fe1cac59adc1edbb3f3961f7c6e1a6f875b1a1a21",
+    "provenance": "用户提供学习笔记；按知识边界整理，不代表项目实现",
+    "sourceSections": [
+      {
+        "source": "AI常问.md",
+        "section": "9. Skill、Plugin 和 Tool 有什么区别",
+        "lines": [
+          142,
+          154
+        ]
+      }
+    ]
+  },
+  {
+    "source": "AI常问.md",
+    "number": 8,
+    "title": "前端如何实现 LLM 流式输出",
+    "path": "content/aaron/basics/ai-agent/llm-streaming.md",
+    "category": "ai-agent",
+    "sha256": "d9d7b0b0a055abf79f5ae37c1d8edb24b37987d18f6e90cde2e7e06f28f435f5",
+    "provenance": "用户提供学习笔记；按知识边界整理，不代表项目实现",
+    "sourceSections": [
+      {
+        "source": "AI常问.md",
+        "section": "10. 前端如何实现 LLM 流式输出",
+        "lines": [
+          155,
+          235
+        ]
+      }
+    ]
+  },
+  {
+    "source": "AI常问.md",
+    "number": 9,
+    "title": "常见的大模型",
+    "path": "content/aaron/basics/ai-agent/model-families.md",
+    "category": "ai-agent",
+    "sha256": "d312353fc2bd77fa8e12c85d61873861a99b213e22e85fd1b7e482d4b94f950f",
+    "provenance": "用户提供学习笔记；按知识边界整理，不代表项目实现",
+    "sourceSections": [
+      {
+        "source": "AI常问.md",
+        "section": "常见的大模型",
+        "lines": [
+          34,
+          48
+        ]
+      }
+    ]
+  },
+  {
+    "source": "AI常问.md",
+    "number": 10,
+    "title": "使用 AI Coding 时，怎样约束改动并验证结果？",
+    "path": "content/aaron/basics/ai-agent/coding-verification.md",
+    "category": "ai-agent",
+    "sha256": "c52dae1d74a8e32d06ca311f3df2592b945028a3fd3e60434170fb304fdf4e4b",
+    "provenance": "用户提供学习笔记；按知识边界整理，不代表项目实现",
+    "sourceSections": [
+      {
+        "source": "AI常问.md",
+        "section": "一个可靠的 AI Coding 流程",
+        "lines": [
+          57,
+          64
+        ]
+      }
+    ]
+  },
+  {
+    "source": "Eslint.md",
+    "number": 1,
+    "title": "ESLint 是什么，它怎样检查代码？",
+    "path": "content/aaron/basics/engineering/eslint-purpose.md",
+    "category": "engineering",
+    "sha256": "dc1407828e092a0d3d4f75b3d44ba4666279fac2fb6a8c6e41e2bf21371d2b97",
+    "provenance": "用户提供学习笔记；按知识边界整理，不代表项目实现",
+    "sourceSections": [
+      {
+        "source": "Eslint.md",
+        "section": "面试直接回答",
+        "lines": [
+          15,
+          26
+        ]
+      },
+      {
+        "source": "Eslint.md",
+        "section": "ESLint 的工作原理",
+        "lines": [
+          27,
+          47
+        ]
+      }
+    ]
+  },
+  {
+    "source": "Eslint.md",
+    "number": 2,
+    "title": "ESLint 的 Flat Config 怎么配置，怎样接入工作流？",
+    "path": "content/aaron/basics/engineering/eslint-flat-config.md",
+    "category": "engineering",
+    "sha256": "5059375534f7c8a21266019bd6101ec1fe53c44ef803a1184623fbcd01a1fb3f",
+    "provenance": "用户提供学习笔记；按知识边界整理，不代表项目实现",
+    "sourceSections": [
+      {
+        "source": "Eslint.md",
+        "section": "当前配置方式：Flat Config",
+        "lines": [
+          48,
+          100
+        ]
+      },
+      {
+        "source": "Eslint.md",
+        "section": "常用命令和工作流",
+        "lines": [
+          121,
+          145
+        ]
+      }
+    ]
+  },
+  {
+    "source": "Eslint.md",
+    "number": 3,
+    "title": "Parser、Plugin 和 Config 有什么区别",
+    "path": "content/aaron/basics/engineering/eslint-components.md",
+    "category": "engineering",
+    "sha256": "2d9689ce90b675ac95fbb29a9799fc6cbddfb0ab7a6ed85e73465b4546969f46",
+    "provenance": "用户提供学习笔记；按知识边界整理，不代表项目实现",
+    "sourceSections": [
+      {
+        "source": "Eslint.md",
+        "section": "Parser、Plugin 和 Config 有什么区别",
+        "lines": [
+          101,
+          110
+        ]
+      }
+    ]
+  },
+  {
+    "source": "Eslint.md",
+    "number": 4,
+    "title": "ESLint 和 Prettier 的区别",
+    "path": "content/aaron/basics/engineering/eslint-prettier.md",
+    "category": "engineering",
+    "sha256": "e712ab024c35f3e6c3a231a8a1e21141b30fc57a7da782cf52569d9af6f4666d",
+    "provenance": "用户提供学习笔记；按知识边界整理，不代表项目实现",
+    "sourceSections": [
+      {
+        "source": "Eslint.md",
+        "section": "ESLint 和 Prettier 的区别",
+        "lines": [
+          111,
+          120
+        ]
+      }
+    ]
+  },
+  {
+    "source": "Eslint.md",
+    "number": 5,
+    "title": "怎样编写一条 ESLint 自定义规则？",
+    "path": "content/aaron/basics/engineering/eslint-custom-rule.md",
+    "category": "engineering",
+    "sha256": "08884ef1731467b117ddc2f57f63ff727ff0b59007906678a091743317a78ac8",
+    "provenance": "用户提供学习笔记；按知识边界整理，不代表项目实现",
+    "sourceSections": [
+      {
+        "source": "Eslint.md",
+        "section": "自定义规则的最小示例",
+        "lines": [
+          146,
+          172
+        ]
+      }
+    ]
+  },
+  {
+    "source": "Eslint.md",
+    "number": 6,
+    "title": "`eslint-disable` 能不能用",
+    "path": "content/aaron/basics/engineering/eslint-disable.md",
+    "category": "engineering",
+    "sha256": "3cc188c26fcc7a8355122ff6f29fd32e6250e7eb147e960b0ca6209949fa827c",
+    "provenance": "用户提供学习笔记；按知识边界整理，不代表项目实现",
+    "sourceSections": [
+      {
+        "source": "Eslint.md",
+        "section": "`eslint-disable` 能不能用",
+        "lines": [
+          175,
+          184
+        ]
+      }
+    ]
+  },
+  {
+    "source": "Eslint.md",
+    "number": 7,
+    "title": "ESLint 能检查 TypeScript 类型错误吗",
+    "path": "content/aaron/basics/engineering/eslint-typescript.md",
+    "category": "engineering",
+    "sha256": "87c7f173135f9a761b761f0e00813cd5221a3319a7d1596277a82605728c4267",
+    "provenance": "用户提供学习笔记；按知识边界整理，不代表项目实现",
+    "sourceSections": [
+      {
+        "source": "Eslint.md",
+        "section": "ESLint 能检查 TypeScript 类型错误吗",
+        "lines": [
+          185,
+          188
+        ]
+      }
+    ]
+  },
+  {
+    "source": "Eslint.md",
+    "number": 8,
+    "title": "`--fix` 会不会改坏代码",
+    "path": "content/aaron/basics/engineering/eslint-fix.md",
+    "category": "engineering",
+    "sha256": "1a647fe37ddf6ac3ccbc00ac89a73595e3401b2166a038bc3635c684ea89290e",
+    "provenance": "用户提供学习笔记；按知识边界整理，不代表项目实现",
+    "sourceSections": [
+      {
+        "source": "Eslint.md",
+        "section": "`--fix` 会不会改坏代码",
+        "lines": [
+          189,
+          192
+        ]
+      }
+    ]
+  },
+  {
+    "source": "HTTP、TCP、GETPOST、状态码.md",
+    "number": 1,
+    "title": "HTTP 是什么",
+    "path": "content/aaron/basics/network/http-basics.md",
+    "category": "network",
+    "sha256": "c26128297a6b665f8c8b14ee18de2de485e8bfcc8a428ce464b4be1c55cbc5b8",
+    "provenance": "用户提供学习笔记；按知识边界整理，不代表项目实现",
+    "sourceSections": [
+      {
+        "source": "HTTP、TCP、GETPOST、状态码.md",
+        "section": "HTTP 是什么",
+        "lines": [
+          79,
+          92
+        ]
+      }
+    ]
+  },
+  {
+    "source": "HTTP、TCP、GETPOST、状态码.md",
+    "number": 2,
+    "title": "TCP 为什么可靠",
+    "path": "content/aaron/basics/network/tcp-reliability.md",
+    "category": "network",
+    "sha256": "ff38e6b151c97451177ac245776756ac8ff4dddee6104df69a4272575616fecc",
+    "provenance": "用户提供学习笔记；按知识边界整理，不代表项目实现",
+    "sourceSections": [
+      {
+        "source": "HTTP、TCP、GETPOST、状态码.md",
+        "section": "TCP 为什么可靠",
+        "lines": [
+          103,
+          116
+        ]
+      }
+    ]
+  },
+  {
+    "source": "png jpg GIF 区别.md",
+    "number": 1,
+    "title": "PNG、JPEG、GIF 有什么区别，图片格式怎么选？",
+    "path": "content/aaron/basics/html/image-formats.md",
+    "category": "html",
+    "sha256": "18f5af18869b2f4137156d29ad1a67000298a1d53ca51b628f6d3087b468dce2",
+    "provenance": "用户提供学习笔记；按知识边界整理，不代表项目实现",
+    "sourceSections": [
+      {
+        "source": "png jpg GIF 区别.md",
+        "section": "面试直接回答",
+        "lines": [
+          3,
+          8
+        ]
+      },
+      {
+        "source": "png jpg GIF 区别.md",
+        "section": "对比表",
+        "lines": [
+          9,
+          18
+        ]
+      },
+      {
+        "source": "png jpg GIF 区别.md",
+        "section": "分别展开",
+        "lines": [
+          19,
+          32
+        ]
+      },
+      {
+        "source": "png jpg GIF 区别.md",
+        "section": "现代项目怎么选",
+        "lines": [
+          33,
+          56
+        ]
+      }
+    ]
+  },
+  {
+    "source": "性能优化.md",
+    "number": 2,
+    "title": "网页图片怎样兼顾清晰度和加载性能？",
+    "path": "content/aaron/basics/html/image-loading.md",
+    "category": "html",
+    "sha256": "f84fae3226f2a021bd7636f6d717646748a1368706ee98f881310851017dcfbb",
+    "provenance": "用户提供学习笔记；按知识边界整理，不代表项目实现",
+    "sourceSections": [
+      {
+        "source": "性能优化.md",
+        "section": "图片优化",
+        "lines": [
+          273,
+          297
+        ]
+      },
+      {
+        "source": "为什么1px在不同的设备上有粗有细.md",
+        "section": "图片为什么在高 DPR 屏上发虚",
+        "lines": [
+          93,
+          106
+        ]
+      }
+    ]
+  },
+  {
+    "source": "WebSocket.md",
+    "number": 1,
+    "title": "WebSocket 和 HTTP 是什么关系？",
+    "path": "content/aaron/basics/network/websocket-http.md",
+    "category": "network",
+    "sha256": "3089dbbc0d1c97be474db355209f8d02891c4fbde274f4d4ac067c0cdf92919f",
+    "provenance": "用户提供学习笔记；按知识边界整理，不代表项目实现",
+    "sourceSections": [
+      {
+        "source": "WebSocket.md",
+        "section": "WebSocket 和 HTTP 是什么关系？",
+        "lines": [
+          123,
+          126
+        ]
+      },
+      {
+        "source": "WebSocket.md",
+        "section": "建立连接的过程",
+        "lines": [
+          7,
+          31
+        ]
+      },
+      {
+        "source": "WebSocket.md",
+        "section": "浏览器端基本用法",
+        "lines": [
+          32,
+          56
+        ]
+      },
+      {
+        "source": "WebSocket.md",
+        "section": "协议层需要知道什么",
+        "lines": [
+          57,
+          64
+        ]
+      }
+    ]
+  },
+  {
+    "source": "WebSocket.md",
+    "number": 2,
+    "title": "WebSocket 断线后，怎样恢复连接并避免业务消息遗漏或重复？",
+    "path": "content/aaron/basics/network/websocket-recovery.md",
+    "category": "network",
+    "sha256": "0a72fd1db526490d6a0a24e60890a6407286ba557960171dc4806a28ad353e69",
+    "provenance": "用户提供学习笔记；按知识边界整理，不代表项目实现",
+    "sourceSections": [
+      {
+        "source": "WebSocket.md",
+        "section": "1. 断线重连",
+        "lines": [
+          67,
+          70
+        ]
+      },
+      {
+        "source": "WebSocket.md",
+        "section": "2. 消息可靠性",
+        "lines": [
+          71,
+          79
+        ]
+      }
+    ]
+  },
+  {
+    "source": "WebSocket.md",
+    "number": 3,
+    "title": "WebSocket 为什么还需要心跳？",
+    "path": "content/aaron/basics/network/websocket-heartbeat.md",
+    "category": "network",
+    "sha256": "c0328e17317356b177c6d929b748484f0380a56df3df36983f8800594bfb27b7",
+    "provenance": "用户提供学习笔记；按知识边界整理，不代表项目实现",
+    "sourceSections": [
+      {
+        "source": "WebSocket.md",
+        "section": "WebSocket 为什么还需要心跳？",
+        "lines": [
+          131,
+          134
+        ]
+      },
+      {
+        "source": "WebSocket.md",
+        "section": "3. 心跳和连接保活",
+        "lines": [
+          80,
+          83
+        ]
+      }
+    ]
+  },
+  {
+    "source": "WebSocket.md",
+    "number": 4,
+    "title": "WebSocket 发送太快时，怎样控制缓冲区压力？",
+    "path": "content/aaron/basics/network/websocket-backpressure.md",
+    "category": "network",
+    "sha256": "bf55725bd47e8f068440b08de41c727178c4f3706397e529ea7098407c091e3b",
+    "provenance": "用户提供学习笔记；按知识边界整理，不代表项目实现",
+    "sourceSections": [
+      {
+        "source": "WebSocket.md",
+        "section": "4. 背压",
+        "lines": [
+          84,
+          97
+        ]
+      }
+    ]
+  },
+  {
+    "source": "WebSocket.md",
+    "number": 5,
+    "title": "WebSocket 多实例部署时，怎样把消息发送给不同节点上的用户？",
+    "path": "content/aaron/basics/network/websocket-cluster.md",
+    "category": "network",
+    "sha256": "7a082ea3536457f00fcd4955b5b4c9f6505e3b1bc387d4ec087c9583a8c77353",
+    "provenance": "用户提供学习笔记；按知识边界整理，不代表项目实现",
+    "sourceSections": [
+      {
+        "source": "WebSocket.md",
+        "section": "5. 集群扩展",
+        "lines": [
+          98,
+          101
+        ]
+      }
+    ]
+  },
+  {
+    "source": "WebSocket.md",
+    "number": 6,
+    "title": "WebSocket 是否受 CORS 限制？",
+    "path": "content/aaron/basics/network/websocket-origin.md",
+    "category": "network",
+    "sha256": "c0cea103782ff27bb2b993a931439330bde2cfd6f6ef9b90062ba323c3a1edb8",
+    "provenance": "用户提供学习笔记；按知识边界整理，不代表项目实现",
+    "sourceSections": [
+      {
+        "source": "WebSocket.md",
+        "section": "WebSocket 是否受 CORS 限制？",
+        "lines": [
+          127,
+          130
+        ]
+      },
+      {
+        "source": "WebSocket.md",
+        "section": "鉴权与安全",
+        "lines": [
+          102,
+          109
+        ]
+      }
+    ]
+  },
+  {
+    "source": "代理模式.js",
+    "number": 1,
+    "title": "代理模式是什么，怎样用 Proxy 拦截对象访问？",
+    "path": "content/aaron/basics/javascript/proxy-pattern.md",
+    "category": "javascript",
+    "sha256": "b4e5fd28074b30a0bb13d494f872fc99ae44756292742b1dab45bce460c2f05b",
+    "sourceSha256": "fc4777b5cf305dbd8cfeaa2c5ed9deaf7acb59d374f5e48c7247aa08c282155a",
+    "provenance": "用户提供 JS 示例；保留代码，结合实际执行解释行为及错误，不代表项目经历"
+  },
+  {
+    "source": "单例模式.js",
+    "number": 1,
+    "title": "单例模式怎么实现，这段代码为什么得到同一个对象？",
+    "path": "content/aaron/basics/javascript/singleton-pattern.md",
+    "category": "javascript",
+    "sha256": "6a5996e83b628ea35b13b5a31d329a5485754ee4da45574711b2f4406d42d86c",
+    "sourceSha256": "b27cf0799e60b259bde05ee52baeee790789576fe81ceeb121749999e58b223f",
+    "provenance": "用户提供 JS 示例；保留代码，结合实际执行解释行为及错误，不代表项目经历"
+  },
+  {
+    "source": "工厂模式.js",
+    "number": 1,
+    "title": "工厂模式是什么，为什么把对象创建放进工厂？",
+    "path": "content/aaron/basics/javascript/factory-pattern.md",
+    "category": "javascript",
+    "sha256": "21e67746e1cc94fa73d42aa1d5a0fe7adb897d0932249958e9a857834470d95c",
+    "sourceSha256": "12580004ad45e25d2a6e54edef83ea093242133f507f2bf5051f551cade685de",
+    "provenance": "用户提供 JS 示例；保留代码，结合实际执行解释行为及错误，不代表项目经历"
+  },
+  {
+    "source": "观察者模式.js",
+    "number": 1,
+    "title": "观察者模式怎样注册、移除和通知观察者？",
+    "path": "content/aaron/basics/javascript/observer-pattern.md",
+    "category": "javascript",
+    "sha256": "99d38dc9c7a747ff5d3bc93c91cbe80a21cb2643daacc2f34b2a9f222c085bcd",
+    "sourceSha256": "53e67529132fe4bc347c4056389e695ffee39596c4168ff1769dd71ef356f567",
+    "provenance": "用户提供 JS 示例；保留代码，结合实际执行解释行为及错误，不代表项目经历"
+  },
+  {
+    "source": "装饰器模式.js",
+    "number": 1,
+    "title": "装饰器模式怎样在保留原有功能的同时增加能力？",
+    "path": "content/aaron/basics/javascript/decorator-pattern.md",
+    "category": "javascript",
+    "sha256": "5aeefc5fbad88c6a530abbb30e0bdaca2b27a166e82bfc001f4c10079992ee54",
+    "sourceSha256": "0822e1fa820bf280d094445b7085bcbece5df83ff8a903901061ad981df75a5f",
+    "provenance": "用户提供 JS 示例；保留代码，结合实际执行解释行为及错误，不代表项目经历"
   }
 ]

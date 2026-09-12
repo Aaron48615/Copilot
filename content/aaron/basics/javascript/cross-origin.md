@@ -20,3 +20,19 @@ keywords: [跨域, 同源策略, CORS, JSONP]
 JSONP 是比较早的办法，先注册回调，再通过 script 请求服务端返回的一段调用回调的 JavaScript。它只适合 GET 类读取，而且会执行对方的代码。跨窗口通信则可以用 postMessage，发送时指定 targetOrigin，接收时校验 origin 和数据格式。
 
 【document.domain 和 window.name 是历史跨域通信技巧，有适用范围和现代浏览器限制，不作为新功能的首选。script、img、iframe 可以在一定条件下嵌入跨源资源，不代表能任意读取这些资源或窗口的内容；给 fetch 设置 no-cors 也不会让响应变得可读。】
+
+### 跨域携带 Cookie
+
+前端请求需要明确包含凭证：
+
+```js
+fetch("https://api.example.com/profile", {
+  credentials: "include",
+});
+```
+
+服务端还需返回匹配的 `Access-Control-Allow-Origin` 和 `Access-Control-Allow-Credentials: true`。允许凭证时，`Access-Control-Allow-Origin` 不能使用通配符 `*`。CORS 只是浏览器跨源读取控制，不是服务端鉴权机制。
+
+### CORS 配好了是否就安全？
+
+不是。CORS 决定浏览器是否允许某个来源的脚本读取响应，不会替代身份认证、权限校验、CSRF 防护、输入验证和限流。

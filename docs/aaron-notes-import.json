@@ -1,0 +1,1840 @@
+{
+  "sources": {
+    "堆和栈.md": {
+      "path": "/Users/aaron/面试就业/前端面试题/堆和栈.md",
+      "sha256": "0f24b24583c5f9d3074166438243b39ec143bec5b8a4cb486aef7d729f89a2ac"
+    },
+    "对象、数组、函数统称object.md": {
+      "path": "/Users/aaron/面试就业/前端面试题/对象、数组、函数统称object.md",
+      "sha256": "3f517204c80702e05df490a67e33f5118d7261ff70bba25104675e0b3f44846e"
+    },
+    "鉴权和轮询.md": {
+      "path": "/Users/aaron/面试就业/前端面试题/鉴权和轮询.md",
+      "sha256": "ba7792af3682f44eb896855ccdcdfaa186426fea71ff2765bf9b085b89c268db"
+    },
+    "七层网络.md": {
+      "path": "/Users/aaron/面试就业/前端面试题/七层网络.md",
+      "sha256": "000cc64d87c0015c2d3ee19474b2a757cb1760848e52566b835a375ab1d89b3b"
+    },
+    "为什么0.1+0.2!=0.3.md": {
+      "path": "/Users/aaron/面试就业/前端面试题/为什么0.1+0.2!=0.3.md",
+      "sha256": "bad62813af89f12a436c77cd9b042cca3e08a3239ee63c36c3656270a75ed8fe"
+    },
+    "为什么1px在不同的设备上有粗有细.md": {
+      "path": "/Users/aaron/面试就业/前端面试题/为什么1px在不同的设备上有粗有细.md",
+      "sha256": "765b4731fad1f4c5ce966794597e458d1da5bac95e14547fcd2f839777897e74"
+    },
+    "线程和进程.md": {
+      "path": "/Users/aaron/面试就业/前端面试题/线程和进程.md",
+      "sha256": "8269e1920a72d17afd7164294d4949d8739cef1b4d0703051e3e58bcaf4aa12d"
+    },
+    "性能优化.md": {
+      "path": "/Users/aaron/面试就业/前端面试题/性能优化.md",
+      "sha256": "c6bf73254036ced327fe81426e73eeb849a65e462ac96ec6d820e693548719ff"
+    },
+    "AI常问.md": {
+      "path": "/Users/aaron/面试就业/前端面试题/AI常问.md",
+      "sha256": "fefd3646fe09f39255602d23a89fb8e1505f8affd3a263959621411b2baf5dc0"
+    },
+    "Eslint.md": {
+      "path": "/Users/aaron/面试就业/前端面试题/Eslint.md",
+      "sha256": "6154a758524f3c6133414a0d93138a375a8b4610119e6455ef90dce024afe3fa"
+    },
+    "HTTP、TCP、GETPOST、状态码.md": {
+      "path": "/Users/aaron/面试就业/前端面试题/HTTP、TCP、GETPOST、状态码.md",
+      "sha256": "752a4bc862447ea8568aab96c370963cdf0e1a14a7a2541194b5f9ba12b034a3"
+    },
+    "png jpg GIF 区别.md": {
+      "path": "/Users/aaron/面试就业/前端面试题/png jpg GIF 区别.md",
+      "sha256": "a6d617cc705547fa87a5a003296eee4d6495fca544f19b13fa4e7e288ab2abce"
+    },
+    "WebSocket.md": {
+      "path": "/Users/aaron/面试就业/前端面试题/WebSocket.md",
+      "sha256": "db4dfd201a5a087f3db92b4f2210a529e5ccfe42a9cae8a2a7e5cce0a46ce348"
+    }
+  },
+  "new": [
+    "content/aaron/basics/javascript/heap-stack.md",
+    "content/aaron/basics/network/authentication-authorization.md",
+    "content/aaron/basics/network/session-token.md",
+    "content/aaron/basics/network/token-refresh.md",
+    "content/aaron/basics/network/polling-control.md",
+    "content/aaron/basics/network/osi-model.md",
+    "content/aaron/basics/network/tcp-udp.md",
+    "content/aaron/basics/network/switch-router.md",
+    "content/aaron/basics/network/layered-troubleshooting.md",
+    "content/aaron/basics/javascript/floating-point.md",
+    "content/aaron/basics/javascript/floating-point-double.md",
+    "content/aaron/basics/css/hairline-dpr.md",
+    "content/aaron/basics/browser/process-thread.md",
+    "content/aaron/basics/browser/browser-processes.md",
+    "content/aaron/basics/network/cdn-acceleration.md",
+    "content/aaron/basics/ai-agent/llm-basics.md",
+    "content/aaron/basics/ai-agent/prompt-design.md",
+    "content/aaron/basics/ai-agent/rag-basics.md",
+    "content/aaron/basics/ai-agent/fine-tuning.md",
+    "content/aaron/basics/ai-agent/harness-basics.md",
+    "content/aaron/basics/ai-agent/agent-basics.md",
+    "content/aaron/basics/ai-agent/skill-plugin-tool.md",
+    "content/aaron/basics/ai-agent/llm-streaming.md",
+    "content/aaron/basics/ai-agent/model-families.md",
+    "content/aaron/basics/ai-agent/coding-verification.md",
+    "content/aaron/basics/engineering/eslint-purpose.md",
+    "content/aaron/basics/engineering/eslint-flat-config.md",
+    "content/aaron/basics/engineering/eslint-components.md",
+    "content/aaron/basics/engineering/eslint-prettier.md",
+    "content/aaron/basics/engineering/eslint-custom-rule.md",
+    "content/aaron/basics/engineering/eslint-disable.md",
+    "content/aaron/basics/engineering/eslint-typescript.md",
+    "content/aaron/basics/engineering/eslint-fix.md",
+    "content/aaron/basics/network/http-basics.md",
+    "content/aaron/basics/network/tcp-reliability.md",
+    "content/aaron/basics/html/image-formats.md",
+    "content/aaron/basics/html/image-loading.md",
+    "content/aaron/basics/network/websocket-http.md",
+    "content/aaron/basics/network/websocket-recovery.md",
+    "content/aaron/basics/network/websocket-heartbeat.md",
+    "content/aaron/basics/network/websocket-backpressure.md",
+    "content/aaron/basics/network/websocket-cluster.md",
+    "content/aaron/basics/network/websocket-origin.md"
+  ],
+  "supplemented": [
+    "content/aaron/basics/javascript/deep-shallow-copy.md",
+    "content/aaron/basics/javascript/closures-memory.md",
+    "content/aaron/basics/javascript/data-types.md",
+    "content/aaron/basics/javascript/equality-operators.md",
+    "content/aaron/basics/javascript/es6-scope.md",
+    "content/aaron/basics/javascript/cross-origin.md",
+    "content/aaron/basics/network/websocket-sse.md",
+    "content/aaron/basics/css/length-units.md",
+    "content/aaron/basics/browser/web-worker.md",
+    "content/aaron/basics/browser/web-vitals.md",
+    "content/aaron/basics/browser/frontend-performance.md",
+    "content/aaron/basics/browser/resource-loading.md",
+    "content/aaron/basics/browser/http-cache.md",
+    "content/aaron/basics/vue/large-list-rendering.md",
+    "content/aaron/basics/vue/mvvm-mvc.md",
+    "content/aaron/basics/network/http-versions.md",
+    "content/aaron/basics/browser/tcp-handshake-close.md",
+    "content/aaron/basics/browser/http-methods.md",
+    "content/aaron/basics/javascript/ajax-status.md"
+  ],
+  "records": [
+    {
+      "source": "堆和栈.md",
+      "section": "先分清两组概念",
+      "lines": [
+        11,
+        19
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/javascript/heap-stack.md",
+      "reason": ""
+    },
+    {
+      "source": "堆和栈.md",
+      "section": "面试直接回答",
+      "lines": [
+        20,
+        32
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/javascript/heap-stack.md",
+      "reason": ""
+    },
+    {
+      "source": "堆和栈.md",
+      "section": "调用栈示例",
+      "lines": [
+        33,
+        56
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/javascript/heap-stack.md",
+      "reason": ""
+    },
+    {
+      "source": "堆和栈.md",
+      "section": "基本类型一定在栈、对象一定在堆吗？",
+      "lines": [
+        57,
+        90
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/javascript/heap-stack.md",
+      "reason": ""
+    },
+    {
+      "source": "堆和栈.md",
+      "section": "嵌套对象的浅拷贝示例",
+      "lines": [
+        91,
+        103
+      ],
+      "status": "补充",
+      "path": "content/aaron/basics/javascript/deep-shallow-copy.md",
+      "reason": "新增解释、条件或示例；保留原答案及元数据"
+    },
+    {
+      "source": "堆和栈.md",
+      "section": "JSON 拷贝的循环引用表述",
+      "lines": [
+        91,
+        103
+      ],
+      "status": "待确认",
+      "path": "docs/aaron-notes-pending.md",
+      "reason": "笔记说循环引用会丢失，已有答案说明循环引用会出错；不覆盖已有结论。"
+    },
+    {
+      "source": "堆和栈.md",
+      "section": "闭包与调用栈的关系",
+      "lines": [
+        104,
+        118
+      ],
+      "status": "补充",
+      "path": "content/aaron/basics/javascript/closures-memory.md",
+      "reason": "新增解释、条件或示例；保留原答案及元数据"
+    },
+    {
+      "source": "堆和栈.md",
+      "section": "常见内存泄漏来源",
+      "lines": [
+        119,
+        128
+      ],
+      "status": "补充",
+      "path": "content/aaron/basics/javascript/closures-memory.md",
+      "reason": "新增解释、条件或示例；保留原答案及元数据"
+    },
+    {
+      "source": "对象、数组、函数统称object.md",
+      "section": "什么是闭包",
+      "lines": [
+        154,
+        170
+      ],
+      "status": "已覆盖",
+      "path": "content/aaron/basics/javascript/closures-memory.md",
+      "reason": "同一知识点已覆盖，不重复新增"
+    },
+    {
+      "source": "对象、数组、函数统称object.md",
+      "section": "JavaScript 有哪些数据类型",
+      "lines": [
+        15,
+        32
+      ],
+      "status": "补充",
+      "path": "content/aaron/basics/javascript/data-types.md",
+      "reason": "新增解释、条件或示例；保留原答案及元数据"
+    },
+    {
+      "source": "对象、数组、函数统称object.md",
+      "section": "如何准确判断类型",
+      "lines": [
+        33,
+        48
+      ],
+      "status": "补充",
+      "path": "content/aaron/basics/javascript/data-types.md",
+      "reason": "新增解释、条件或示例；保留原答案及元数据"
+    },
+    {
+      "source": "对象、数组、函数统称object.md",
+      "section": "数组和函数为什么也是对象",
+      "lines": [
+        49,
+        64
+      ],
+      "status": "补充",
+      "path": "content/aaron/basics/javascript/data-types.md",
+      "reason": "新增解释、条件或示例；保留原答案及元数据"
+    },
+    {
+      "source": "对象、数组、函数统称object.md",
+      "section": "值相等和引用相等",
+      "lines": [
+        65,
+        78
+      ],
+      "status": "补充",
+      "path": "content/aaron/basics/javascript/equality-operators.md",
+      "reason": "新增解释、条件或示例；保留原答案及元数据"
+    },
+    {
+      "source": "对象、数组、函数统称object.md",
+      "section": "四种常见作用域",
+      "lines": [
+        79,
+        106
+      ],
+      "status": "补充",
+      "path": "content/aaron/basics/javascript/es6-scope.md",
+      "reason": "新增解释、条件或示例；保留原答案及元数据"
+    },
+    {
+      "source": "对象、数组、函数统称object.md",
+      "section": "什么是作用域链",
+      "lines": [
+        107,
+        135
+      ],
+      "status": "补充",
+      "path": "content/aaron/basics/javascript/es6-scope.md",
+      "reason": "新增解释、条件或示例；保留原答案及元数据"
+    },
+    {
+      "source": "对象、数组、函数统称object.md",
+      "section": "变量提升、暂时性死区与遮蔽",
+      "lines": [
+        136,
+        153
+      ],
+      "status": "补充",
+      "path": "content/aaron/basics/javascript/es6-scope.md",
+      "reason": "新增解释、条件或示例；保留原答案及元数据"
+    },
+    {
+      "source": "鉴权和轮询.md",
+      "section": "前端隐藏按钮能防止越权吗？",
+      "lines": [
+        208,
+        211
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/network/authentication-authorization.md",
+      "reason": ""
+    },
+    {
+      "source": "鉴权和轮询.md",
+      "section": "先分清认证和授权",
+      "lines": [
+        5,
+        11
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/network/authentication-authorization.md",
+      "reason": ""
+    },
+    {
+      "source": "鉴权和轮询.md",
+      "section": "Session Cookie 与 Token",
+      "lines": [
+        12,
+        20
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/network/session-token.md",
+      "reason": ""
+    },
+    {
+      "source": "鉴权和轮询.md",
+      "section": "浏览器中 Token 放在哪里",
+      "lines": [
+        21,
+        35
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/network/session-token.md",
+      "reason": ""
+    },
+    {
+      "source": "鉴权和轮询.md",
+      "section": "Cookie 为什么还要防 CSRF",
+      "lines": [
+        36,
+        45
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/network/session-token.md",
+      "reason": ""
+    },
+    {
+      "source": "鉴权和轮询.md",
+      "section": "轮询过程中 Token 过期怎么办？",
+      "lines": [
+        204,
+        207
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/network/token-refresh.md",
+      "reason": ""
+    },
+    {
+      "source": "鉴权和轮询.md",
+      "section": "Access Token 与 Refresh Token 的流程",
+      "lines": [
+        46,
+        72
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/network/token-refresh.md",
+      "reason": ""
+    },
+    {
+      "source": "鉴权和轮询.md",
+      "section": "401 和 403 的区别",
+      "lines": [
+        73,
+        79
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/network/token-refresh.md",
+      "reason": ""
+    },
+    {
+      "source": "鉴权和轮询.md",
+      "section": "跨域携带 Cookie",
+      "lines": [
+        80,
+        91
+      ],
+      "status": "补充",
+      "path": "content/aaron/basics/javascript/cross-origin.md",
+      "reason": "新增解释、条件或示例；保留原答案及元数据"
+    },
+    {
+      "source": "鉴权和轮询.md",
+      "section": "CORS 配好了是否就安全？",
+      "lines": [
+        212,
+        215
+      ],
+      "status": "补充",
+      "path": "content/aaron/basics/javascript/cross-origin.md",
+      "reason": "新增解释、条件或示例；保留原答案及元数据"
+    },
+    {
+      "source": "鉴权和轮询.md",
+      "section": "什么是轮询",
+      "lines": [
+        94,
+        97
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/network/polling-control.md",
+      "reason": ""
+    },
+    {
+      "source": "鉴权和轮询.md",
+      "section": "为什么不建议直接用 setInterval",
+      "lines": [
+        98,
+        180
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/network/polling-control.md",
+      "reason": ""
+    },
+    {
+      "source": "鉴权和轮询.md",
+      "section": "轮询优化清单",
+      "lines": [
+        181,
+        190
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/network/polling-control.md",
+      "reason": ""
+    },
+    {
+      "source": "鉴权和轮询.md",
+      "section": "短轮询、长轮询、SSE、WebSocket",
+      "lines": [
+        191,
+        201
+      ],
+      "status": "补充",
+      "path": "content/aaron/basics/network/websocket-sse.md",
+      "reason": "新增解释、条件或示例；保留原答案及元数据"
+    },
+    {
+      "source": "WebSocket.md",
+      "section": "WebSocket、轮询、SSE 怎么选",
+      "lines": [
+        110,
+        120
+      ],
+      "status": "已覆盖",
+      "path": "content/aaron/basics/network/websocket-sse.md",
+      "reason": "与本次鉴权笔记的选型表覆盖相同，不重复加入第二张表"
+    },
+    {
+      "source": "七层网络.md",
+      "section": "面试直接回答",
+      "lines": [
+        68,
+        73
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/network/osi-model.md",
+      "reason": ""
+    },
+    {
+      "source": "七层网络.md",
+      "section": "七层职责与常见例子",
+      "lines": [
+        74,
+        87
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/network/osi-model.md",
+      "reason": ""
+    },
+    {
+      "source": "七层网络.md",
+      "section": "OSI 与 TCP/IP 模型的对应关系",
+      "lines": [
+        88,
+        98
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/network/osi-model.md",
+      "reason": ""
+    },
+    {
+      "source": "七层网络.md",
+      "section": "封装与解封装",
+      "lines": [
+        99,
+        116
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/network/osi-model.md",
+      "reason": ""
+    },
+    {
+      "source": "七层网络.md",
+      "section": "IP 地址、MAC 地址、端口号",
+      "lines": [
+        117,
+        128
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/network/osi-model.md",
+      "reason": ""
+    },
+    {
+      "source": "七层网络.md",
+      "section": "为什么需要分层？",
+      "lines": [
+        164,
+        167
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/network/osi-model.md",
+      "reason": ""
+    },
+    {
+      "source": "七层网络.md",
+      "section": "TCP 和 UDP",
+      "lines": [
+        129,
+        140
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/network/tcp-udp.md",
+      "reason": ""
+    },
+    {
+      "source": "七层网络.md",
+      "section": "交换机和路由器有什么区别？",
+      "lines": [
+        160,
+        163
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/network/switch-router.md",
+      "reason": ""
+    },
+    {
+      "source": "七层网络.md",
+      "section": "排查网络问题怎么用分层思路？",
+      "lines": [
+        168,
+        171
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/network/layered-troubleshooting.md",
+      "reason": ""
+    },
+    {
+      "source": "七层网络.md",
+      "section": "HTTP、HTTPS、WebSocket 在哪一层",
+      "lines": [
+        141,
+        148
+      ],
+      "status": "已覆盖",
+      "path": "content/aaron/basics/network/http-versions.md",
+      "reason": "HTTP/3 传输已覆盖；应用层归属与握手由本次 OSI、WebSocket 题承接"
+    },
+    {
+      "source": "七层网络.md",
+      "section": "从输入 URL 到页面显示的分层理解",
+      "lines": [
+        149,
+        157
+      ],
+      "status": "已覆盖",
+      "path": "content/aaron/basics/html/url-rendering.md",
+      "reason": "同一知识点已覆盖，不重复新增"
+    },
+    {
+      "source": "为什么0.1+0.2!=0.3.md",
+      "section": "面试直接回答",
+      "lines": [
+        3,
+        13
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/javascript/floating-point.md",
+      "reason": ""
+    },
+    {
+      "source": "为什么0.1+0.2!=0.3.md",
+      "section": "为什么十进制小数无法精确表示",
+      "lines": [
+        14,
+        24
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/javascript/floating-point.md",
+      "reason": ""
+    },
+    {
+      "source": "为什么0.1+0.2!=0.3.md",
+      "section": "IEEE 754 双精度如何存储",
+      "lines": [
+        25,
+        39
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/javascript/floating-point.md",
+      "reason": ""
+    },
+    {
+      "source": "为什么0.1+0.2!=0.3.md",
+      "section": "正确比较浮点数",
+      "lines": [
+        40,
+        66
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/javascript/floating-point.md",
+      "reason": ""
+    },
+    {
+      "source": "为什么0.1+0.2!=0.3.md",
+      "section": "金额和高精度计算怎么做",
+      "lines": [
+        67,
+        93
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/javascript/floating-point.md",
+      "reason": ""
+    },
+    {
+      "source": "为什么0.1+0.2!=0.3.md",
+      "section": "常见误区",
+      "lines": [
+        94,
+        99
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/javascript/floating-point.md",
+      "reason": ""
+    },
+    {
+      "source": "为什么0.1+0.2!=0.3.md",
+      "section": "追问：为什么 0.1 + 0.1 === 0.2",
+      "lines": [
+        100,
+        103
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/javascript/floating-point-double.md",
+      "reason": ""
+    },
+    {
+      "source": "为什么1px在不同的设备上有粗有细.md",
+      "section": "面试直接回答",
+      "lines": [
+        3,
+        8
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/css/hairline-dpr.md",
+      "reason": ""
+    },
+    {
+      "source": "为什么1px在不同的设备上有粗有细.md",
+      "section": "CSS 像素、物理像素和 DPR",
+      "lines": [
+        9,
+        25
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/css/hairline-dpr.md",
+      "reason": ""
+    },
+    {
+      "source": "为什么1px在不同的设备上有粗有细.md",
+      "section": "为什么看起来不一样",
+      "lines": [
+        26,
+        34
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/css/hairline-dpr.md",
+      "reason": ""
+    },
+    {
+      "source": "为什么1px在不同的设备上有粗有细.md",
+      "section": "解决 1px 发丝线",
+      "lines": [
+        35,
+        86
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/css/hairline-dpr.md",
+      "reason": ""
+    },
+    {
+      "source": "为什么1px在不同的设备上有粗有细.md",
+      "section": "`1px` 是绝对长度吗",
+      "lines": [
+        89,
+        92
+      ],
+      "status": "补充",
+      "path": "content/aaron/basics/css/length-units.md",
+      "reason": "新增解释、条件或示例；保留原答案及元数据"
+    },
+    {
+      "source": "线程和进程.md",
+      "section": "面试直接回答",
+      "lines": [
+        3,
+        8
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/browser/process-thread.md",
+      "reason": ""
+    },
+    {
+      "source": "线程和进程.md",
+      "section": "核心区别",
+      "lines": [
+        9,
+        23
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/browser/process-thread.md",
+      "reason": ""
+    },
+    {
+      "source": "线程和进程.md",
+      "section": "为什么需要多进程和多线程",
+      "lines": [
+        24,
+        41
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/browser/process-thread.md",
+      "reason": ""
+    },
+    {
+      "source": "线程和进程.md",
+      "section": "并发和并行的区别",
+      "lines": [
+        42,
+        48
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/browser/process-thread.md",
+      "reason": ""
+    },
+    {
+      "source": "线程和进程.md",
+      "section": "进程间为什么不能直接读取对方内存",
+      "lines": [
+        94,
+        97
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/browser/process-thread.md",
+      "reason": ""
+    },
+    {
+      "source": "线程和进程.md",
+      "section": "线程为什么会有死锁",
+      "lines": [
+        98,
+        101
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/browser/process-thread.md",
+      "reason": ""
+    },
+    {
+      "source": "线程和进程.md",
+      "section": "多线程一定更快吗",
+      "lines": [
+        102,
+        105
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/browser/process-thread.md",
+      "reason": ""
+    },
+    {
+      "source": "线程和进程.md",
+      "section": "浏览器中的进程和线程",
+      "lines": [
+        49,
+        67
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/browser/browser-processes.md",
+      "reason": ""
+    },
+    {
+      "source": "线程和进程.md",
+      "section": "JavaScript 是单线程吗",
+      "lines": [
+        68,
+        91
+      ],
+      "status": "补充",
+      "path": "content/aaron/basics/browser/web-worker.md",
+      "reason": "新增解释、条件或示例；保留原答案及元数据"
+    },
+    {
+      "source": "性能优化.md",
+      "section": "性能指标",
+      "lines": [
+        128,
+        160
+      ],
+      "status": "补充",
+      "path": "content/aaron/basics/browser/web-vitals.md",
+      "reason": "新增解释、条件或示例；保留原答案及元数据"
+    },
+    {
+      "source": "性能优化.md",
+      "section": "怎么优化 LCP",
+      "lines": [
+        440,
+        446
+      ],
+      "status": "补充",
+      "path": "content/aaron/basics/browser/web-vitals.md",
+      "reason": "新增解释、条件或示例；保留原答案及元数据"
+    },
+    {
+      "source": "性能优化.md",
+      "section": "怎么优化 CLS",
+      "lines": [
+        447,
+        453
+      ],
+      "status": "补充",
+      "path": "content/aaron/basics/browser/web-vitals.md",
+      "reason": "新增解释、条件或示例；保留原答案及元数据"
+    },
+    {
+      "source": "性能优化.md",
+      "section": "标准优化流程",
+      "lines": [
+        161,
+        169
+      ],
+      "status": "补充",
+      "path": "content/aaron/basics/browser/frontend-performance.md",
+      "reason": "新增解释、条件或示例；保留原答案及元数据"
+    },
+    {
+      "source": "性能优化.md",
+      "section": "字体优化",
+      "lines": [
+        298,
+        314
+      ],
+      "status": "补充",
+      "path": "content/aaron/basics/browser/frontend-performance.md",
+      "reason": "新增解释、条件或示例；保留原答案及元数据"
+    },
+    {
+      "source": "性能优化.md",
+      "section": "渲染和主线程优化",
+      "lines": [
+        315,
+        351
+      ],
+      "status": "补充",
+      "path": "content/aaron/basics/browser/frontend-performance.md",
+      "reason": "新增解释、条件或示例；保留原答案及元数据"
+    },
+    {
+      "source": "性能优化.md",
+      "section": "框架层优化",
+      "lines": [
+        423,
+        430
+      ],
+      "status": "补充",
+      "path": "content/aaron/basics/browser/frontend-performance.md",
+      "reason": "新增解释、条件或示例；保留原答案及元数据"
+    },
+    {
+      "source": "性能优化.md",
+      "section": "面试直接回答",
+      "lines": [
+        122,
+        127
+      ],
+      "status": "已覆盖",
+      "path": "content/aaron/basics/javascript/page-performance.md",
+      "reason": "同一知识点已覆盖，不重复新增"
+    },
+    {
+      "source": "性能优化.md",
+      "section": "网络与加载优化",
+      "lines": [
+        170,
+        219
+      ],
+      "status": "补充",
+      "path": "content/aaron/basics/browser/resource-loading.md",
+      "reason": "新增解释、条件或示例；保留原答案及元数据"
+    },
+    {
+      "source": "性能优化.md",
+      "section": "延迟加载、懒加载、预加载和预取",
+      "lines": [
+        352,
+        362
+      ],
+      "status": "补充",
+      "path": "content/aaron/basics/browser/resource-loading.md",
+      "reason": "新增解释、条件或示例；保留原答案及元数据"
+    },
+    {
+      "source": "性能优化.md",
+      "section": "Webpack 优化",
+      "lines": [
+        220,
+        238
+      ],
+      "status": "已覆盖",
+      "path": "content/aaron/basics/webpack/build-optimization.md",
+      "reason": "同一知识点已覆盖，不重复新增"
+    },
+    {
+      "source": "性能优化.md",
+      "section": "HTTP 缓存和长缓存",
+      "lines": [
+        239,
+        272
+      ],
+      "status": "补充",
+      "path": "content/aaron/basics/browser/http-cache.md",
+      "reason": "新增解释、条件或示例；保留原答案及元数据"
+    },
+    {
+      "source": "性能优化.md",
+      "section": "无限列表和长列表",
+      "lines": [
+        363,
+        411
+      ],
+      "status": "补充",
+      "path": "content/aaron/basics/vue/large-list-rendering.md",
+      "reason": "新增解释、条件或示例；保留原答案及元数据"
+    },
+    {
+      "source": "性能优化.md",
+      "section": "CDN 为什么能加速",
+      "lines": [
+        412,
+        422
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/network/cdn-acceleration.md",
+      "reason": ""
+    },
+    {
+      "source": "性能优化.md",
+      "section": "MVC 和 MVVM（架构补充）",
+      "lines": [
+        454,
+        480
+      ],
+      "status": "补充",
+      "path": "content/aaron/basics/vue/mvvm-mvc.md",
+      "reason": "新增解释、条件或示例；保留原答案及元数据"
+    },
+    {
+      "source": "性能优化.md",
+      "section": "防抖和节流怎么选",
+      "lines": [
+        433,
+        439
+      ],
+      "status": "已覆盖",
+      "path": "content/aaron/basics/browser/debounce-throttle.md",
+      "reason": "同一知识点已覆盖，不重复新增"
+    },
+    {
+      "source": "AI常问.md",
+      "section": "1. LLM 是什么",
+      "lines": [
+        18,
+        33
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/ai-agent/llm-basics.md",
+      "reason": ""
+    },
+    {
+      "source": "AI常问.md",
+      "section": "4. Prompt（提示词）是什么",
+      "lines": [
+        65,
+        86
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/ai-agent/prompt-design.md",
+      "reason": ""
+    },
+    {
+      "source": "AI常问.md",
+      "section": "5. RAG 是什么",
+      "lines": [
+        87,
+        102
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/ai-agent/rag-basics.md",
+      "reason": ""
+    },
+    {
+      "source": "AI常问.md",
+      "section": "6. Fine-tuning（微调）是什么",
+      "lines": [
+        103,
+        116
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/ai-agent/fine-tuning.md",
+      "reason": ""
+    },
+    {
+      "source": "AI常问.md",
+      "section": "7. Harness 是什么",
+      "lines": [
+        117,
+        131
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/ai-agent/harness-basics.md",
+      "reason": ""
+    },
+    {
+      "source": "AI常问.md",
+      "section": "8. Agent（智能体）是什么",
+      "lines": [
+        132,
+        141
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/ai-agent/agent-basics.md",
+      "reason": ""
+    },
+    {
+      "source": "AI常问.md",
+      "section": "9. Skill、Plugin 和 Tool 有什么区别",
+      "lines": [
+        142,
+        154
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/ai-agent/skill-plugin-tool.md",
+      "reason": ""
+    },
+    {
+      "source": "AI常问.md",
+      "section": "10. 前端如何实现 LLM 流式输出",
+      "lines": [
+        155,
+        235
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/ai-agent/llm-streaming.md",
+      "reason": ""
+    },
+    {
+      "source": "AI常问.md",
+      "section": "模型版本与日期断言",
+      "lines": [
+        34,
+        48
+      ],
+      "status": "待确认",
+      "path": "docs/aaron-notes-pending.md",
+      "reason": "来源笔记中的具体前沿型号和截至日期尚未核验，不作为当前官方事实收入答案。"
+    },
+    {
+      "source": "AI常问.md",
+      "section": "常见的大模型",
+      "lines": [
+        34,
+        48
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/ai-agent/model-families.md",
+      "reason": ""
+    },
+    {
+      "source": "AI常问.md",
+      "section": "你使用什么进行 AI Coding",
+      "lines": [
+        49,
+        64
+      ],
+      "status": "待确认",
+      "path": "docs/aaron-notes-pending.md",
+      "reason": "这是可替换工具名的示范回答；Copilot 补全使用、逐项人工复核等经历未经 Aaron 确认。保留全文，暂不写入个人或项目题库。"
+    },
+    {
+      "source": "AI常问.md",
+      "section": "一个可靠的 AI Coding 流程",
+      "lines": [
+        57,
+        64
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/ai-agent/coding-verification.md",
+      "reason": ""
+    },
+    {
+      "source": "Eslint.md",
+      "section": "面试直接回答",
+      "lines": [
+        15,
+        26
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/engineering/eslint-purpose.md",
+      "reason": ""
+    },
+    {
+      "source": "Eslint.md",
+      "section": "ESLint 的工作原理",
+      "lines": [
+        27,
+        47
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/engineering/eslint-purpose.md",
+      "reason": ""
+    },
+    {
+      "source": "Eslint.md",
+      "section": "当前配置方式：Flat Config",
+      "lines": [
+        48,
+        100
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/engineering/eslint-flat-config.md",
+      "reason": ""
+    },
+    {
+      "source": "Eslint.md",
+      "section": "常用命令和工作流",
+      "lines": [
+        121,
+        145
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/engineering/eslint-flat-config.md",
+      "reason": ""
+    },
+    {
+      "source": "Eslint.md",
+      "section": "Parser、Plugin 和 Config 有什么区别",
+      "lines": [
+        101,
+        110
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/engineering/eslint-components.md",
+      "reason": ""
+    },
+    {
+      "source": "Eslint.md",
+      "section": "ESLint 和 Prettier 的区别",
+      "lines": [
+        111,
+        120
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/engineering/eslint-prettier.md",
+      "reason": ""
+    },
+    {
+      "source": "Eslint.md",
+      "section": "自定义规则的最小示例",
+      "lines": [
+        146,
+        172
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/engineering/eslint-custom-rule.md",
+      "reason": ""
+    },
+    {
+      "source": "Eslint.md",
+      "section": "`eslint-disable` 能不能用",
+      "lines": [
+        175,
+        184
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/engineering/eslint-disable.md",
+      "reason": ""
+    },
+    {
+      "source": "Eslint.md",
+      "section": "ESLint 能检查 TypeScript 类型错误吗",
+      "lines": [
+        185,
+        188
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/engineering/eslint-typescript.md",
+      "reason": ""
+    },
+    {
+      "source": "Eslint.md",
+      "section": "`--fix` 会不会改坏代码",
+      "lines": [
+        189,
+        192
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/engineering/eslint-fix.md",
+      "reason": ""
+    },
+    {
+      "source": "HTTP、TCP、GETPOST、状态码.md",
+      "section": "HTTP 是什么",
+      "lines": [
+        79,
+        92
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/network/http-basics.md",
+      "reason": ""
+    },
+    {
+      "source": "HTTP、TCP、GETPOST、状态码.md",
+      "section": "HTTP 版本的核心区别",
+      "lines": [
+        93,
+        102
+      ],
+      "status": "补充",
+      "path": "content/aaron/basics/network/http-versions.md",
+      "reason": "新增解释、条件或示例；保留原答案及元数据"
+    },
+    {
+      "source": "HTTP、TCP、GETPOST、状态码.md",
+      "section": "TCP 为什么可靠",
+      "lines": [
+        103,
+        116
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/network/tcp-reliability.md",
+      "reason": ""
+    },
+    {
+      "source": "HTTP、TCP、GETPOST、状态码.md",
+      "section": "TCP 三次握手",
+      "lines": [
+        117,
+        140
+      ],
+      "status": "补充",
+      "path": "content/aaron/basics/browser/tcp-handshake-close.md",
+      "reason": "新增解释、条件或示例；保留原答案及元数据"
+    },
+    {
+      "source": "HTTP、TCP、GETPOST、状态码.md",
+      "section": "TCP 四次挥手",
+      "lines": [
+        141,
+        158
+      ],
+      "status": "补充",
+      "path": "content/aaron/basics/browser/tcp-handshake-close.md",
+      "reason": "新增解释、条件或示例；保留原答案及元数据"
+    },
+    {
+      "source": "HTTP、TCP、GETPOST、状态码.md",
+      "section": "GET 和 POST 的区别",
+      "lines": [
+        159,
+        183
+      ],
+      "status": "补充",
+      "path": "content/aaron/basics/browser/http-methods.md",
+      "reason": "新增解释、条件或示例；保留原答案及元数据"
+    },
+    {
+      "source": "HTTP、TCP、GETPOST、状态码.md",
+      "section": "幂等性怎么理解",
+      "lines": [
+        184,
+        194
+      ],
+      "status": "补充",
+      "path": "content/aaron/basics/browser/http-methods.md",
+      "reason": "新增解释、条件或示例；保留原答案及元数据"
+    },
+    {
+      "source": "HTTP、TCP、GETPOST、状态码.md",
+      "section": "HTTP 常见状态码",
+      "lines": [
+        195,
+        249
+      ],
+      "status": "补充",
+      "path": "content/aaron/basics/javascript/ajax-status.md",
+      "reason": "新增解释、条件或示例；保留原答案及元数据"
+    },
+    {
+      "source": "HTTP、TCP、GETPOST、状态码.md",
+      "section": "状态码高频对比",
+      "lines": [
+        250,
+        271
+      ],
+      "status": "补充",
+      "path": "content/aaron/basics/javascript/ajax-status.md",
+      "reason": "新增解释、条件或示例；保留原答案及元数据"
+    },
+    {
+      "source": "HTTP、TCP、GETPOST、状态码.md",
+      "section": "从输入 URL 到收到 HTTP 响应",
+      "lines": [
+        272,
+        279
+      ],
+      "status": "已覆盖",
+      "path": "content/aaron/basics/html/url-rendering.md",
+      "reason": "同一知识点已覆盖，不重复新增"
+    },
+    {
+      "source": "png jpg GIF 区别.md",
+      "section": "面试直接回答",
+      "lines": [
+        3,
+        8
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/html/image-formats.md",
+      "reason": ""
+    },
+    {
+      "source": "png jpg GIF 区别.md",
+      "section": "对比表",
+      "lines": [
+        9,
+        18
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/html/image-formats.md",
+      "reason": ""
+    },
+    {
+      "source": "png jpg GIF 区别.md",
+      "section": "分别展开",
+      "lines": [
+        19,
+        32
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/html/image-formats.md",
+      "reason": ""
+    },
+    {
+      "source": "png jpg GIF 区别.md",
+      "section": "现代项目怎么选",
+      "lines": [
+        33,
+        56
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/html/image-formats.md",
+      "reason": ""
+    },
+    {
+      "source": "性能优化.md",
+      "section": "图片优化",
+      "lines": [
+        273,
+        297
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/html/image-loading.md",
+      "reason": ""
+    },
+    {
+      "source": "为什么1px在不同的设备上有粗有细.md",
+      "section": "图片为什么在高 DPR 屏上发虚",
+      "lines": [
+        93,
+        106
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/html/image-loading.md",
+      "reason": ""
+    },
+    {
+      "source": "png jpg GIF 区别.md",
+      "section": "图片性能优化追问",
+      "lines": [
+        57,
+        64
+      ],
+      "status": "已覆盖",
+      "path": "content/aaron/basics/html/image-loading.md",
+      "reason": "被性能笔记的图片优化及 DPR 示例覆盖"
+    },
+    {
+      "source": "WebSocket.md",
+      "section": "WebSocket 和 HTTP 是什么关系？",
+      "lines": [
+        123,
+        126
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/network/websocket-http.md",
+      "reason": ""
+    },
+    {
+      "source": "WebSocket.md",
+      "section": "建立连接的过程",
+      "lines": [
+        7,
+        31
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/network/websocket-http.md",
+      "reason": ""
+    },
+    {
+      "source": "WebSocket.md",
+      "section": "浏览器端基本用法",
+      "lines": [
+        32,
+        56
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/network/websocket-http.md",
+      "reason": ""
+    },
+    {
+      "source": "WebSocket.md",
+      "section": "协议层需要知道什么",
+      "lines": [
+        57,
+        64
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/network/websocket-http.md",
+      "reason": ""
+    },
+    {
+      "source": "WebSocket.md",
+      "section": "一句话回答",
+      "lines": [
+        3,
+        6
+      ],
+      "status": "已覆盖",
+      "path": "content/aaron/basics/network/websocket-sse.md",
+      "reason": "同一知识点已覆盖，不重复新增"
+    },
+    {
+      "source": "WebSocket.md",
+      "section": "1. 断线重连",
+      "lines": [
+        67,
+        70
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/network/websocket-recovery.md",
+      "reason": ""
+    },
+    {
+      "source": "WebSocket.md",
+      "section": "2. 消息可靠性",
+      "lines": [
+        71,
+        79
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/network/websocket-recovery.md",
+      "reason": ""
+    },
+    {
+      "source": "WebSocket.md",
+      "section": "WebSocket 为什么还需要心跳？",
+      "lines": [
+        131,
+        134
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/network/websocket-heartbeat.md",
+      "reason": ""
+    },
+    {
+      "source": "WebSocket.md",
+      "section": "3. 心跳和连接保活",
+      "lines": [
+        80,
+        83
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/network/websocket-heartbeat.md",
+      "reason": ""
+    },
+    {
+      "source": "WebSocket.md",
+      "section": "4. 背压",
+      "lines": [
+        84,
+        97
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/network/websocket-backpressure.md",
+      "reason": ""
+    },
+    {
+      "source": "WebSocket.md",
+      "section": "5. 集群扩展",
+      "lines": [
+        98,
+        101
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/network/websocket-cluster.md",
+      "reason": ""
+    },
+    {
+      "source": "WebSocket.md",
+      "section": "WebSocket 是否受 CORS 限制？",
+      "lines": [
+        127,
+        130
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/network/websocket-origin.md",
+      "reason": ""
+    },
+    {
+      "source": "WebSocket.md",
+      "section": "鉴权与安全",
+      "lines": [
+        102,
+        109
+      ],
+      "status": "新增",
+      "path": "content/aaron/basics/network/websocket-origin.md",
+      "reason": ""
+    },
+    {
+      "source": "七层网络.md",
+      "section": "补充稿之前的原始草稿",
+      "lines": [
+        1,
+        60
+      ],
+      "status": "待确认",
+      "path": "docs/aaron-notes-pending.md",
+      "reason": "旧稿存在 HTTP 全基于 TCP、GET/POST 安全和缓存等过度概括（依文件而异），与补充稿或现有答案冲突；保留旧稿全文供确认，不覆盖现有答案。"
+    },
+    {
+      "source": "HTTP、TCP、GETPOST、状态码.md",
+      "section": "补充稿之前的原始草稿",
+      "lines": [
+        1,
+        71
+      ],
+      "status": "待确认",
+      "path": "docs/aaron-notes-pending.md",
+      "reason": "旧稿存在 HTTP 全基于 TCP、GET/POST 安全和缓存等过度概括（依文件而异），与补充稿或现有答案冲突；保留旧稿全文供确认，不覆盖现有答案。"
+    },
+    {
+      "source": "堆和栈.md",
+      "section": "参考资料",
+      "lines": [
+        129,
+        133
+      ],
+      "status": "来源链接",
+      "path": "docs/aaron-notes-import.md",
+      "reason": "保留在来源记录中，不生成参考资料题"
+    },
+    {
+      "source": "堆和栈.md",
+      "section": "原始提纲",
+      "lines": [
+        1,
+        5
+      ],
+      "status": "提纲去重",
+      "path": "docs/aaron-notes-import.md",
+      "reason": "后文补充稿已覆盖相应知识；不把空提纲单独生成缺失答案题"
+    },
+    {
+      "source": "对象、数组、函数统称object.md",
+      "section": "参考资料",
+      "lines": [
+        171,
+        176
+      ],
+      "status": "来源链接",
+      "path": "docs/aaron-notes-import.md",
+      "reason": "保留在来源记录中，不生成参考资料题"
+    },
+    {
+      "source": "对象、数组、函数统称object.md",
+      "section": "原始提纲",
+      "lines": [
+        1,
+        9
+      ],
+      "status": "提纲去重",
+      "path": "docs/aaron-notes-import.md",
+      "reason": "后文补充稿已覆盖相应知识；不把空提纲单独生成缺失答案题"
+    },
+    {
+      "source": "鉴权和轮询.md",
+      "section": "参考资料",
+      "lines": [
+        216,
+        222
+      ],
+      "status": "来源链接",
+      "path": "docs/aaron-notes-import.md",
+      "reason": "保留在来源记录中，不生成参考资料题"
+    },
+    {
+      "source": "七层网络.md",
+      "section": "参考资料",
+      "lines": [
+        172,
+        176
+      ],
+      "status": "来源链接",
+      "path": "docs/aaron-notes-import.md",
+      "reason": "保留在来源记录中，不生成参考资料题"
+    },
+    {
+      "source": "为什么0.1+0.2!=0.3.md",
+      "section": "参考资料",
+      "lines": [
+        104,
+        109
+      ],
+      "status": "来源链接",
+      "path": "docs/aaron-notes-import.md",
+      "reason": "保留在来源记录中，不生成参考资料题"
+    },
+    {
+      "source": "为什么1px在不同的设备上有粗有细.md",
+      "section": "参考资料",
+      "lines": [
+        107,
+        110
+      ],
+      "status": "来源链接",
+      "path": "docs/aaron-notes-import.md",
+      "reason": "保留在来源记录中，不生成参考资料题"
+    },
+    {
+      "source": "线程和进程.md",
+      "section": "参考资料",
+      "lines": [
+        106,
+        111
+      ],
+      "status": "来源链接",
+      "path": "docs/aaron-notes-import.md",
+      "reason": "保留在来源记录中，不生成参考资料题"
+    },
+    {
+      "source": "性能优化.md",
+      "section": "参考资料",
+      "lines": [
+        481,
+        489
+      ],
+      "status": "来源链接",
+      "path": "docs/aaron-notes-import.md",
+      "reason": "保留在来源记录中，不生成参考资料题"
+    },
+    {
+      "source": "性能优化.md",
+      "section": "原始提纲",
+      "lines": [
+        1,
+        116
+      ],
+      "status": "提纲去重",
+      "path": "docs/aaron-notes-import.md",
+      "reason": "后文补充稿已覆盖相应知识；不把空提纲单独生成缺失答案题"
+    },
+    {
+      "source": "AI常问.md",
+      "section": "参考资料",
+      "lines": [
+        236,
+        242
+      ],
+      "status": "来源链接",
+      "path": "docs/aaron-notes-import.md",
+      "reason": "保留在来源记录中，不生成参考资料题"
+    },
+    {
+      "source": "AI常问.md",
+      "section": "原始提纲",
+      "lines": [
+        1,
+        12
+      ],
+      "status": "提纲去重",
+      "path": "docs/aaron-notes-import.md",
+      "reason": "后文补充稿已覆盖相应知识；不把空提纲单独生成缺失答案题"
+    },
+    {
+      "source": "Eslint.md",
+      "section": "参考资料",
+      "lines": [
+        193,
+        197
+      ],
+      "status": "来源链接",
+      "path": "docs/aaron-notes-import.md",
+      "reason": "保留在来源记录中，不生成参考资料题"
+    },
+    {
+      "source": "Eslint.md",
+      "section": "原始提纲",
+      "lines": [
+        1,
+        9
+      ],
+      "status": "提纲去重",
+      "path": "docs/aaron-notes-import.md",
+      "reason": "后文补充稿已覆盖相应知识；不把空提纲单独生成缺失答案题"
+    },
+    {
+      "source": "HTTP、TCP、GETPOST、状态码.md",
+      "section": "参考资料",
+      "lines": [
+        280,
+        287
+      ],
+      "status": "来源链接",
+      "path": "docs/aaron-notes-import.md",
+      "reason": "保留在来源记录中，不生成参考资料题"
+    },
+    {
+      "source": "png jpg GIF 区别.md",
+      "section": "参考资料",
+      "lines": [
+        65,
+        68
+      ],
+      "status": "来源链接",
+      "path": "docs/aaron-notes-import.md",
+      "reason": "保留在来源记录中，不生成参考资料题"
+    },
+    {
+      "source": "WebSocket.md",
+      "section": "参考资料",
+      "lines": [
+        135,
+        139
+      ],
+      "status": "来源链接",
+      "path": "docs/aaron-notes-import.md",
+      "reason": "保留在来源记录中，不生成参考资料题"
+    },
+    {
+      "source": "鉴权和轮询.md",
+      "section": "为什么不建议直接用 setInterval",
+      "lines": [
+        98,
+        180
+      ],
+      "status": "限制说明",
+      "path": "docs/aaron-notes-pending.md",
+      "reason": "示例只演示轮询机制；stop 后若 request 忽略 abort，仍可能回调；示例把 403 导到登录页，业务中应区分权限不足；不代表 Aaron 已实现。"
+    },
+    {
+      "source": "鉴权和轮询.md",
+      "section": "轮询优化清单",
+      "lines": [
+        181,
+        190
+      ],
+      "status": "限制说明",
+      "path": "docs/aaron-notes-pending.md",
+      "reason": "清单提到 304，但示例以 response.ok 判断，会把直接可见的 304 当作不可重试状态；如采用手动条件请求，需要另做缓存响应分支。原代码按笔记保留。"
+    },
+    {
+      "source": "AI常问.md",
+      "section": "10. 前端如何实现 LLM 流式输出",
+      "lines": [
+        155,
+        235
+      ],
+      "status": "限制说明",
+      "path": "docs/aaron-notes-pending.md",
+      "reason": "原文明确是约定 delta JSON 的最小示例，非完整 SSE 解析器：只处理 LF/CRLF 空行，未覆盖单 CR 等所有协议情况。没有替换项目中的实际流解析实现。"
+    },
+    {
+      "source": "Eslint.md",
+      "section": "自定义规则的最小示例",
+      "lines": [
+        146,
+        172
+      ],
+      "status": "限制说明",
+      "path": "docs/aaron-notes-pending.md",
+      "reason": "规则按 callee 名称匹配 alert，不能区分局部同名函数；笔记中的最小示例保留，不宣称通用生产规则。"
+    },
+    {
+      "source": "为什么1px在不同的设备上有粗有细.md",
+      "section": "解决 1px 发丝线",
+      "lines": [
+        35,
+        86
+      ],
+      "status": "限制说明",
+      "path": "docs/aaron-notes-pending.md",
+      "reason": "媒体查询示例按 DPR 2/3 分档缩放，对分数 DPR 或更高 DPR 不保证严格一个物理像素；原文的目标机型验收条件保留。"
+    }
+  ]
+}
