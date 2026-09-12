@@ -1,0 +1,90 @@
+{
+  "source": "/Users/aaron/面试就业/前端面试题/技术题文档/个人情况题.md",
+  "sourceSha256": "79a40377a3049603b254ded1365476b083df686add3e9fceb8533fe1ea846533",
+  "questions": [
+    {
+      "number": 1,
+      "title": "自我介绍",
+      "path": "content/aaron/personal/self-introduction.md",
+      "sha256": "09e3dc6c720e1617849a2a0cfc68b4fe6025e8980ad53dffd2fdfd96c39ad6c7"
+    },
+    {
+      "number": 2,
+      "title": "你为什么应聘前端？/你对前端怎么理解的？",
+      "path": "content/aaron/personal/frontend-motivation.md",
+      "sha256": "5b6f0fa5c84271775524a8aa919a4fd45b4e66a2054cb40c5e78dc11d4d2676f"
+    },
+    {
+      "number": 3,
+      "title": "你学习前端多长时间了？",
+      "path": "content/aaron/personal/learning-duration.md",
+      "sha256": "91984590d6888736cc8a2a4d66a7abecf196313690c91856a31b955b8a750093"
+    },
+    {
+      "number": 4,
+      "title": "你的目标/前途/打算/规划/职业规划是什么？",
+      "path": "content/aaron/personal/career-plan.md",
+      "sha256": "33718aedbe4f89cc798c6b0ebfbbd11e487fc6d4c2e440218c8cfd5dbc0d2dc1"
+    },
+    {
+      "number": 5,
+      "title": "你为什么从上一家公司离职？",
+      "path": "content/aaron/personal/leaving-reason.md",
+      "sha256": "af9bcc9b9bee51172e9a7bcef0cd7a8d06290400ad6d6ae530d4efc056442f33"
+    },
+    {
+      "number": 6,
+      "title": "为什么选择这里（Base城市）",
+      "path": "content/aaron/personal/base-city.md",
+      "sha256": "dd0d364ecb8d1bcabeff90c86ec48767bee377348cb5e52ec04a6964debdf1b0"
+    },
+    {
+      "number": 7,
+      "title": "你目前都面了哪些城市",
+      "path": "content/aaron/personal/interview-cities.md",
+      "sha256": "e15e21252f11a0bd1be057b58a83d65ec01648a7685059cfbc1e678e12aa426a"
+    },
+    {
+      "number": 8,
+      "title": "你有没有考研/考公的打算",
+      "path": "content/aaron/personal/further-study.md",
+      "sha256": "5191ceabb25859479dc0ecd9041aebb44543ddaaf5c4c1c7cb4fa3848d417cda"
+    },
+    {
+      "number": 9,
+      "title": "概括一下你有什么优势？为什么选择你？",
+      "path": "content/aaron/personal/personal-strengths.md",
+      "sha256": "aaa408ff1307685a9d9ce3a778b58bda288aa71800012cc35d21d5247985d3a1"
+    },
+    {
+      "number": 10,
+      "title": "你平时都怎么学习？怎么安排学习时间？（可能是上一题的追问，也可能单独问）",
+      "path": "content/aaron/personal/study-method.md",
+      "sha256": "6e893962c18d4cff86e92c15cef246a5b0ca2a682b47d9ec914dffd385ec5793"
+    },
+    {
+      "number": 11,
+      "title": "你能加班吗？",
+      "path": "content/aaron/personal/overtime.md",
+      "sha256": "e1bd0095b6d0089d63cd6428f6ad76afb629a2b5c8b5d6d3a1a149d065092844"
+    },
+    {
+      "number": 12,
+      "title": "你期望的薪资是多少？",
+      "path": "content/aaron/personal/salary-expectation.md",
+      "sha256": "d8cde8bbcfd3d78b5a3e58ba60d7d16ea70c02f5ee9d67f1cd7da2a9af29a9d0"
+    },
+    {
+      "number": 13,
+      "title": "你多长时间能上班？",
+      "path": "content/aaron/personal/availability.md",
+      "sha256": "8748ef921df4386b92185a380f7f6a20fe30d062e3fd538a9982482ab9a76acc"
+    },
+    {
+      "number": 14,
+      "title": "你有什么想问我的吗？（提问环节）",
+      "path": "content/aaron/personal/questions-for-interviewer.md",
+      "sha256": "1d1dbac82d434ed69383bf73a0667013929627a3bc2669ea2688b13f6e1fb2a6"
+    }
+  ]
+}
